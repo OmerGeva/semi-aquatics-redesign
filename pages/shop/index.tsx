@@ -1,11 +1,11 @@
-import Layout from '../components/layout/layout.component';
+import Layout from '../../components/layout/layout.component';
 import { gql } from "@apollo/client";
-import client from "../apollo-client";
-import DropPage from '../components/drop-page/drop-page.component'
-import withLayout from '../hocs/withLayout';
-import { CollectionT } from '../types';
+import client from "../../apollo-client";
+import DropPage from '../../components/drop-page/drop-page.component'
+import withLayout from '../../hocs/withLayout';
+import { CollectionT } from '../../types';
 
-const Drop = ({ drop }: { drop: CollectionT}) => {
+const Shop = ({ drop }: { drop: CollectionT}) => {
     return (
       <DropPage drop={drop}/>
     );
@@ -61,4 +61,4 @@ export async function getStaticProps(context: { query?: any; store?: any; }) {
      };
 }
 
-export default withLayout(Drop);
+export default withLayout(Shop);

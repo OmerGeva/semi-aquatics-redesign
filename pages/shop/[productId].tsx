@@ -16,7 +16,7 @@ const Product = (props: { product: any }) => {
 
   useEffect(() => {
     if (!passwordGuessed && useIsNewProduct(props.product.node.id) && isTimeLeft) {
-      router.push('/drop');
+      router.push('/show');
     }
   }, [])
 

@@ -127,7 +127,7 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
   }
 
   if (passwordGuessed != process.env.WEBSITE_LOCK_PASSWORD && isTimeLeft && isNewProduct) { 
-    push('/drop')
+    push('/shop')
   };
   
   return (

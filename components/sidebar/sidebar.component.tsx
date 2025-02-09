@@ -11,18 +11,12 @@ import { useRef } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import EmailForm from '../email-form/email-form.component';
 import { HELP_EMAIL_LINK, INSTAGRAM_LINK } from '../../constants/external-links';
+import { links } from './constants';
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
-
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/drop', label: 'Drop', isNew: false },
-  { href: '/story', label: 'Story' },
-  { href: '/artists', label: 'Artists' },
-];
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -40,11 +34,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
       </button>
       <div className={styles.sidebarWrapper}>
         <div className={styles.innerContainer}>
-          {links.map(({ href, label, isNew }) => (
+          {links.map(({ href, label }) => (
             <Link href={href} key={href}>
-              <p onClick={closeSidebar} className={isNew ? styles.dropLink : ''}>
+              <p onClick={closeSidebar} className={styles.dropLink}>
                 {label}
-                {isNew && <span className={styles.newDrop}>new!</span>}
+                {/* {isNew && <span className={styles.newDrop}>new!</span>} */}
               </p>
             </Link>
           ))}

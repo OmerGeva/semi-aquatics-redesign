@@ -99,7 +99,7 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
           </div>
           <div className={styles.otherLinks}>
             <p className={styles.sizingLink}>
-              <Link href='/drop'>Back to drop</Link>
+              <Link href='/shop'>Back to drop</Link>
             </p>
             <p className={styles.sizingLink}>
               <Link href='/sizing'>Sizing</Link>

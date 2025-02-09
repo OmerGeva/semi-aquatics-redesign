@@ -22,7 +22,7 @@ const ArtistDetails: React.FC<ArtistDetailsProps> = ({ artist }) => {
             title={artwork.name}
             image={artwork.image}
             isSoldOut={true}
-            isArchive={false} 
+            isArchive={true}
             isTimeLeft={false}
           />
         ))}
