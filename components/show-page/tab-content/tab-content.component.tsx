@@ -10,7 +10,7 @@ interface TabContentProps {
 }
 
 const TabContent: React.FC<TabContentProps> = ({ tabNumber, description, product }) => {
-  const tabContents: Record<number, JSX.Element> = {
+  const tabContents = {
     0: (
       <div className={styles.tabContent}>
         <div dangerouslySetInnerHTML={{ __html: description }} />
