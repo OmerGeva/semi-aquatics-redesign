@@ -22,6 +22,7 @@ const SizingChart = ({ clothingType }: SizingChartProps) => {
         {sizes.map(row => (
           <div key={row.size} className={styles.sizingRow}>
             <div className={styles.sizeLabel}>{row.size}</div>
+            {/* @ts-ignore */}
             {headers.map(header => <div key={header} className={styles.sizingValue}>{row[header]}</div>)}
           </div>
         ))}

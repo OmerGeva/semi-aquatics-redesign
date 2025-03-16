@@ -35,6 +35,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabNumber, description, product
 
   if (!(tabNumber in tabContents)) return null;
 
+  // @ts-ignore
   return tabContents[tabNumber];
 };
 

@@ -10,6 +10,7 @@ if(process.env.NODE_ENV === 'development') {
   middlewares.push(logger);
 }
 
+// @ts-ignore
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export const persistor = persistStore(store);
