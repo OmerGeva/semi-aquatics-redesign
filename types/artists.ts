@@ -8,6 +8,7 @@ type ArtworkT = {
 export type ArtistT = {
   _id: string;
   name: string;
+  instagram?: string;
   artworks: ArtworkT[];
   slug?: string;
 }

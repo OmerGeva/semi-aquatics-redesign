@@ -1,22 +1,44 @@
 import axios from 'axios';
-import { ArtistsT } from '../types';
+import { ArtistT, ArtistsT } from '../types';
+import moment from 'moment-timezone';
 
-// Define the base URI based on the environment
-const baseUri = process.env.DEV_CMS === 'development' ? 'http://localhost:3000' : 'https://semi-aquatics-cms.onrender.com';
+const baseUri = process.env.NEXT_PUBLIC_DEV_CMS === 'development' ? 'http://localhost:4000' : 'https://semi-aquatics-cms.onrender.com';
 
 class Cms {
-  // Method to fetch the next drop using axios
   async getNextDrop() {
     try {
       const response = await axios.get(`${baseUri}/api/next-drop`);
-      return response.data; // Return the data from the API
+      const drop = response.data;
+  
+      const estDateTime = moment.tz(drop.dateTime, 'America/New_York').format('YYYY-MM-DD HH:mm:ss');
+      
+      return { ...drop, dateTime: estDateTime };
     } catch (error) {
       console.error('Error fetching next drop:', error);
-      throw error; // Re-throw the error to handle it later
+      throw error;
+    }
+  }
+  
+  async getArtistByArtwork(artworkId: string): Promise<ArtistT | null> {
+    try {
+      const response = await axios.get(`${baseUri}/api/artist?artworkId=${artworkId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching artist by artwork:', error);
+      return null;
     }
   }
 
-  // Method to fetch artists using fetch API
+  async getNextDropPassword(): Promise<{ password: string }> {
+    try {
+      const response = await axios.get(`${baseUri}/api/nxt-drop-password`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching next drop:', error);
+      throw error;
+    }
+  }
+
   async getArtists(): Promise<ArtistsT> {
     try {
       const response = await fetch(`${baseUri}/api/artists`);
@@ -27,10 +49,10 @@ class Cms {
 
       const data = await response.json();
 
-      return data; // Return the parsed JSON data
+      return data;
     } catch (error) {
       console.error('Error fetching artists:', error);
-      throw error; // Re-throw the error to handle it later
+      throw error;
     }
   }
 }

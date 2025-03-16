@@ -1,21 +1,35 @@
-import { Dispatch, useState } from 'react';
+import { Dispatch, useMemo, useState } from 'react';
 import styles from './PasswordWall.module.scss'
 import { useDispatch } from 'react-redux';
 import { setPasswordGuessed } from '../../redux/user/user.actions';
 import EmailForm from '../email-form/email-form.component';
 import Form from '../form/form.component';
+import { useNextDrop } from '../../contexts/drop-context';
 
 interface PasswordWallProps {
-  images: string[]
+  images: string[],
+  password: string | null,
 }
 
-const PasswordWall: React.FC<PasswordWallProps> = ({ images }) => {
+const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
 
+  const { dropData } = useNextDrop();
+
+  const formattedDate = useMemo(() => {
+    const date = new Date(dropData?.dateTime || '');
+    return date.toDateString();
+  }, [dropData]);
+
+  const formattedTime = useMemo(() => {
+    const date = new Date(dropData?.dateTime || '');
+    return date.toLocaleTimeString();
+  }, [dropData]);
+
   const handlePasswordGuess = (e: any) => {
-    if (currentGuess === process.env.WEBSITE_LOCK_PASSWORD) {
+    if (currentGuess === password) {
       dispatch(setPasswordGuessed(currentGuess));
     } else {
       setErrorMessage('Incorrect password');
@@ -29,7 +43,7 @@ const PasswordWall: React.FC<PasswordWallProps> = ({ images }) => {
     <div className={styles.PasswordWallContainer}>
       <div className={styles.emailFormContainerPW}>
         <div className={styles.emailFormContainerPWInner}>
-          <p>Available December 18th at 6:00 pm est.</p>
+          <p>Available {formattedDate} at {formattedTime} EST.</p>
           <p>Join our email list for exclusive discounts and early access codes.</p>
           <EmailForm isSidebar={false} placeholder={'enter email'} />
         </div>

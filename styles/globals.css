@@ -1,7 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
+  --black: #000000;
   --white: #FFFFFF;
+  --light-gray: rgb(245, 245, 245);
+  --font-small: 14px;
+  --font-medium: 16px;
+  --font-large: 20px;
+  --font-xlarge: 24px;
+  
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
 }
 
 

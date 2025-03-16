@@ -1,30 +1,50 @@
-import { TimeLeftObj } from '../interfaces/page_interface';
+import { toZonedTime } from 'date-fns-tz';
 
-const DROP_DATE = new Date("2023/12/18 18:00:00 EST");
+interface TimeLeftObj {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  total: number;
+}
 
-export const calculateTimeLeft = (): TimeLeftObj => {
-  const startDate = new Date();
+export const calculateTimeLeft = (dropDateUTC: Date): TimeLeftObj => {
+  const easternTimeZone = 'America/New_York';
 
-  const startDateInUTC = new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), startDate.getUTCDate(), startDate.getUTCHours(), startDate.getUTCMinutes(), startDate.getUTCSeconds());
-  const endDateInUTC = new Date(DROP_DATE.getUTCFullYear(), DROP_DATE.getUTCMonth(), DROP_DATE.getUTCDate(), DROP_DATE.getUTCHours(), DROP_DATE.getUTCMinutes(), DROP_DATE.getUTCSeconds());
-  // @ts-ignore
-  const difference = Date.parse(endDateInUTC) - Date.parse(startDateInUTC);
+  // Get current time in Eastern Time from UTC
+  const nowUTC = new Date(); // Current UTC time
+  const nowEastern = toZonedTime(nowUTC, easternTimeZone);
 
-  let timeLeft = {
+  // Calculate difference between dropDateUTC and current Eastern Time
+  // todo: remove
+  let difference = 0
+  try {
+    difference = dropDateUTC.getTime() - nowEastern.getTime();
+  } catch {
+    
+  }
+  
+  let timeLeft: TimeLeftObj = {
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
+    total: 0,
   };
 
   if (difference > 0) {
     timeLeft = {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60)
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+      total: difference,
     };
   }
 
   return timeLeft;
 };
+
+// Example usage
+const dropDate = new Date('2025-03-10T12:00:00Z'); // Example UTC drop date
+console.log(calculateTimeLeft(dropDate));

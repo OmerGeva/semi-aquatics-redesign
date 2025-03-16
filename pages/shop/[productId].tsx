@@ -8,8 +8,13 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
 import { useIsTimeLeft } from '../../hooks/use-is-time-left';
+import { ProductT } from '../../types';
 
-const Product = (props: { product: any }) => {
+type ProductProps = {
+  product: ProductT
+}
+
+const Product = (props: ProductProps) => {
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
   const isTimeLeft = useIsTimeLeft();
   const router = useRouter();
@@ -27,13 +32,14 @@ const Product = (props: { product: any }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { data } = await client.query({
-      query: gql`
+    query: gql`
       query {
         node(id: "gid://shopify/Product/${context.params.productId}") {
           ...on Product {
           title
           id
           description
+          productType
           descriptionHtml
           availableForSale
           images(first: 10) {
@@ -69,13 +75,15 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     }
     }
       `,
-    });
+  });
 
-    return {
-      props: {
-        product: data
-      },
-   };
+
+
+  return {
+    props: {
+      product: data
+    },
+  };
 }
 
 

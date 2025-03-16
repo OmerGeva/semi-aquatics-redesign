@@ -20,7 +20,6 @@ const Layout: React.FC = (props) => {
     const [navbarOpen, setNavbarOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const typeOfPage = router.pathname.substring(1);
-    const isTimeLeft = useIsTimeLeft();
 
     return (
       <div className={styles.layoutContainer}>
@@ -44,16 +43,6 @@ const Layout: React.FC = (props) => {
           {/* @ts-ignore */}
             {props.children}
           </div>
-          {
-          <div className={`${styles.spinningLogoContainer} ${isTimeLeft ? styles.countdown : ''}`}>
-              {
-                isTimeLeft ?
-                    <CountdownTimer />
-                  :
-                    <SpinningLogo />
-                }
-              </div>
-          }
           <Script src="https://cdn.attn.tv/semiaquatics/dtag.js" />
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=UA-154479709-1"

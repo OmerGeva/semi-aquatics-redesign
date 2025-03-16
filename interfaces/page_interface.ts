@@ -1,10 +1,12 @@
+import { ProductT } from "../types"
+
 export interface ShowPageProps {
-    product: any
+    product: ProductT
   }
 
 
 export interface ShowPageChildProps {
-  product: any,
+  product: ProductT,
   selected: any,
   setSelected: any
   handleOnAddToCart: any,
@@ -45,5 +47,6 @@ export type TimeLeftObj = {
   days: number,
   hours: number,
   minutes: number,
-  seconds: number
+  seconds: number,
+  total: number
 }

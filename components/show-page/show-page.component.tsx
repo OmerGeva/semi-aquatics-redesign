@@ -24,11 +24,11 @@ import ShowPageMobile from './mobile/show-page-mobile.component';
 // hooks
 import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useIsTimeLeft } from '../../hooks/use-is-time-left';
-import { useIsNewProduct } from '../../hooks/use-is-new-product';
 
 const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
   const [cookies, setCookie] = useCookies(['cartId']);
   const [numberToAdd, setNumberToAdd] = useState(1);
+  const [selectedDesktop, setSelectedDesktop] = useState(null);
   const [selected, setSelected] = useState(firstSelectedVariant(product));
   const [slideNumber, setSlideNumber] = useState(0);
   const isMobile = useIsMobile();
@@ -38,7 +38,7 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
   const cart = useQuery(getCartQuery, { variables: { cartId: cookies.cartId } });
   const isTimeLeft = useIsTimeLeft();
   // const isNewProduct = useIsNewProduct(product.node.id);
-  const isNewProduct = false
+  const isNewProduct = true
   const { push } = useRouter();
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
 
@@ -147,8 +147,8 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
       :
         <ShowPageDesktop
           product={product}
-          selected={selected}
-          setSelected={setSelected}
+          selected={selectedDesktop}
+          setSelected={setSelectedDesktop}
           handleOnAddToCart={product.node.availableForSale ? handleOnAddToCart : () => {}}
           setNumberToAdd={setNumberToAdd}
           slideNumber={slideNumber}

@@ -1,34 +1,46 @@
 .dropPageContainer{
   position: relative;
+  margin-top: 122px;
+
   .dropHeader{
     position: fixed;
     display: grid;
     margin: auto;
-    padding: 0 18px;
-    padding-top: 8vh;
+    padding: 8vh 18px 0px;
     width: 100%;
     top: 0;
     background-color: var(--white);
     z-index: 2;
+
     
     .dropTitle{
-      font-size: 18px;
+      font-size: var(--font-large);
+      margin-bottom: 4px;
     }
+  }
+  .lockerDropHeader {
+    text-align: center;
+    padding-bottom: 8px;
   }
   .dropDescription {
     margin: 0 calc(2vw + 2vh) 40px;
   }
   .productsContainer{
-    margin-top: 120px;
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: .75rem;
   }
+
+  .lockedDropContainer {
+    margin-top: 152px;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
   .dropPageContainer{
+    margin-top: 64px;
+
     .productsContainer{
       grid-template-columns: 1fr 1fr 1fr;
       column-gap: .4rem;
@@ -52,9 +64,6 @@
         margin-bottom: 0;
         font-size: 14px;
       }
-    }
-    .productsContainer{
-      margin-top: 30px;
     }
   }
 }

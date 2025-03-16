@@ -1,0 +1,14 @@
+.paymentIcons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+
+  svg {
+    width: 60px;
+    height: 42px;
+    justify-self: center;
+  }
+}
+

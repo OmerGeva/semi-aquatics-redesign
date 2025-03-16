@@ -18,13 +18,8 @@ export const merchandiseIdToLineItemId = (cart: any, merchandiseId: string) => {
 export const determineLineItemsDifferent = (cart: any, res: any): boolean => {
   const modifiedCartObj: any = {}
   const modifiedResObj: any = {}
-  console.log(cart.data.cart.lines.edges)
   cart.data.cart.lines.edges.forEach((li: any) =>
-  modifiedCartObj[li.node.merchandise.id] = li.node.quantity
+    modifiedCartObj[li.node.merchandise.id] = li.node.quantity
   )
-  console.log('cart obj')
-  console.log(modifiedCartObj)
-  console.log('res')
-  console.log(res.client)
   return false;
 }

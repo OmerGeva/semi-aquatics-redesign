@@ -1,22 +1,52 @@
-.buttonContainer{
-    height: 40px;
+.buttonContainer {
+    height: 48px;
+    padding: 6px 20px;
     font-size: 14px;
     display: flex;
-    border: 1px solid black;
     justify-content: center;
     align-items: center;
     width: 100%;
     cursor: pointer;
-    &:hover{
-      color: white;
-      background-color: black;
+    transition: all 0.3s ease-in-out; // Smooth transition for color and background
+  
+    &.black {
+      background-color: #333; // Dark gray/black for "Add to cart"
+      color: #fff;
+      border: 1px solid #333;
+  
+      &:hover {
+        background-color: rgb(93, 103, 108); // Darker gray on hover
+        color: #fff;
+      }
     }
-}
-.soldOut{
-    opacity: 60%;
-    cursor: default;
-}
-.mobileButtonContainer{
+  
+    &.white {
+      background-color: #fff; // White for "Express payment"
+      color: #000;
+      border: 1px solid #ccc;
+  
+      &:hover {
+        background-color: #f0f0f0; // Light gray on hover
+        color: #000;
+      }
+    }
+  
+    &.soldOut {
+      opacity: 60%;
+      cursor: default;
+  
+      &:hover {
+        background-color: initial; // Disable hover effect for sold-out
+        color: initial;
+      }
+    }
+  
+    &.flex {
+      justify-content: space-between; // Distribute space for additional prop
+    }
+  }
+  
+  .mobileButtonContainer {
     height: 100%;
     font-size: 18px;
     display: flex;
@@ -24,9 +54,32 @@
     align-items: center;
     cursor: pointer;
     border: 1px solid black;
-
-}
-.mobileSoldOutButton {
+    transition: all 0.3s ease-in-out; // Smooth transition
+  
+    &.black {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #333;
+  
+      &:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  
+    &.white {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+  
+      &:hover {
+        background-color: #f0f0f0;
+        color: #000;
+      }
+    }
+  }
+  
+  .mobileSoldOutButton {
     height: 100%;
     font-size: 18px;
     display: flex;
@@ -34,4 +87,15 @@
     align-items: center;
     opacity: 60%;
     border: 1px solid black;
-}
+    cursor: default;
+  
+    &.black {
+      background-color: #333;
+      color: #fff;
+    }
+  
+    &.white {
+      background-color: #fff;
+      color: #000;
+    }
+  }
