@@ -18,7 +18,7 @@ interface NavbarOptionsProps {
 }
 
 const NavbarOptions:React.FC<NavbarOptionsProps> = ({ setNavbarOpen }) => {
-    const ref: any = useRef();
+    const ref: any = useRef(null);
 
     useOnClickOutside(ref, () => setNavbarOpen(false));
 
