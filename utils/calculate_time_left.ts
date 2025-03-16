@@ -1,5 +1,3 @@
-import { toZonedTime } from 'date-fns-tz';
-
 interface TimeLeftObj {
   days: number;
   hours: number;
@@ -9,17 +7,14 @@ interface TimeLeftObj {
 }
 
 export const calculateTimeLeft = (dropDateUTC: Date): TimeLeftObj => {
-  const easternTimeZone = 'America/New_York';
-
   // Get current time in Eastern Time from UTC
   const nowUTC = new Date(); // Current UTC time
-  const nowEastern = toZonedTime(nowUTC, easternTimeZone);
-
+  
   // Calculate difference between dropDateUTC and current Eastern Time
   // todo: remove
   let difference = 0
   try {
-    difference = dropDateUTC.getTime() - nowEastern.getTime();
+    difference = dropDateUTC.getTime() - nowUTC.getTime();
   } catch {
     
   }
