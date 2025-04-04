@@ -69,3 +69,33 @@
     }
   }
 }
+
+@media (max-width: 762px) {
+  .artistPreview {
+    .artistDetails {
+      h3 {
+        font-size: 0.7rem;
+      }
+
+      .instagram {
+        font-size: 0.7rem;
+      }
+
+    }
+    .seeMore {
+      font-size: 0.7rem;
+    }
+
+    .artworkGrid {
+      .artworkItem {
+        img {
+          width: 80px;
+        }
+
+        p {
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
+}

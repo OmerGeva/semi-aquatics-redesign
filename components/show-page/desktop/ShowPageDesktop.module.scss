@@ -6,6 +6,7 @@
   .leftSide {
     width: 50vw; // Half the width
     background-color: #E7EAE9;
+    position: relative;
 
     .imagesContainer {
       width: 100%;
@@ -15,6 +16,21 @@
         object-fit: cover;
         width: 50vw;
         height: 100vh; // Allow images to stack naturally
+      }
+    }
+    .previewImages {
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin: 8px;
+        background-color: gray;
+        opacity: 0.5;
       }
     }
   }

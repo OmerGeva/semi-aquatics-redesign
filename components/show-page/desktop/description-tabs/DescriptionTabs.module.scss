@@ -53,3 +53,31 @@
     transform: translateX(calc(var(--active-tab, 0) * 100%));
   }
 }
+
+@media (max-width: 768px) {
+  .tabs {
+    .tab {
+      font-size: 0.75rem;
+      padding: 10px 0;
+      width: 25%; // Keep 4 tabs layout
+    }
+
+    .indicator {
+      height: 2px;
+      width: 25%; // Maintain consistency
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    .tab {
+      font-size: 0.7rem;
+      padding: 8px 0;
+    }
+
+    .indicator {
+      height: 2px;
+    }
+  }
+}

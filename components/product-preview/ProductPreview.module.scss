@@ -72,9 +72,17 @@
     }
     
     .imageContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img {
-        transform: translate(5%, 0);
-        margin-top: 2rem;
+        transition: none;
+        transform: none;
+      }
+      transition: none;
+      transform: none;
+      &:hover img {
+        transform: none;
       }
     }
     

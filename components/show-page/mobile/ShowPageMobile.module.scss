@@ -2,35 +2,49 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 90.5vh;
+  min-height: 90.5vh;
 
   .imageContainer {
-    text-align: center;
-    transition: 0.4s;
-    display: flex;
-    flex-direction: column;
     justify-content: flex-end;
-    height: 65%;
+    background: #F2F2F4;
     position: relative;
+    height: 60%;
+    overflow: hidden;
 
-    img {
-      transition: 0.4s;
-      margin: auto;
-      width: calc(18vw + 33vh);
-        }
+    .productCarousel {
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slider-container{
+        height: 100% !important;
+      }
+    }
+
     .dotsContainer {
       display: flex;
       justify-content: center;
       margin-bottom: 8px;
+      position: absolute;
+      bottom: 10px;
+      width: 64px;
+      background: rgba(0, 0, 0, 0.5);
+      background-color: rgb(255, 255, 255);
+
+      right: calc(50% - 32px);
+      border-radius: 16px;
 
       .dot {
-        font-size: 6px;
+        font-size: 4px;
         border-radius: 50%;
-        background-color: rgb(255, 255, 255);
-        margin: 8px 4px;
+        margin: 6px 4px;
         color: rgba(0, 0, 0, 0.5);
         opacity: 1;
-        transition: 0.4s;
+        transition: 0.2s;
       }
 
       .colored {
@@ -62,20 +76,24 @@
   }
 
   .mobileInfo {
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+
+
     .titlePrice {
       display: flex;
       justify-content: space-between;
-      padding: 0 1rem;
-
+      font-size: 13px;
+      
       h1 {
-        font-size: 18px;
+        font-size: 13px;
         width: 60%;
         margin-top: 0;
       }
 
       p {
-        font-size: 22px;
         margin-top: 0;
+        font-weight: 500;
       }
     }
 
@@ -127,36 +145,16 @@
       }
     }
 
-    .closed {
-      transition: 0.4s;
-      height: 30px;
-      text-align: left;
-      overflow: hidden;
-      .icon {
-        transform: rotate(-180deg);
-      }
-    }
-
   }
 
   .flexGrow1 {
     flex-grow: 1;
   }
 
-  .sizePickerContainer {
-    width: 90%;
-    margin: auto;
-  }
-
   .addToCart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    width: 90%;
-    margin: 1rem auto;
-    margin-top: 0;
-    height: 45px;
+    margin: 0.8rem 0 1.5rem;
+    height: 32px;
+
 
     .half {
       height: 100%;

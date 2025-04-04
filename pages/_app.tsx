@@ -10,6 +10,7 @@ import { CookiesProvider } from 'react-cookie';
 import { store, persistor } from '../redux/store'
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { CartProvider } from '../contexts/cart-context';
 
 // @ts-ignore
 const MyApp:React.FC = ({ Component, pageProps }: AppProps) => {
@@ -18,9 +19,11 @@ const MyApp:React.FC = ({ Component, pageProps }: AppProps) => {
       <PersistGate persistor={persistor}>
       <ApolloProvider client={client}>
         <CookiesProvider>
-          <DropProvider>
-            <Component {...pageProps} />
-          </DropProvider>
+          <CartProvider>
+            <DropProvider>
+              <Component {...pageProps} />
+            </DropProvider>
+          </CartProvider>
         </CookiesProvider>
       </ApolloProvider>
       </PersistGate>

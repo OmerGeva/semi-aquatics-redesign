@@ -1,7 +1,10 @@
-export const getCartCounts = (cart: any) => {
-  if (!cart || !cart.data || !cart.data.cart || !cart.data.cart.lines) return {};
+import { Cart } from "../types/cart";
+
+export const getCartCounts = (cart: Cart) => {
+  if (!cart.lines) return {};
+
   const res: any = {}
-  cart.data.cart.lines.edges.forEach((li: any) => {
+  cart.lines.edges.forEach((li: any) => {
     res[li.node.merchandise.id] = li.node.quantity
   });
 

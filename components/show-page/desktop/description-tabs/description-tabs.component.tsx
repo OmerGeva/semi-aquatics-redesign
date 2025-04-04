@@ -1,3 +1,4 @@
+import { TABS } from "../../tab-content/constants";
 import styles from "./DescriptionTabs.module.scss";
 
 interface DescriptionTabsProps {
@@ -6,13 +7,6 @@ interface DescriptionTabsProps {
 }
 
 const DescriptionTabs: React.FC<DescriptionTabsProps> = ({ activeTab, setActiveTab }) => {
-  const tabs = [
-    { id: 0, label: "Description" },
-    { id: 1, label: "Size & Fit" },
-    { id: 2, label: "Delivery & Returns" },
-    { id: 3, label: "Artist" },
-  ];
-
   return (
     <div
       className={styles.tabs}
@@ -20,7 +14,7 @@ const DescriptionTabs: React.FC<DescriptionTabsProps> = ({ activeTab, setActiveT
       aria-label="Product Descriptions"
       style={{ "--active-tab": activeTab } as React.CSSProperties}
     >
-      {tabs.map((tab) => (
+      {TABS.map((tab) => (
         <button
           key={tab.id}
           className={`${styles.tab} ${activeTab === tab.id ? styles.selected : ""}`}

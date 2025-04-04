@@ -30,6 +30,7 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
   const [activeTab, setActiveTab] = useState(0);
 
   return (
+    <>
     <div className={styles.showPageDesktopContainer}>
       <div className={styles.leftSide}>
         <div className={styles.imagesContainer}>
@@ -37,10 +38,19 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
           <img
             src={image.node.transformedSrc}
             alt={image.node.altText}
-            key={image.node.altText}
+            key={image.node.transformedSrc}
           />
         ))}
         </div>
+        {/* <div className={styles.previewImages}>
+          {product.node.images.edges.map((image: any) => (
+            <img
+              src={image.node.transformedSrc}
+              alt={image.node.altText}
+              key={image.node.transformedSrc}
+            />
+          ))}
+        </div> */}
       </div>
       <div className={styles.productDescription}>
         <div className={styles.titleAndReference}>
@@ -93,9 +103,9 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
         <div className={styles.tabContentWrapper}>
           <TabContent tabNumber={activeTab} description={product.node.descriptionHtml} product={product} />
         </div>
-
       </div>
     </div>
+    </>
   );
 };
 
