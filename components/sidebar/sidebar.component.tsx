@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import EmailForm from '../email-form/email-form.component';
 import { HELP_EMAIL_LINK, INSTAGRAM_LINK } from '../../constants/external-links';
-import { links } from './constants';
+import { LABELS, links, PATHS } from './constants';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -55,6 +55,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 info@semiaquatics.com
               </a>
             </div>
+            <Link href={PATHS.PRIVACY_POLICY}>
+              <p>{LABELS.PRIVACY_POLICY}</p>
+            </Link>
             <h6 className="footer-item">© {new Date().getFullYear()} Semi Aquatics</h6>
           </div>
         </div>

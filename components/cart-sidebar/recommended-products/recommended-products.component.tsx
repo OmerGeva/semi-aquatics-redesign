@@ -11,6 +11,7 @@ interface PropsT {
   textSize?: 'small' | 'medium' | 'large';
   itemCount?: number;
   withAddToCart?: boolean;
+  onClick?: () => void;
 }
 
 const DEFAULT_ITEM_COUNT = 4;
@@ -47,6 +48,7 @@ const RecommendedProducts: React.FC<PropsT> = ({
   textSize = DEFAULT_TEXT_SIZE,
   itemCount = DEFAULT_ITEM_COUNT,
   withAddToCart = false,
+  onClick = () => {},
 }) => {
   const { products, loading, error } = useRecommendedProducts();
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
@@ -67,6 +69,9 @@ const RecommendedProducts: React.FC<PropsT> = ({
             onMouseEnter={() => setHoveredProductId(product.id)}
             onMouseLeave={() => setHoveredProductId(null)}
           >
+            <div
+              onClick={onClick}
+            >
             <ProductPreview
               id={product.id}
               image={product.images.edges[0]?.node.transformedSrc}
@@ -74,7 +79,9 @@ const RecommendedProducts: React.FC<PropsT> = ({
               isSmallText={true}
               isArchive={true}
               isTimeLeft={false}
+              
             />
+            </div>
             <div className={styles.productTitle}>
               {hoveredProductId === product.id && !isMobile && withAddToCart ? (
                 <ProductSizes variants={product.variants.edges} />
