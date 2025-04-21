@@ -1,22 +1,8 @@
-export const PATHS = {
-  HOME: '/',
-  SHOP: '/shop',
-  STORY: '/story',
-  ARTISTS: '/artists',
-  PRIVACY_POLICY: '/privacy-policy',
-};
-
-export const LABELS = {
-  HOME: 'Home',
-  SHOP: 'Shop',
-  STORY: 'Story',
-  ARTISTS: 'Artists',
-  PRIVACY_POLICY: 'Privacy Policy',
-};
+import { INTERNAL_LINKS } from "../../constants/internal-links";
 
 export const links = [
-  { href: PATHS.HOME, label: LABELS.HOME },
-  { href: PATHS.SHOP, label: LABELS.SHOP },
-  { href: PATHS.STORY, label: LABELS.STORY },
-  { href: PATHS.ARTISTS, label: LABELS.ARTISTS },
+  { href: INTERNAL_LINKS.HOME.url, label: INTERNAL_LINKS.HOME.text },
+  { href: INTERNAL_LINKS.SHOP.url, label: INTERNAL_LINKS.SHOP.text },
+  { href: INTERNAL_LINKS.STORY.url, label: INTERNAL_LINKS.STORY.text },
+  { href: INTERNAL_LINKS.ARTISTS.url, label: INTERNAL_LINKS.ARTISTS.text },
 ];

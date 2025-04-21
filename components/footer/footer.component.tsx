@@ -31,8 +31,8 @@ const Footer: React.FC = () => {
           <div className={styles.individualSection}>
             <p>Legal</p>
             <div className={styles.links}>
-              <Link href={INTERNAL_LINKS.PRIVACY.url}>
-                  { INTERNAL_LINKS.PRIVACY.text }
+              <Link href={INTERNAL_LINKS.PRIVACY_POLICY.url}>
+                  { INTERNAL_LINKS.PRIVACY_POLICY.text }
                 </Link>
                 <Link href={INTERNAL_LINKS.TERMS.url}>
                   { INTERNAL_LINKS.TERMS.text }
