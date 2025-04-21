@@ -108,7 +108,7 @@ $shadow-elevation:
 
       .itemInfo {
         flex-basis: 66.6667%;
-        padding: 24px 48px;
+        padding: 32px 48px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -135,19 +135,42 @@ $shadow-elevation:
             flex-grow: 1;
           }
 
+        }
+        .sizeAdjustments {
+          display: flex;
+          margin-top: auto;
+          align-items: center;
+          .sizeAdjuster {
+            font-size: 0.875rem;
+            display: flex;
+            .sizeAdjusterBtn {
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            .sizeAdjusterCount {
+              margin: 0 8px;
+            }
+
+          }
           .removeItem {
             color: red;
             cursor: pointer;
             margin-left: auto;
-
+  
             &:hover {
               color: rgb(247, 62, 62);
             }
-          }
+        }
         }
       }
     }
   }
+}
+
+.recommendedProductsWrapper {
+  padding: 0 1.5rem;
 }
 
 .footer {
@@ -174,6 +197,14 @@ $shadow-elevation:
 
     &:hover {
       background-color: #f3f3f3;
+    }
+  }
+
+  .disabled {
+    .checkoutBtn {
+      background-color: #f3f3f3;
+      color: #b0b0b0;
+      cursor: auto;
     }
   }
 }

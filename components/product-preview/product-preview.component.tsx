@@ -5,9 +5,10 @@ import Link from 'next/link';
 
 interface ProductPreviewProps {
   image: string;
-  title: string;
+  title?: string;
   id: string;
   isSoldOut: boolean;
+  isSmallText?: boolean;
   isArchive: boolean;
   price?: string;
   isTimeLeft?: boolean;
@@ -18,6 +19,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   title,
   id,
   isSoldOut,
+  isSmallText,
   isArchive,
   price,
   isTimeLeft,
@@ -37,11 +39,13 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
         <div className={styles.imageContainer}>
           <img src={image} alt={title} />
         </div>
-        <div className={styles.previewDetails}>
+        {title && 
+        <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>
           <h3 className={styles.cardDetail}>{title}</h3>
           { !isArchive && price && parseInt(price) > 0 &&
            <h3 className={styles.cardDetail}>${price}0</h3> }
         </div>
+        }
       </Link>
     </div>
   );

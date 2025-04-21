@@ -18,6 +18,7 @@ import { useIsTimeLeft } from '../../../hooks/use-is-time-left';
 import PaymentIcons from '../../payment-icons/payment-icons.component';
 import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
+import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
 
 const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
   product,
@@ -104,6 +105,9 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
           <TabContent tabNumber={activeTab} description={product.node.descriptionHtml} product={product} />
         </div>
       </div>
+    </div>
+    <div className={styles.recommendedProductsWrapper}>
+      <RecommendedProducts textAlign='center' textSize='large'/>
     </div>
     </>
   );

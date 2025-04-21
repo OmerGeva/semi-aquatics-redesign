@@ -146,6 +146,37 @@
     }
 
   }
+  .shippingInfo {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 32px;
+
+    .shippingItem {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      margin-bottom: 16px;
+      width: 49%;
+      background-color: #f8f8f8;
+      color: #727272;
+      
+      svg {
+        color: #727272;
+        width: 60px; // Match the SVG width
+        height: 42px; // Match the SVG height
+      }
+
+      p {
+        font-size: 12px;
+        color: #666;
+        margin: 8px 0;
+      }
+    }
+  }
+  .recommendedProductsWrapper {
+    margin-top: 1rem;
+    padding: 1rem;
+  }
 
   .flexGrow1 {
     flex-grow: 1;
@@ -162,7 +193,6 @@
 
       button {
         font-size: 14px;
-
       }
     }
   }

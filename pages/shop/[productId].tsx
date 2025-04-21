@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next'
-import { gql } from '@apollo/client';
 import client from "../../apollo-client";
 import { useRouter } from 'next/router'
 import withLayout from '../../hocs/withLayout'
@@ -9,6 +8,7 @@ import { useEffect } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
 import { useIsTimeLeft } from '../../hooks/use-is-time-left';
 import { ProductT } from '../../types';
+import { GET_PRODUCT_BY_PRODUCT_ID } from '../../services/queries/queries';
 
 type ProductProps = {
   product: ProductT
@@ -32,49 +32,10 @@ const Product = (props: ProductProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { data } = await client.query({
-    query: gql`
-      query {
-        node(id: "gid://shopify/Product/${context.params.productId}") {
-          ...on Product {
-          title
-          id
-          description
-          productType
-          descriptionHtml
-          availableForSale
-          images(first: 10) {
-            edges {
-              node {
-                altText
-                transformedSrc
-              }
-            }
-          }
-          options {
-            id
-            name
-            values
-          }
-          variants(first: 10) {
-            edges {
-              node {
-                id
-                title
-                availableForSale
-                priceV2 {
-                  amount
-                }
-                selectedOptions {
-                  name
-                  value
-                }
-              }
-            }
-          }
-      }
-    }
-    }
-      `,
+    query: GET_PRODUCT_BY_PRODUCT_ID,
+    variables: {
+      productId: `gid://shopify/Product/${context.params.productId}`
+    },
   });
 
 

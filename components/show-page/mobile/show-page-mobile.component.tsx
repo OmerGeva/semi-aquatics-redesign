@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 // Types
 import { ShowPageChildProps } from '../../../interfaces/page_interface';
+import Plant from '../../../public/svgs/plant.svg';
+import Globe from '../../../public/svgs/globe.svg';
 
 // Packages
 import Carousel from "nuka-carousel"
@@ -18,6 +20,7 @@ import { variantAvailability } from '../utils'
 import { useIsTimeLeft } from '../../../hooks/use-is-time-left';
 import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
+import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
 
 const ShowPageMobile: React.FC<ShowPageChildProps> = ({ product,
   selected,
@@ -95,13 +98,25 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({ product,
 
         </div>
 
+        <div className={styles.shippingInfo}>
+        <div className={styles.shippingItem}>
+            <Globe />
+            <p>Worldwide shipping available.*</p>
+          </div>
+          <div className={styles.shippingItem}>
+            <Plant />
+            <p>Every order restores a kelp forest**</p>
+          </div>
+        </div>
         <DescriptionTabs activeTab={activeTab} setActiveTab={setActiveTab} >
           <TabContent tabNumber={activeTab} description={product.node.descriptionHtml} product={product} />
         </DescriptionTabs>
       </React.Fragment>
     }
-          </div>
-
+    </div>
+    <div className={styles.recommendedProductsWrapper}>
+      <RecommendedProducts textAlign='center' itemCount={3}/>
+    </div>
     </div >
   )
 }

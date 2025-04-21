@@ -1,9 +1,10 @@
 import { useCart } from '../../contexts/cart-context';
 import styles from './CartSidebar.module.scss';
 import { IoClose } from 'react-icons/io5';
-import { useMutation } from '@apollo/client';
-import { cartLinesUpdate } from '../../services/queries/mutations';
-import React, { useEffect } from 'react';
+import { LuPlus } from "react-icons/lu";
+import { LuMinus } from "react-icons/lu";
+import RecommendedProducts from './recommended-products/recommended-products.component';
+import { useCallback } from 'react';
 
 const CartSidebar: React.FC = () => {
   const {
@@ -11,26 +12,15 @@ const CartSidebar: React.FC = () => {
     closeCart,
     cartData,
     loading,
-    refetchCart,
+    setCartItemCount,
     checkoutUrl,
-    cartId,
   } = useCart();
-
-  const [updateCartLineItems] = useMutation(cartLinesUpdate);
 
   const items: any[] = cartData?.cart?.lines?.edges || [];
 
-  const handleRemoveFromCart = async (lineItemId: string) => {
-    const cartInput = {
-      variables: {
-        cartId,
-        quantity: 0,
-        lineItemId,
-      },
-    };
-    await updateCartLineItems(cartInput);
-    refetchCart();
-  };
+  const changeItemCount = useCallback((lineItemId: string, quantity: number) => {
+      setCartItemCount(lineItemId, quantity);
+    }, [setCartItemCount]);
 
   return (
     <>
@@ -67,23 +57,32 @@ const CartSidebar: React.FC = () => {
                       />
                     </div>
                   <div className={styles.itemInfo}>
-                    <p>{li.node.merchandise.product.title}</p>
                     <div className={styles.flexBoxPriceSize}>
-                      <p>${li.node.merchandise.priceV2.amount}</p>
-                      <p className={styles.sizeText}>
-                        {li.node.merchandise.title} × {li.node.quantity}
-                      </p>
+                    <p>{li.node.merchandise.product.title}</p>
                       <div className={styles.flex_grower}></div>
-                      <p
-                        className={styles.removeItem}
-                        onClick={() =>
-                          handleRemoveFromCart(
-                            li.node.id
-                          )
-                        }
-                      >
-                        REMOVE
+                      <p>${li.node.merchandise.priceV2.amount * li.node.quantity}</p>
+                    </div>
+                      <p className={styles.sizeText}>
+                        {li.node.merchandise.title}
                       </p>
+                    <div className={styles.sizeAdjustments}>
+                    <div className={styles.sizeAdjuster}>
+                      <div
+                        className={styles.sizeAdjusterBtn}
+                        onClick={() => changeItemCount(li.node.id, li.node.quantity - 1)}
+                      >
+                        <LuMinus />
+                      </div>
+                      <div className={styles.sizeAdjusterCount}>
+                        {li.node.quantity}
+                      </div>
+                      <div
+                        className={styles.sizeAdjusterBtn}
+                        onClick={() => changeItemCount(li.node.id, li.node.quantity + 1)}
+                      >
+                        <LuPlus />
+                      </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -91,18 +90,21 @@ const CartSidebar: React.FC = () => {
             </div>
           )}
         </div>
-
-        {items.length > 0 && (
-          <div className={styles.footer}>
-            <div className={styles.checkoutText}>
-              <p>Subtotal:</p>
-              <p>${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}0</p>
-            </div>
-            <a href={checkoutUrl || '#'}>
-              <div className={styles.checkoutBtn}>Proceed to checkout</div>
-            </a>
+        <div className={styles.recommendedProductsWrapper}>
+        <RecommendedProducts withAddToCart />
+        </div>
+        <div className={styles.footer}>
+          <div className={styles.checkoutText}>
+            <p>Subtotal:</p>
+            <p>${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}0</p>
           </div>
-        )}
+          <a
+            href={items.length >= 0 && checkoutUrl ? checkoutUrl: '#'}
+            className={`${items.length === 0 ? styles.disabled : ''}`}
+          >
+            <div className={styles.checkoutBtn}>{items.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}</div>
+          </a>
+        </div>
       </div>
     </>
   );

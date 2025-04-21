@@ -55,6 +55,11 @@
     justify-content: space-between;
     padding: 0.375rem;
   }
+  .isSmallText {
+    h3 {
+      font-size: 12px;
+    }
+  }
 
   .cardDetail {
     margin-top: 0;

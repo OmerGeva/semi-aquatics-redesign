@@ -21,12 +21,13 @@
     }
   
     .sizeNotPicked {
-      opacity: 0.4;
+      opacity: 0.8;
     }
   
     .unavailableItem {
       color: gray;
       border: 1px solid gray;
+      opacity: 0.4;
     }
   }
   

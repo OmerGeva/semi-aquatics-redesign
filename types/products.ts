@@ -49,8 +49,6 @@ export type CollectionT = {
   title: string;
   id: string;
   products: {
-    edges: Array<{
-      node: ProductT;
-    }>;
+    edges: Array<ProductT>;
   };
 };

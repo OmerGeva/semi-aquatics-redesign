@@ -34,7 +34,7 @@ const ArtistPreview: React.FC<ArtistPreviewProps> = ({ artworkId }) => {
 
   if (loading) return <p>Loading artist information...</p>;
   if (error) return <p className={styles.error}>{error}</p>;
-  if (!artist) return null;
+  if (!artist) return <p className={styles.error}>Artist not found.</p>;
 
   return (
     <div className={styles.artistPreview}>
