@@ -76,6 +76,7 @@ query {
                   node {
                     id
                     title
+                    productType
                     availableForSale
                       images(first: 5) {
                           edges {

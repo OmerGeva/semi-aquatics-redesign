@@ -1,4 +1,4 @@
-.dropPageContainer{
+.dropPageContainer {
   position: relative;
   margin-top: 122px;
 
@@ -12,7 +12,7 @@
     background-color: var(--white);
     z-index: 2;
 
-    
+
     .dropTitle{
       font-size: var(--font-large);
       margin-bottom: 4px;
@@ -25,44 +25,191 @@
   .dropDescription {
     margin: 0 calc(2vw + 2vh) 40px;
   }
-  .productsContainer{
+  .productsSection {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding-right: 1rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+
+  .productsWrapper {
+    width: 100%;
+  }
+
+  .filterSidebar {
+    position: sticky;
+    top: 140px; /* Space below header */
+    max-height: calc(100vh - 160px); /* Viewport height minus header and some padding */
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-right: 1px solid #e5e5e5;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    will-change: transform;
+    overscroll-behavior: contain;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+      border-radius: 4px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #e0e0e0 transparent;
+  }
+
+  .filterButton {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 0.8rem 1rem;
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    border-radius: 0 4px 4px 0;
+    position: relative;
+    left: -1px; /* Compensate for border */
+    padding-left: calc(1rem + 1px); /* Account for border */
+
+    &:hover {
+      background-color: #f8f8f8;
+      color: #000;
+    }
+
+    &.active {
+      border-left: 2px solid #000;
+      font-weight: 500;
+      background-color: #f8f8f8;
+      color: #000;
+    }
+  }
+
+
+  .productsContainer {
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: .75rem;
+    column-gap: 1.5rem;
+    row-gap: 2rem;
+    padding: 0 1rem;
+    align-content: start;
+    min-height: 0;
+  }
+
+  .noProducts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 0;
+    font-size: 1rem;
+    color: #666;
   }
 
   .lockedDropContainer {
     margin-top: 152px;
   }
 }
-
-@media only screen and (max-width: 1200px) {
-  .dropPageContainer{
-    margin-top: 64px;
-
-    .productsContainer{
-      grid-template-columns: 1fr 1fr 1fr;
-      column-gap: .4rem;
-    }
-  }
-}
-
 @media only screen and (max-width: 900px) {
-  .dropPageContainer{
-    .productsContainer{
-      grid-template-columns: 1fr 1fr;
-      column-gap: .4rem;
-    }
-  }
-}
+  .dropPageContainer {
+    margin-top: 64px;
+    /* Height of fixed navbar */
+    padding-top: 0;
 
-@media only screen and (max-width: 600px) {
-  .dropPageContainer{
+    .stickyHeader {
+      position: fixed;
+      top: 64px;
+      /* Below fixed navbar */
+      left: 0;
+      right: 0;
+      z-index: 4;
+      /* Below navbar's z-index:5 */
+      background: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
     .dropHeader {
+      padding: 15px 1rem 10px;
+      top: 64px;
+      background: white;
+
       h1 {
-        margin-bottom: 0;
+        margin: 0;
         font-size: 14px;
+      }
+    }
+
+    .productsSection {
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 120px;
+      /* Space for navbar + sticky header */
+      position: relative;
+      z-index: 1;
+      padding-right: 0;
+      /* Below header */
+    }
+
+    .filterSidebar {
+      padding: 10px 1rem;
+      background: white;
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      position: fixed;
+      top: 112px;
+      width: 100%;
+      background: white;
+      z-index: 2;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .filterButton {
+      display: inline-block;
+      width: auto;
+      margin-right: 0.2rem;
+      margin-bottom: 0.5rem;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.8rem;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+      border-radius: 4px;
+
+      &.active {
+        border-left: none;
+        border-bottom: 2px solid #000;
+      }
+    }
+
+    .productsContainer {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1rem;
+      row-gap: 1.5rem;
+      padding: 0 1rem;
+      margin: 0;
+
+      @media (max-width: 500px) {
+        grid-template-columns: 1fr;
       }
     }
   }
