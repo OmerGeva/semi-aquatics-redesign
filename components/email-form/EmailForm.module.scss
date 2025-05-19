@@ -36,6 +36,7 @@
     }
 
 
+
   }
 
 .sidebarEmailFormContainer{
@@ -86,5 +87,12 @@
     font-size: 12px;
     margin-top: 5px;
     margin-bottom: 0px;
+  }
+}
+
+.isNotSidebar {
+  width: 300px;
+  @media screen and (max-width: 768px) {
+    width: 200px;
   }
 }

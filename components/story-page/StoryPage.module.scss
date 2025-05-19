@@ -1,55 +1,137 @@
+@keyframes waveAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .storyPageContainer {
-  text-align: center;
-  height: 90vh;
-  margin-top: 10vh;
-  overflow: scroll;
-  font-size: 14px;
-  h1{
-    margin-bottom: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 5vh 2vw;
+  background-image: linear-gradient(to right, #a7d7f9, #c0e5ff, #e0f2ff, #c0e5ff, #a7d7f9);
+  background-size: 400% 400%;
+  animation: waveAnimation 15s ease-in-out infinite;
+  box-sizing: border-box;
+}
+
+.contentBox {
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  width: 100%;
+  text-align: left;
+  overflow-y: auto;
+  max-height: 90vh;
+
+  .storyTitle {
+    margin-bottom: 1.5em;
+    text-align: center;
   }
-  h2{
-    width: 60%;
-    margin: 5vh auto;
-    font-size: 16px;
-    text-align: left;
+
+  h1.storyTitle {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #2c3e50;
   }
-  .emailFormContainer{
+
+  h2.storyTitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: #34495e;
+  }
+
+  .emailFormContainer {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
   }
-  .textContainer{
-    margin: auto;
-    text-align: left;
-    width: 60%;
-    .question{
-      margin-top: 12px;
-      margin-bottom: 12px;
-      font-size: 16px;
+
+  .textContainer {
+    p {
+      line-height: 1.75;
+      margin-bottom: 1.6em;
+      font-size: 14.5px;
+      color: #333;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .subTitle {
+      font-size: 22px;
       font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      text-align: center;
     }
-    .quote{
-      padding: 16px;
-      width: 60%;
-      margin: 4% auto;
-      border-left: 2px solid black;
-      margin-bottom: 5%;
+
+    .question {
+      margin-top: 1.2em;
+      margin-bottom: 1.2em;
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    .quote {
+      padding: 1em 1.5em;
+      margin: 2em 0;
+      border-left: 3px solid #3498db;
+      font-style: italic;
+      color: #555;
+      background-color: #f4f8fa;
     }
   }
-  @media screen and (max-width: 768px) {
-    margin-top: 0vh;
-    h1{
-      width: 90%;
-      margin: 5vh auto;
-      font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .storyPageContainer {
+    padding: 0 2vw;
+    animation-duration: 20s;
+    animation-timing-function: ease-in-out;
+    padding-bottom: 6vh;
+  }
+  .contentBox {
+    padding: 18px 10px 0;
+    line-height: 1.2;
+
+    h1.storyTitle {
+      font-size: 20px;
+      margin-bottom: 20px;
     }
-    h2{
-      width: 90%;
+
+    h2.storyTitle {
+      font-size: 16px;
+      margin-top: 30px;
+      margin-bottom: 15px;
     }
-    .textContainer{
-      width: 90%;
-      .quote{
-        width: 90%;
-        margin: 8% auto;
+
+    .textContainer {
+      p {
+        font-size: 12px;
+        line-height: 1.7;
+      }
+      .subTitle {
+        font-size: 19px;
+        margin-top: 25px;
+        margin-bottom: 12px;
       }
     }
   }
