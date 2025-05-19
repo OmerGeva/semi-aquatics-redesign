@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import EmailForm from '../email-form/email-form.component';
 import { HELP_EMAIL_LINK, INSTAGRAM_LINK } from '../../constants/external-links';
-import { LABELS, links, PATHS } from './constants';
+import { links } from './constants';
 import { INTERNAL_LINKS } from '../../constants/internal-links';
 
 interface SidebarProps {
