@@ -1,137 +1,129 @@
-@keyframes waveAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 .storyPageContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   min-height: 100vh;
-  padding: 5vh 2vw;
-  background-image: linear-gradient(to right, #a7d7f9, #c0e5ff, #e0f2ff, #c0e5ff, #a7d7f9);
-  background-size: 400% 400%;
-  animation: waveAnimation 15s ease-in-out infinite;
+  padding-top: 20px; // Adjust to match your navbar height
+  background-color: #fff;
   box-sizing: border-box;
+
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
-.contentBox {
-  background-color: white;
-  padding: 40px 50px;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  max-width: 800px;
-  width: 100%;
-  text-align: left;
-  overflow-y: auto;
-  max-height: 90vh;
+.storyContent {
+  display: flex;
+  width: 90%;
+  align-items: center;
+  min-height: calc(100vh - 122px);
 
-  .storyTitle {
-    margin-bottom: 1.5em;
-    text-align: center;
-  }
+  .imageColumn {
+    position: relative;
+    min-height: 500px;
 
-  h1.storyTitle {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    margin-top: 0;
-    margin-bottom: 30px;
-    color: #2c3e50;
-  }
+    .imageWrapper {
+      position: sticky;
+      top: 122px; // Adjust to match navbar height
+      width: 100%;
+      height: calc(90vh - 180px);
+      padding-right: 40px;
 
-  h2.storyTitle {
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    color: #34495e;
-  }
-
-  .emailFormContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-
-  .textContainer {
-    p {
-      line-height: 1.75;
-      margin-bottom: 1.6em;
-      font-size: 14.5px;
-      color: #333;
-      &:last-child {
-        margin-bottom: 0;
+      img {
+        height: 100%;
+        object-fit: cover;
+        filter: sepia(10%) contrast(75%) brightness(100%) saturate(90%);
       }
     }
-
-    .subTitle {
-      font-size: 22px;
-      font-weight: 600;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      color: #2c3e50;
-      text-align: center;
-    }
-
-    .question {
-      margin-top: 1.2em;
-      margin-bottom: 1.2em;
-      font-size: 1.1em;
-      font-weight: 600;
-      color: #34495e;
-    }
-
-    .quote {
-      padding: 1em 1.5em;
-      margin: 2em 0;
-      border-left: 3px solid #3498db;
-      font-style: italic;
-      color: #555;
-      background-color: #f4f8fa;
-    }
   }
-}
 
-@media screen and (max-width: 768px) {
-  .storyPageContainer {
-    padding: 0 2vw;
-    animation-duration: 20s;
-    animation-timing-function: ease-in-out;
-    padding-bottom: 6vh;
-  }
-  .contentBox {
-    padding: 18px 10px 0;
-    line-height: 1.2;
+  .textColumn {
+    flex: 1;
+    line-height: 0.5;
 
-    h1.storyTitle {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    h2.storyTitle {
-      font-size: 16px;
-      margin-top: 30px;
-      margin-bottom: 15px;
+    .aboutTitle {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
     }
 
     .textContainer {
+      width: 60%;
       p {
-        font-size: 12px;
-        line-height: 1.7;
+        font-size: 14px;
+        line-height: 1.3;
+        margin-bottom: 24px;
+        letter-spacing: 0.02em;
+        color: #000;
+
+        strong {
+          font-weight: 600;
+        }
       }
-      .subTitle {
-        font-size: 19px;
-        margin-top: 25px;
-        margin-bottom: 12px;
+
+      .emailSignup {
+        margin-top: 50px;
+        border-top: 1px solid #eee;
+        padding-top: 30px;
+
+        p {
+          font-size: 14px;
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .storyPageContainer {
+    padding-top: 0;
+    width: 100%;
+  }
+
+  .storyContent {
+    flex-direction: column;
+    min-height: auto;
+    width: 98%;
+
+    .imageColumn {
+      min-height: 300px;
+      width: 100%;
+
+      .imageWrapper {
+        position: relative;
+        top: 0;
+        width: 100%;
+        height: 55vh;
+        padding-right: 0;
+
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .textColumn {
+      padding: 12px 0;
+      max-width: 100%;
+
+      .aboutTitle {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+
+      .textContainer {
+        width: 100%;
+        p {
+          font-size: 14px;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        .emailSignup {
+          margin-top: 40px;
+          padding-top: 25px;
+        }
       }
     }
   }

@@ -31,15 +31,15 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   return (
     <div className={styles.productPreviewContainer}>
       <Link href={`/shop/${deconstructedId}`}>
-        {isSoldOut && !isArchive && (
+        {/* {isSoldOut && !isArchive && (
           <div className={styles.soldOut}>
             <h3>{isNewProduct && isTimeLeft ? 'COMING SOON' : 'SOLD OUT'}</h3>
           </div>
-        )}
+        )} */}
         <div className={styles.imageContainer}>
           <img src={image} alt={title} />
         </div>
-        {title && 
+        {title &&
         <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>
           <h3 className={styles.cardDetail}>{title}</h3>
           { !isArchive && price && parseInt(price) > 0 &&

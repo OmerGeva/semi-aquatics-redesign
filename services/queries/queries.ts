@@ -64,6 +64,43 @@ export const getCheckoutUrl = (cartId: string) => {
     `
 }
 
+export const GET_MAIN_LINE_QUERY = gql`
+query {
+  collection(id: "gid://shopify/Collection/264837169227") {
+          title
+          id
+          products(first: 30) {
+              edges {
+                  node {
+                    id
+                    title
+                    productType
+                    availableForSale
+                      images(first: 5) {
+                          edges {
+                            node {
+                              altText
+                              transformedSrc
+                            }
+                          }
+                        }
+                      variants(first: 5) {
+                        edges {
+                          node {
+                            priceV2 {
+                              amount
+                              currencyCode
+                            }
+                          }
+                        }
+                      }
+                  }
+              }
+      }
+    }
+}
+`
+
 export const GET_DROP_QUERY = gql`
 query {
   collections(first: 1, reverse: true) {

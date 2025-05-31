@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { Dispatch, SetStateAction } from 'react';
 import styles from './Navbar.module.scss'
-
+import Image from 'next/image';
 import { VscMenu } from 'react-icons/vsc';
 
 import { useCart } from '../../contexts/cart-context';
@@ -41,6 +41,15 @@ const Navbar: React.FC<NavbarProps> = ({title, date, setNavbarOpen, navbarOpen, 
             <p>Artists</p>
           </Link>
           </>}
+
+          {
+            !isHomePage &&
+            <img
+              src={'/top-nav-logo.png'}
+              alt="Top Logo"
+              className={styles.topLogo}
+            />
+          }
         </div>
         <div className={styles.rightNavbar}>
           <div className={styles.openCart} onClick={openCart}>
