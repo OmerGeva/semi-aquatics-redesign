@@ -61,70 +61,6 @@
   font-weight: 900;
   font-style: normal;
 }
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/futura/Futura Light font.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/Georgia Regular font.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgia italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgia.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgia bold italic.ttf') format('truetype');
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgiab.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgia bold italic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgiab.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Georgia';
-  src: url('/fonts/georgia/georgiab.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
-}
-
 
 :root {
   --black: #000000;
@@ -134,7 +70,7 @@
   --font-medium: 16px;
   --font-large: 20px;
   --font-xlarge: 24px;
-  
+
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
