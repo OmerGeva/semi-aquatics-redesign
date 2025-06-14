@@ -31,16 +31,16 @@
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease-in-out;
-  
+
     img {
       width: 90%;
       transform: translate(5%, 20%);
       object-fit: cover;
       transition: transform 0.3s ease-in-out;
     }
-  
+
     &:hover img {
-      transform: translate(5%, 20%) scale(0.97);
+      transform: translate(5%, 20%) scale(1.10);
     }
   }
 
@@ -68,14 +68,14 @@
     font-weight: 500;
     width: auto;
   }
-  
+
   @media only screen and (max-width: 768px) {
     .soldOut {
       font-size: 10px;
       margin-bottom: 4px;
       z-index: 1;
     }
-    
+
     .imageContainer {
       display: flex;
       justify-content: center;
@@ -90,12 +90,12 @@
         transform: none;
       }
     }
-    
+
     .previewDetails {
       display: block;
       margin-bottom: 16px;
     }
-    
+
     .cardDetail {
       font-size: 12px;
       margin: 0;

@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import Lenis from '@studio-freight/lenis';
 
 import styles from './Layout.module.scss'
 import Navbar from '../navbar/navbar.component'
@@ -25,16 +26,43 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const typeOfPage = pathname.substring(1);
 
+    // Lenis setup
+    useEffect(() => {
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Example easing
+            // smoothWheel: true, // Optional: enable for mouse wheel initiated scroll
+            // touchMultiplier: 2, // Optional: adjust touch scroll speed
+        });
+
+        let rafId: number;
+        function raf(time: number) {
+            lenis.raf(time);
+            rafId = requestAnimationFrame(raf);
+        }
+
+        rafId = requestAnimationFrame(raf);
+
+        // Cleanup
+        return () => {
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+            }
+            lenis.destroy();
+        };
+    }, []); // Empty dependency array ensures this runs once on mount and cleans up on unmount
+
     return (
       <div className={styles.layoutContainer}>
         <MainHead />
-        
+
         <Navbar title={typeOfPage} setNavbarOpen={setNavbarOpen} navbarOpen={navbarOpen} setSidebarOpen={setSidebarOpen} />
 
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
         <CartSidebar />
-
-        {children}
+        <div className={styles.contentContainer}>
+          {children}
+        </div>
         { pathname !== '/' && <Footer /> }
         <ThirdPartyScripts />
         </div>

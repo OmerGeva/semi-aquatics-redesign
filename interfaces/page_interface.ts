@@ -39,8 +39,13 @@ export interface UpcomingDropPreviewProps {
 }
 
 export interface EmailFormProps {
-  isSidebar?: boolean,
-  placeholder?: string,
+  isSidebar?: boolean;
+  placeholder?: string;
+  formClassName?: string;
+  inputContainerClassName?: string;
+  inputClassName?: string;
+  buttonClassName?: string;
+  messageContainerClassName?: string;
 }
 
 export type TimeLeftObj = {

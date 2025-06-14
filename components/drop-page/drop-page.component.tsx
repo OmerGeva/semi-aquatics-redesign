@@ -7,6 +7,7 @@ import CountdownTimer from '../countdown-timer/countdown-timer.component';
 import PasswordWall from '../password-wall/password-wall.component';
 import ProductPreview from '../product-preview/product-preview.component';
 import { CollectionT } from '../../types';
+import { useIsMobile } from '../../hooks/use-is-mobile';
 
 type ProductType = 'all' | 'drop' | 'mainline' | 'tshirt' | 'hoodie' | 'crewneck';
 
@@ -41,7 +42,7 @@ interface DropPageProps {
 }
 
 const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password }) => {
-  console.log(dropItems);
+  const isMobile = useIsMobile();
   const { products } = dropItems;
   const { loading, dropData } = useNextDrop();
   const [isInFuture, setIsInFuture] = useState<boolean>(false);
@@ -114,7 +115,6 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
     if (container) {
       // Check if scrollable width is greater than visible width
       const hasHorizontalOverflow = container.scrollWidth > container.clientWidth;
-      console.log('Scroll width:', container.scrollWidth, 'Client width:', container.clientWidth);
       setHasOverflow(hasHorizontalOverflow);
     }
   };
@@ -125,7 +125,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
     const timer = setTimeout(() => {
       checkForOverflow();
     }, 100);
-    
+
     // Add resize listener
     window.addEventListener('resize', checkForOverflow);
     return () => {
@@ -133,7 +133,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
       window.removeEventListener('resize', checkForOverflow);
     };
   }, [filteredProducts]); // Re-check when products change as it might affect tabs
-  
+
   // Run check on component mount and after state changes
   useEffect(() => {
     checkForOverflow();
@@ -153,27 +153,26 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
 
       {!loading && !isDropLocked && (
         <div className={styles.productsSection}>
-          <div className={styles.categoryHeader}>
-            <h1 className={styles.categoryTitle}>{PRODUCT_TYPE_LABELS[selectedType]}</h1>
-            <p className={styles.categoryDescription}>{PRODUCT_TYPE_DESCRIPTIONS[selectedType]}</p>
-            <div className={styles.productsCount}>{filteredProducts.length} Products</div>
-          </div>
-          
           <div className={`${styles.filterTabsWrapper} ${hasOverflow ? styles.hasOverflow : ''}`}>
             <div className={styles.filterTabs} ref={filterTabsRef}>
-              {Object.entries(PRODUCT_TYPE_LABELS).map(([type, label]) => (
+              {Object.entries(PRODUCT_TYPE_LABELS).map(([type, label], index) => (
                 <button
                   key={type}
                   className={`${styles.filterButton} ${selectedType === type ? styles.active : ''}`}
                   onClick={() => setSelectedType(type as ProductType)}
                   data-text={label}
                 >
-                  {label}
+                  {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
                 </button>
               ))}
             </div>
           </div>
-          
+
+          {/* Category Description is now below the filter tabs */}
+          <div className={styles.categoryHeader}>
+            <p className={styles.categoryDescription}>{PRODUCT_TYPE_DESCRIPTIONS[selectedType]}</p>
+          </div>
+
 
           <div className={styles.productsWrapper}>
             <div className={styles.productsContainer}>

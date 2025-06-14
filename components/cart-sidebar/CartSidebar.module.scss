@@ -2,7 +2,7 @@ $drawer-width: 670px;
 $transition-duration: 300ms;
 $transition-easing: cubic-bezier(0.31, 0, 0.13, 1);
 $backdrop-opacity: 0.3;
-$shadow-elevation: 
+$shadow-elevation:
   0px 8px 10px -5px rgba(0, 0, 0, 0.2),
   0px 16px 24px 2px rgba(0, 0, 0, 0.14),
   0px 6px 30px 5px rgba(0, 0, 0, 0.12);
@@ -62,7 +62,7 @@ $shadow-elevation:
     margin: 0;
   }
 
-  button {
+  .closeBtn {
     background: none;
     border: none;
     cursor: pointer;
@@ -70,6 +70,8 @@ $shadow-elevation:
     display: flex;
     align-items: center;
     justify-content: center;
+
+    -webkit-tap-highlight-color: transparent;
 
     svg {
       width: 24px;
@@ -100,7 +102,7 @@ $shadow-elevation:
         flex-basis: 33.3333%;
         text-align: center;
         img {
-          margin: 8px; 
+          margin: 8px;
           width: 80%;
           object-fit: cover;
         }
@@ -158,7 +160,7 @@ $shadow-elevation:
             color: red;
             cursor: pointer;
             margin-left: auto;
-  
+
             &:hover {
               color: rgb(247, 62, 62);
             }

@@ -1,8 +1,8 @@
 import { useCart } from '../../contexts/cart-context';
 import styles from './CartSidebar.module.scss';
 import { IoClose } from 'react-icons/io5';
-import { LuPlus } from "react-icons/lu";
-import { LuMinus } from "react-icons/lu";
+import { FiPlus } from "react-icons/fi"
+import { FiMinus } from "react-icons/fi";
 import RecommendedProducts from './recommended-products/recommended-products.component';
 import { useCallback } from 'react';
 
@@ -36,7 +36,7 @@ const CartSidebar: React.FC = () => {
       >
         <div className={styles.header}>
           <p>Bag</p>
-          <button onClick={closeCart}>
+          <button onClick={closeCart} className={styles.closeBtn}>
             <IoClose size={24} />
           </button>
         </div>
@@ -71,7 +71,7 @@ const CartSidebar: React.FC = () => {
                         className={styles.sizeAdjusterBtn}
                         onClick={() => changeItemCount(li.node.id, li.node.quantity - 1)}
                       >
-                        <LuMinus />
+                        <FiMinus />
                       </div>
                       <div className={styles.sizeAdjusterCount}>
                         {li.node.quantity}
@@ -80,7 +80,7 @@ const CartSidebar: React.FC = () => {
                         className={styles.sizeAdjusterBtn}
                         onClick={() => changeItemCount(li.node.id, li.node.quantity + 1)}
                       >
-                        <LuPlus />
+                        <FiPlus />
                       </div>
                       </div>
                     </div>

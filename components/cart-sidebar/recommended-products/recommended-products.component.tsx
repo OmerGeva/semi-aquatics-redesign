@@ -79,7 +79,7 @@ const RecommendedProducts: React.FC<PropsT> = ({
               isSmallText={true}
               isArchive={true}
               isTimeLeft={false}
-              
+
             />
             </div>
             <div className={styles.productTitle}>

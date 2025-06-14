@@ -15,6 +15,7 @@
     "@fortawesome/react-fontawesome": "",
     "@reduxjs/toolkit": "",
     "@shopify/react-graphql": "",
+    "@studio-freight/lenis": "^1.0.42",
     "@szhsin/react-menu": "",
     "apollo-boost": "",
     "apollo-link-context": "",

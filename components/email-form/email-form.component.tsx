@@ -6,7 +6,15 @@ import axios from 'axios';
 import { EmailFormProps } from '../../interfaces/page_interface';
 import Form from '../form/form.component';
 
-const EmailForm: React.FC<EmailFormProps> = ({ isSidebar, placeholder }) => {
+const EmailForm: React.FC<EmailFormProps> = ({ 
+  isSidebar, 
+  placeholder, 
+  formClassName, 
+  inputContainerClassName,
+  inputClassName, 
+  buttonClassName, 
+  messageContainerClassName 
+}) => {
   const [email, setEmail] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
   const [successMessage, setSuccessMessage] = React.useState('');
@@ -49,13 +57,13 @@ const EmailForm: React.FC<EmailFormProps> = ({ isSidebar, placeholder }) => {
 
   return (
     <React.Fragment>
-      <div className={`${styles.sidebarEmailFormContainer} ${isSidebar ? styles.isSidebar : styles.isNotSidebar}`}>
-        <form className={styles.emailForm}>
-          <input type="text" placeholder={placeholder ?? 'enter your email'} id={styles.emailInput} value={email} onChange={(e) => setEmail(e.target.value)} />
-          <p className={styles.submitButtonText} onClick={handleSubmit}>Subscribe</p>
+      <div className={`${styles.sidebarEmailFormContainer} ${isSidebar ? styles.isSidebar : styles.isNotSidebar} ${inputContainerClassName || ''}`}>
+        <form className={`${styles.emailForm} ${formClassName || ''}`}>
+          <input type="text" placeholder={placeholder ?? 'enter your email'} className={`${styles.emailInput} ${inputClassName || ''}`} value={email} onChange={(e) => setEmail(e.target.value)} />
+          <div className={`${styles.submitButton} ${buttonClassName || ''}`} onClick={handleSubmit}>Subscribe</div>
         </form>
       </div>
-    <div className={styles.messageContainer}>
+    <div className={`${styles.messageContainer} ${messageContainerClassName || ''}`}>
       {
         errorMessage.length > 0 &&
           <p className={styles.errorMessage}>{errorMessage}</p>
