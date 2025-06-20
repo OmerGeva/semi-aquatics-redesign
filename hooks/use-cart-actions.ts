@@ -10,16 +10,18 @@ export const useCartActions = () => {
   const { cartData, cartCounts, refetchCart, openCart } = useCart();
   const { cartId, setCartId } = useCartId();
 
-  const [createCart] = useMutation(cartCreate);
-  const [updateCartLineItems] = useMutation(cartLinesUpdate);
-  const [addCartLineItems] = useMutation(cartLineItemsAdd);
+  const [createCart, { loading: createLoading }] = useMutation(cartCreate);
+  const [updateCartLineItems, { loading: updateLoading }] = useMutation(cartLinesUpdate);
+  const [addCartLineItems, { loading: addLoading }] = useMutation(cartLineItemsAdd);
+  
+  const isLoading = createLoading || updateLoading || addLoading;
 
   const notify = (message = 'Item added to cart!') =>
     toast(message, { position: 'top-right', autoClose: 5000 });
 
-  const addToCart = async (variant: any, quantityToAdd: number) => {
+  const addToCart = async (variant: any, quantityToAdd: number): Promise<boolean> => {
+    if (!variant?.node?.id) return false;
     try {
-      if (!variant?.node?.id) return;
 
       const merchandiseId = variant.node.id;
       const quantity = cartCounts[merchandiseId] ? cartCounts[merchandiseId] + quantityToAdd : quantityToAdd;
@@ -49,15 +51,16 @@ export const useCartActions = () => {
         const newCartId = res.data?.cartCreate?.cart?.id;
         if (newCartId) setCartId(newCartId);
 
-        refetchCart();
-        openCart();
+        notify();
+        return true;
       }
+      return false;
     } catch (error) {
       console.error('Error adding to cart:', error);
+      notify('Failed to add item to cart');
+      return false;
     }
   };
 
-  return {
-    addToCart
-  };
+  return { addToCart, isLoading };
 };

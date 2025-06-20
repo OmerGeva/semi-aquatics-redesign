@@ -195,10 +195,20 @@ $shadow-elevation:
     text-align: center;
     padding: 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 
-    &:hover {
+    &:not(.disabled):hover {
       background-color: #f3f3f3;
+    }
+
+    &.checkoutBtnLoading {
+      color: #666;
+      background-color: #f8f8f8;
     }
   }
 
@@ -206,7 +216,7 @@ $shadow-elevation:
     .checkoutBtn {
       background-color: #f3f3f3;
       color: #b0b0b0;
-      cursor: auto;
+      cursor: not-allowed;
     }
   }
 }

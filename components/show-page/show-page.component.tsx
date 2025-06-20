@@ -20,27 +20,46 @@ import { useIsTimeLeft } from '../../hooks/use-is-time-left';
 import { useCartActions } from '../../hooks/use-cart-actions';
 
 const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
-  const { addToCart } = useCartActions();
+  const { addToCart, isLoading } = useCartActions();
 
   const [numberToAdd, setNumberToAdd] = useState(1);
   const [selectedDesktop, setSelectedDesktop] = useState(null);
   const [selected, setSelected] = useState(firstSelectedVariant(product));
   const [slideNumber, setSlideNumber] = useState(0);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [addToCartSuccess, setAddToCartSuccess] = useState(false);
   const isMobile = useIsMobile();
   const isTimeLeft = useIsTimeLeft();
   // const isNewProduct = useIsNewProduct(product.node.id);
-  const isNewProduct = true
+  const isNewProduct = true;
   const { push } = useRouter();
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
 
   const handleOnAddToCart = async (selected: any) => {
-    await addToCart(selected, numberToAdd);
+    if (isAddingToCart) return;
+    
+    setIsAddingToCart(true);
+    setAddToCartSuccess(false);
+    
+    try {
+      const success = await addToCart(selected, numberToAdd);
+      setAddToCartSuccess(success);
+      
+      if (success) {
+        // Reset success state after animation completes
+        setTimeout(() => {
+          setAddToCartSuccess(false);
+        }, 2000);
+      }
+    } finally {
+      setIsAddingToCart(false);
+    }
   };
 
-  if (passwordGuessed != process.env.WEBSITE_LOCK_PASSWORD && isTimeLeft && isNewProduct) { 
+  if (passwordGuessed != process.env.WEBSITE_LOCK_PASSWORD && isTimeLeft && isNewProduct) {
     push('/shop')
   };
-  
+
   return (
     <React.Fragment>
     {
@@ -54,13 +73,17 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
           slideNumber={slideNumber}
           setSlideNumber={setSlideNumber}
           numberToAdd={numberToAdd}
-          isNewProduct={isNewProduct} />
+          isNewProduct={isNewProduct}
+          isAddingToCart={isAddingToCart}
+          addToCartSuccess={addToCartSuccess} />
       :
         <ShowPageDesktop
           product={product}
           selected={selectedDesktop}
           setSelected={setSelectedDesktop}
           handleOnAddToCart={product.node.availableForSale ? handleOnAddToCart : () => {}}
+          isAddingToCart={isAddingToCart}
+          addToCartSuccess={addToCartSuccess}
           setNumberToAdd={setNumberToAdd}
           slideNumber={slideNumber}
           setSlideNumber={setSlideNumber}

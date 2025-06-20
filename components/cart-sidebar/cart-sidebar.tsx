@@ -4,7 +4,7 @@ import { IoClose } from 'react-icons/io5';
 import { FiPlus } from "react-icons/fi"
 import { FiMinus } from "react-icons/fi";
 import RecommendedProducts from './recommended-products/recommended-products.component';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 const CartSidebar: React.FC = () => {
   const {
@@ -17,6 +17,16 @@ const CartSidebar: React.FC = () => {
   } = useCart();
 
   const items: any[] = cartData?.cart?.lines?.edges || [];
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  const handleCheckout = useCallback((e: React.MouseEvent) => {
+    if (items.length === 0) {
+      e.preventDefault();
+      return;
+    }
+    setIsCheckingOut(true);
+    // The page will navigate away, so we don't need to reset the state
+  }, [items.length]);
 
   const changeItemCount = useCallback((lineItemId: string, quantity: number) => {
       setCartItemCount(lineItemId, quantity);
@@ -99,10 +109,13 @@ const CartSidebar: React.FC = () => {
             <p>${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}0</p>
           </div>
           <a
-            href={items.length >= 0 && checkoutUrl ? checkoutUrl: '#'}
+            href={items.length > 0 && checkoutUrl ? checkoutUrl : '#'}
             className={`${items.length === 0 ? styles.disabled : ''}`}
+            onClick={handleCheckout}
           >
-            <div className={styles.checkoutBtn}>{items.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}</div>
+            <div className={`${styles.checkoutBtn} ${isCheckingOut ? styles.checkoutBtnLoading : ''}`}>
+              {items.length === 0 ? 'Cart is empty' : isCheckingOut ? 'Processing...' : 'Proceed to checkout'}
+            </div>
           </a>
         </div>
       </div>

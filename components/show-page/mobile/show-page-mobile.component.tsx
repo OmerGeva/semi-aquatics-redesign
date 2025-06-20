@@ -22,16 +22,19 @@ import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
 import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
 
-const ShowPageMobile: React.FC<ShowPageChildProps> = ({ product,
+const ShowPageMobile: React.FC<ShowPageChildProps> = ({
+  product,
   selected,
   setSelected,
   handleOnAddToCart,
   slideNumber,
   isNewProduct,
-  setSlideNumber
-  }) => {
-  const [activeTab, setActiveTab] = useState(100);
-    
+  setSlideNumber,
+  isAddingToCart = false,
+  addToCartSuccess = false
+}) => {
+  const [activeTab, setActiveTab] = useState(0);
+
   const isTimeLeft = useIsTimeLeft();
   const slides = product.node.images.edges.map((image: any) =>
     (<div key={image.node.altText} style={{textAlign: 'center', height: '100%'}}>
@@ -84,12 +87,14 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({ product,
               isSelected={selected !== ''}
               selected={selected}
               mobile={true}
+              isLoading={isAddingToCart}
+              isSuccess={addToCartSuccess}
               onClick={() => handleOnAddToCart(selected)}>
               {
                 selected.node.availableForSale ?
                   "Add to bag"
                   :
-                  isNewProduct && isTimeLeft?
+                  isNewProduct && isTimeLeft ?
                   "Coming soon"
                   :
                   "Sold Out"

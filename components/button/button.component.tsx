@@ -1,15 +1,19 @@
+import { useState, useEffect } from 'react';
 import styles from './Button.module.scss';
+
+type ButtonState = 'idle' | 'clicked' | 'adding' | 'added';
 
 interface ButtonProps {
   soldOut: boolean;
   isSelected: boolean;
-  children: any;
+  children: React.ReactNode;
   selected: any;
   mobile: boolean;
   onClick: (selected: any) => Promise<void>;
-  color?: 'white' | 'black'; // New prop for color
-  additionalText?: React.ReactNode; // New prop for additional content on the right
-  flexDisplay?: boolean; // New prop to enable flex layout
+  color?: 'white' | 'black';
+  additionalText?: React.ReactNode;
+  isLoading?: boolean;
+  isSuccess?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,30 +23,85 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   selected,
   mobile,
-  color = 'black', // Default to black
+  color = 'black',
   additionalText,
-}) => (
-  mobile ? (
+  isLoading = false,
+  isSuccess = false,
+}) => {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [state, setState] = useState<'idle' | 'clicked' | 'adding' | 'added'>('idle');
+
+  // Handle state transitions
+  useEffect(() => {
+    if (isLoading && state === 'idle') {
+      // Start loading sequence
+      setState('clicked');
+      const loadingTimer = setTimeout(() => setState('adding'), 100);
+
+      // If we get success before the loading state completes, skip to success
+      const successTimer = setTimeout(() => {
+        if (isSuccess) {
+          setState('added');
+          const resetTimer = setTimeout(() => setState('idle'), 2000);
+          return () => clearTimeout(resetTimer);
+        }
+      }, 600); // Slightly longer than the loading delay to ensure smooth transition
+
+      return () => {
+        clearTimeout(loadingTimer);
+        clearTimeout(successTimer);
+      };
+    } else if (isSuccess && (state === 'adding' || state === 'clicked')) {
+      // If we get success while in loading states
+      setState('added');
+      const timer = setTimeout(() => setState('idle'), 2000);
+      return () => clearTimeout(timer);
+    } else if (!isLoading && !isSuccess) {
+      // Reset to idle if neither loading nor success
+      setState('idle');
+    }
+  }, [isLoading, isSuccess]);
+
+  const buttonContent = {
+    idle: children,
+    clicked: children,
+    adding: 'Adding...',
+    added: 'Added to bag',
+  };
+
+  const containerClass = `${mobile ? styles.mobileButtonContainer : styles.buttonContainer} ${
+    soldOut || !isSelected ? (mobile ? styles.mobileSoldOutButton : styles.soldOut) : ''
+  } ${styles[color]} ${additionalText ? styles.flex : ''} ${styles[state]}`;
+
+  const handleClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (soldOut || !isSelected || isAnimating) return;
+    setIsAnimating(true);
+    try {
+      await onClick(selected);
+    } finally {
+      setIsAnimating(false);
+    }
+  };
+
+  return (
     <div
-      className={`${styles.mobileButtonContainer} ${
-        soldOut || !isSelected ? styles.mobileSoldOutButton : ''
-      } ${styles[color]} ${additionalText ? styles.flex : ''}`}
-      onClick={() => !soldOut && isSelected && onClick(selected)}
+      className={containerClass}
+      onClick={handleClick}
+      aria-disabled={soldOut || !isSelected || isAnimating}
     >
-      <p>{children}</p>
-      {additionalText && additionalText && <span>{additionalText}</span>}
+      <div className={styles.buttonContent}>
+        <span className={styles.buttonText} data-state={state}>
+          {buttonContent[state]}
+        </span>
+      </div>
+      {additionalText && (
+        <span className={styles.additionalText}>
+          {additionalText}
+        </span>
+      )}
     </div>
-  ) : (
-    <div
-      className={`${styles.buttonContainer} ${
-        soldOut || !isSelected ? styles.soldOut : ''
-      } ${styles[color]} ${additionalText ? styles.flex : ''}`}
-      onClick={() => !soldOut && isSelected && onClick(selected)}
-    >
-      <p>{children}</p>
-      {additionalText && additionalText && <span>{additionalText}</span>}
-    </div>
-  )
-);
+  );
+};
 
 export default Button;

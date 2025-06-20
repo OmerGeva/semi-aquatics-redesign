@@ -8,7 +8,7 @@ export interface ShowPageProps {
 export interface ShowPageChildProps {
   product: ProductT,
   selected: any,
-  setSelected: any
+  setSelected: any,
   handleOnAddToCart: any,
   setNumberToAdd: any,
   numberToAdd: number,
@@ -16,6 +16,8 @@ export interface ShowPageChildProps {
   setSlideNumber: any,
   upcomingItems?: any,
   isNewProduct: boolean,
+  isAddingToCart?: boolean,
+  addToCartSuccess?: boolean,
 }
 
 export interface CountdownTimerProps {

@@ -26,6 +26,8 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
   handleOnAddToCart,
   setSelected,
   isNewProduct,
+  isAddingToCart = false,
+  addToCartSuccess = false,
 }) => {
   const isTimeLeft = useIsTimeLeft();
   const [activeTab, setActiveTab] = useState(0);
@@ -77,6 +79,8 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
               mobile={false}
               additionalText={`$${product.node.variants.edges[0].node.priceV2.amount}0`}
               onClick={() => handleOnAddToCart(selected)}
+              isLoading={isAddingToCart}
+              isSuccess={addToCartSuccess}
             >
               {(!selected || selected.node.availableForSale)
                 ? 'Add to bag'
@@ -88,7 +92,7 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
         </div>
         <div className={styles.paymentAndShipping}>
         <PaymentIcons />
- 
+
        <div className={styles.shippingInfo}>
         <div className={styles.shippingItem}>
             <Globe />
