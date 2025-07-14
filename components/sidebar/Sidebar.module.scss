@@ -16,7 +16,7 @@
     font-size: 1rem;
     text-transform: lowercase;
     color: #D7D6D4;
-    transform: translate(0);
+    transform: translateX(0);
     visibility: visible;
     opacity: 1;
     .closeMenuToggle{
@@ -80,7 +80,7 @@
         z-index: 1;
     }
     }
-    transition: .5s;
+    transition: transform 0.5s;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -124,7 +124,7 @@
 }
 
 .sidebarContainerClosed{
-    left: -35vw;
+    transform: translateX(-35vw);
     // display: none;
 }
 
@@ -132,14 +132,15 @@
 @media (max-width: 768px) {
     .sidebarContainer{
         width: 100%;
-        height: 100%;
+        height: 100dvh;
         position: fixed;
         top: 0;
         left: 0;
         visibility: visible;
         opacity: 1;
-        transform: translate(0);
+        transform: translateX(0);
         font-size: 1rem;
+        transition: transform 0.5s;
 
         .sidebarWrapper{
             padding-left: 0;
@@ -153,7 +154,7 @@
                 z-index: 5;
                 display: flex;
                 flex-direction: column;
-                height: calc(100vh - 50px);
+                height: calc(100dvh - 50px);
             }
             &:before {
                 width: 100vw;
@@ -181,7 +182,7 @@
         }
     }
     .sidebarContainerClosed{
-        left: -100vw;
+        transform: translateX(-100vw);
         // display: none;
     }
 }

@@ -28,6 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <div
       className={`${styles.sidebarContainer} ${!sidebarOpen ? styles.sidebarContainerClosed : ''}`}
+      data-lenis-prevent
       ref={ref}
     >
       <button className={styles.closeMenuToggle} onClick={closeSidebar}>

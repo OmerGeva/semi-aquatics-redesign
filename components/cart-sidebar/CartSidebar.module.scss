@@ -12,7 +12,7 @@ $shadow-elevation:
   top: 0;
   right: 0;
   width: $drawer-width;
-  height: calc(100% - 16px);
+  height: calc(100dvh - 16px);
   background-color: #fff;
   box-shadow: $shadow-elevation;
   transform: translateX(103%);
@@ -245,7 +245,7 @@ $shadow-elevation:
 @media (max-width: 768px) {
   .drawer {
     width: 100vw;
-    height: 100vh; // Full screen height
+    height: 100dvh; // Full screen height
     margin: 0;
     border-radius: 0;
     z-index: 1000; // Ensure it covers the entire screen

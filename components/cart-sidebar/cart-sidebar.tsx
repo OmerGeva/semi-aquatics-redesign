@@ -51,7 +51,7 @@ const CartSidebar: React.FC = () => {
           </button>
         </div>
         <hr />
-        <div className={styles.content}>
+        <div className={styles.content} data-lenis-prevent>
           {loading ? (
             <p>Loading cart...</p>
           ) : items.length === 0 ? (
