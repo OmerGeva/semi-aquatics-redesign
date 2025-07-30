@@ -151,6 +151,10 @@
     justify-content: space-between;
     padding-top: 32px;
 
+    @media (max-width: 768px) {
+      padding-top: 0;
+    }
+
     .shippingItem {
       display: flex;
       align-items: center;
@@ -176,6 +180,14 @@
   .recommendedProductsWrapper {
     margin-top: 1rem;
     padding: 1rem;
+  }
+
+  .disclaimer {
+    margin-top: 32px;
+    padding: 1.5rem;
+    a {
+      text-decoration: underline;
+    }
   }
 
   .flexGrow1 {

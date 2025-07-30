@@ -8,6 +8,9 @@ query getCartQuery($cartId: ID!) {
     id
     createdAt
     updatedAt
+    buyerIdentity {
+      countryCode
+    }
     lines(first: 10) {
       edges {
         node {

@@ -100,7 +100,7 @@
     background: rgba(34, 34, 34, 0.4);
     border-radius: 30px;
     height: 35px;
-    max-width: 150px;
+    max-width: 200px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -148,8 +148,54 @@
 }
 }
 
-// Mobile adjustments
+.signUpNewsletter:hover .scrollingText {
+  animation-play-state: paused;
+}
+
+.announcementBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 28px;
+  background: #fff;
+  color: #000;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+
+  .scrollingText {
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    white-space: nowrap;
+    animation: scroll-left 8s linear infinite;
+    padding-left: 100vw;
+  }
+
+  &.homepageBanner {
+    background: #E1E2E2;
+  }
+}
+
+@media (min-width: 769px) {
+  .announcementBanner {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
+  .navbarContainer {
+    top: 28px; // Push navbar below the announcement banner
+  }
+  .contentContainer {
+    margin-top: 28px; // Same as .announcementBanner height
+  }
+  .rightContainer .signUpNewsletter {
+    display: none;
+  }
   .rightContainer {
     .bagContainer {
         padding: 0.7rem 0.7rem; // Slightly smaller padding
@@ -169,7 +215,7 @@
     }
     .navbarContainer {
         padding: 0 15px;
-        height: 55px;
+        height: 65px;
     }
 
     .logoText {

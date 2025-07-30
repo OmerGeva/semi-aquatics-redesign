@@ -15,10 +15,11 @@ import React, { useState } from 'react';
 // Helpers
 import { variantAvailability } from '../utils';
 import { useIsTimeLeft } from '../../../hooks/use-is-time-left';
-import PaymentIcons from '../../payment-icons/payment-icons.component';
 import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
 import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
+import { INTERNAL_LINKS } from '../../../constants/internal-links';
+import Link from 'next/link';
 
 const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
   product,
@@ -91,7 +92,6 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
           </div>
         </div>
         <div className={styles.paymentAndShipping}>
-        <PaymentIcons />
 
        <div className={styles.shippingInfo}>
         <div className={styles.shippingItem}>
@@ -112,6 +112,15 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
     </div>
     <div className={styles.recommendedProductsWrapper}>
       <RecommendedProducts textAlign='center' textSize='large'/>
+    </div>
+
+    <div className={styles.disclaimer}>
+      <p>
+        * For shipping details, please refer to our <Link href={INTERNAL_LINKS.SHIPPING.url}>Shipping Policy</Link>.
+      </p>
+      <p>
+        ** For every order, Semi Aquatics restores kelp forests in Cascais, Portugal through our partnership with SeaTrees and SeaForester. We're supporting a restoration technique called green gravel, tiny stones seeded with seaweed spores and scattered across the ocean floor to regrow underwater forests.
+      </p>
     </div>
     </>
   );

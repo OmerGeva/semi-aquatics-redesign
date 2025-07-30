@@ -77,7 +77,7 @@
   }
 
   /* Only show the fade-out gradient if tabs are overflowing */
-  .filterTabsWrapper.hasOverflow::after {
+  .filterTabsWrapper.hasOverflow:not(.scrolledToEnd)::after {
     content: "";
     position: absolute;
     top: 0;
@@ -195,7 +195,7 @@
       }
     }
 
-    .filterTabsWrapper::after {
+    .filterTabsWrapper:not(.scrolledToEnd)::after {
       content: "";
       position: absolute;
       top: 0;
@@ -215,9 +215,8 @@
       flex-shrink: 0;
       padding: 8px 12px;
       margin-right: 0;
-      font-size: 0.8rem;
+      font-size: 1rem;
       position: relative;
-      text-transform: uppercase;
 
       &::before {
         // Only used to maintain width consistency when font-weight changes
@@ -290,13 +289,12 @@
 
     .filterTabs {
       // Potentially adjust padding or font size for very small screens if needed
-      padding: 12px 0.75rem;
+      padding: 32px 0.75rem;
       padding-bottom: 4px;
     }
 
     .filterButton {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.6rem;
+      padding: 0.3rem 0.2rem;
     }
 
     .categoryHeader {

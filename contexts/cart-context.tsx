@@ -6,7 +6,7 @@ import { getCartCounts } from '../utils/cartHelper';
 import { useCartId } from '../hooks/use-cart-id';
 
 import { useMutation } from '@apollo/client';
-import { cartLinesUpdate } from '../services/queries/mutations';
+import { cartLinesUpdate, cartBuyerIdentityUpdate } from '../services/queries/mutations';
 
 interface CartContextType {
   isCartOpen: boolean;
@@ -27,6 +27,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [updateCartLineItems] = useMutation(cartLinesUpdate);
+  const [updateBuyerIdentity] = useMutation(cartBuyerIdentityUpdate);
   const { cartId } = useCartId();
 
   const {
@@ -41,6 +42,29 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { data: checkoutData } = useQuery(getCheckoutUrl(cartId!), {
     skip: !cartId,
   });
+
+  // Check if buyer identity needs to be updated to US
+  const buyerIdentity = cartData?.cart?.buyerIdentity?.countryCode;
+  const needsBuyerIdentityUpdate = buyerIdentity && buyerIdentity !== 'US';
+
+  // Update buyer identity to US if needed
+  const updateBuyerIdentityToUS = useCallback(async () => {
+    if (needsBuyerIdentityUpdate && cartId) {
+      try {
+        await updateBuyerIdentity({
+          variables: { cartId }
+        });
+        refetch(); // Refetch cart data to get updated prices
+      } catch (error) {
+        console.error('Error updating buyer identity:', error);
+      }
+    }
+  }, [needsBuyerIdentityUpdate, cartId, updateBuyerIdentity, refetch]);
+
+  // Update buyer identity when cart data changes
+  React.useEffect(() => {
+    updateBuyerIdentityToUS();
+  }, [updateBuyerIdentityToUS]);
 
   const cartCounts = useMemo(() => {
     if (!cartData || !cartData.cart) return {};

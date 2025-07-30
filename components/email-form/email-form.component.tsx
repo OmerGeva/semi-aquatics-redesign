@@ -63,7 +63,7 @@ const EmailForm: React.FC<EmailFormProps> = ({
           <div className={`${styles.submitButton} ${buttonClassName || ''}`} onClick={handleSubmit}>Subscribe</div>
         </form>
       </div>
-    <div className={`${styles.messageContainer} ${messageContainerClassName || ''}`}>
+    <div className={`${styles.messageContainer} ${messageContainerClassName || ''} ${errorMessage.length > 0 ? styles.hasMessage : ''}`}>
       {
         errorMessage.length > 0 &&
           <p className={styles.errorMessage}>{errorMessage}</p>

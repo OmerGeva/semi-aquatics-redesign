@@ -1,6 +1,7 @@
 import styles from './DropPage.module.scss';
 import { useSelector } from 'react-redux';
 import { useEffect, useMemo, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { useNextDrop } from '../../contexts/drop-context';
 import LoadingState from './loading-state/loading-state.component';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
@@ -43,13 +44,31 @@ interface DropPageProps {
 
 const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password }) => {
   const isMobile = useIsMobile();
+  const router = useRouter();
   const { products } = dropItems;
   const { loading, dropData } = useNextDrop();
   const [isInFuture, setIsInFuture] = useState<boolean>(false);
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
-  const [selectedType, setSelectedType] = useState<ProductType>('all');
+  const [selectedType, setSelectedType] = useState<ProductType>(() => {
+    // Get the tab from URL parameter, default to 'all' if not valid
+    const tabFromUrl = router.query.tab as string;
+    return Object.keys(PRODUCT_TYPE_LABELS).includes(tabFromUrl) ? tabFromUrl as ProductType : 'all';
+  });
   const [hasOverflow, setHasOverflow] = useState<boolean>(false);
+  const [isScrolledToEnd, setIsScrolledToEnd] = useState<boolean>(false);
   const filterTabsRef = useRef<HTMLDivElement>(null);
+
+  // Update URL when tab changes
+  const updateSelectedType = (newType: ProductType) => {
+    setSelectedType(newType);
+    
+    // Update URL without page reload
+    const newQuery = { ...router.query, tab: newType };
+    router.push({
+      pathname: router.pathname,
+      query: newQuery
+    }, undefined, { shallow: true });
+  };
 
   const dropTitle = useMemo(() => {
     return dropData?.title || 'Latest Drop';
@@ -119,6 +138,21 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
     }
   };
 
+  // Handle scroll events to detect when scrolled to the end
+  const handleScroll = () => {
+    const container = filterTabsRef.current;
+    if (container) {
+      const scrollLeft = container.scrollLeft;
+      const clientWidth = container.clientWidth;
+      const scrollWidth = container.scrollWidth;
+      // Use a more lenient threshold for mobile (5px instead of 1px)
+      const threshold = isMobile ? 5 : 1;
+      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - threshold;
+      
+      setIsScrolledToEnd(isAtEnd);
+    }
+  };
+
   // Check on initial render and when window resizes
   useEffect(() => {
     // Use timeout to ensure DOM is fully rendered before checking
@@ -134,10 +168,35 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
     };
   }, [filteredProducts]); // Re-check when products change as it might affect tabs
 
+  // Add scroll listener to filter tabs
+  useEffect(() => {
+    const container = filterTabsRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      
+      // Test the scroll detection immediately
+      setTimeout(() => {
+        handleScroll();
+      }, 1000);
+      
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
   // Run check on component mount and after state changes
   useEffect(() => {
     checkForOverflow();
   }, [selectedType, allProducts.length]);
+
+  // Handle URL parameter changes
+  useEffect(() => {
+    const tabFromUrl = router.query.tab as string;
+    if (tabFromUrl && Object.keys(PRODUCT_TYPE_LABELS).includes(tabFromUrl)) {
+      setSelectedType(tabFromUrl as ProductType);
+    }
+  }, [router.query.tab]);
 
   return (
     <div className={`${styles.dropPageContainer} ${isDropLocked ? styles.lockedDropContainer : ''}`}>
@@ -153,13 +212,13 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
 
       {!loading && !isDropLocked && (
         <div className={styles.productsSection}>
-          <div className={`${styles.filterTabsWrapper} ${hasOverflow ? styles.hasOverflow : ''}`}>
+          <div className={`${styles.filterTabsWrapper} ${hasOverflow ? styles.hasOverflow : ''} ${isScrolledToEnd ? styles.scrolledToEnd : ''}`}>
             <div className={styles.filterTabs} ref={filterTabsRef}>
               {Object.entries(PRODUCT_TYPE_LABELS).map(([type, label], index) => (
                 <button
                   key={type}
                   className={`${styles.filterButton} ${selectedType === type ? styles.active : ''}`}
-                  onClick={() => setSelectedType(type as ProductType)}
+                  onClick={() => updateSelectedType(type as ProductType)}
                   data-text={label}
                 >
                   {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
@@ -180,10 +239,10 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
                 filteredProducts.map((product: any) => (
                   <ProductPreview
                     key={product.node.id}
-                    image={product.node.images.edges[0].node.transformedSrc}
+                    image={product.node.images.edges[0] ? product.node.images.edges[0].node.transformedSrc : ''}
                     title={product.node.title}
                     isSoldOut={!product.node.availableForSale}
-                    price={product.node.variants.edges[0].node.priceV2.amount}
+                    price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}
                     id={product.node.id}
                     isArchive={false}
                   />

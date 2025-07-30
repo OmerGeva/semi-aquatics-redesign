@@ -36,6 +36,9 @@
     align-items: center;
     justify-content: left;
     overflow: hidden;
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
   }
 
   // Button text with animation

@@ -4,7 +4,8 @@ import { IoClose } from 'react-icons/io5';
 import { FiPlus } from "react-icons/fi"
 import { FiMinus } from "react-icons/fi";
 import RecommendedProducts from './recommended-products/recommended-products.component';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import PaymentIcons from '../payment-icons/payment-icons.component';
 
 const CartSidebar: React.FC = () => {
   const {
@@ -31,6 +32,14 @@ const CartSidebar: React.FC = () => {
   const changeItemCount = useCallback((lineItemId: string, quantity: number) => {
       setCartItemCount(lineItemId, quantity);
     }, [setCartItemCount]);
+
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isCartOpen]);
 
   return (
     <>
@@ -62,7 +71,7 @@ const CartSidebar: React.FC = () => {
                 <div className={styles.lineItem} key={li.node.id}>
                   <div className={styles.imageContainer}>
                     <img
-                      src={li.node.merchandise.image.transformedSrc}
+                      src={li.node.merchandise.image?.transformedSrc || ''}
                       alt={li.node.merchandise.product.title}
                       />
                     </div>
@@ -117,6 +126,7 @@ const CartSidebar: React.FC = () => {
               {items.length === 0 ? 'Cart is empty' : isCheckingOut ? 'Processing...' : 'Proceed to checkout'}
             </div>
           </a>
+          <PaymentIcons />
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import styles from './ShowPageMobile.module.scss';
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 // Types
 import { ShowPageChildProps } from '../../../interfaces/page_interface';
@@ -21,6 +21,8 @@ import { useIsTimeLeft } from '../../../hooks/use-is-time-left';
 import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
 import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
+import Link from 'next/link';
+import { INTERNAL_LINKS } from '../../../constants/internal-links';
 
 const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   product,
@@ -34,8 +36,37 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   addToCartSuccess = false
 }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isTransitioningRef = useRef(false);
+  const lastSlideIndexRef = useRef(slideNumber);
 
   const isTimeLeft = useIsTimeLeft();
+  
+  // More robust slide handler to prevent rapid state updates
+  const handleSlideChange = useCallback((index: number) => {
+    // Don't update if we're already transitioning or if it's the same slide
+    if (isTransitioningRef.current || index === lastSlideIndexRef.current) {
+      return;
+    }
+
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Set transitioning flag
+    isTransitioningRef.current = true;
+    lastSlideIndexRef.current = index;
+    
+    timeoutRef.current = setTimeout(() => {
+      setSlideNumber(index);
+      // Allow transitions again after a longer delay
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+      }, 200);
+    }, 100); // Increased debounce time
+  }, [setSlideNumber]);
+
   const slides = product.node.images.edges.map((image: any) =>
     (<div key={image.node.altText} style={{textAlign: 'center', height: '100%'}}>
         <img src={image.node.transformedSrc} alt={image.node.altText} />
@@ -43,14 +74,33 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     )
   )
 
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      isTransitioningRef.current = false;
+    };
+  }, []);
+
+  // Update lastSlideIndexRef when slideNumber changes from parent
+  React.useEffect(() => {
+    lastSlideIndexRef.current = slideNumber;
+  }, [slideNumber]);
+
   return(
     <div className={styles.showPageMobile}>
       <div className={`${styles.imageContainer} ${isNewProduct ? '' : styles.imageContainerLarge}`}>
         <div className={styles.productCarousel}>
           <Carousel
-            slideIndex={slideNumber}
             withoutControls={true}
-            afterSlide={(index: any) => setSlideNumber(index)}
+            afterSlide={(index: any) => handleSlideChange(index)}
+            speed={300}
+            disableEdgeSwiping={false}
+            enableKeyboardControls={false}
+            pauseOnHover={false}
+            wrapAround={false}
           >
             {slides}
           </Carousel>
@@ -100,7 +150,6 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
                   "Sold Out"
               }
             </Button>
-
         </div>
 
         <div className={styles.shippingInfo}>
@@ -121,6 +170,14 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     </div>
     <div className={styles.recommendedProductsWrapper}>
       <RecommendedProducts textAlign='center' itemCount={3}/>
+    </div>
+    <div className={styles.disclaimer}>
+      <p>
+        * For shipping details, please refer to our <Link href={INTERNAL_LINKS.SHIPPING.url}>Shipping Policy</Link>.
+      </p>
+      <p>
+        ** For every order, Semi Aquatics restores kelp forests in Cascais, Portugal through our partnership with SeaTrees and SeaForester. We're supporting a restoration technique called green gravel, tiny stones seeded with seaweed spores and scattered across the ocean floor to regrow underwater forests.
+      </p>
     </div>
     </div >
   )

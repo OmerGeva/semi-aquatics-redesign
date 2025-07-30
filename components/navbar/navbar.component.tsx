@@ -16,8 +16,6 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSidebarOpen }) => {
-    // Wrap the main return in a React.Fragment or <> to allow multiple top-level elements if NewsletterModal is added outside navbarContainer
-    // For this example, I'll assume NewsletterModal can be a sibling to navbarContainer within a fragment.
     const router = useRouter();
     const { openCart } = useCart();
     const { cartItemCount } = useCart();
@@ -28,6 +26,13 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
 
     return (
     <>
+      {isMobile && (
+        <div className={`${styles.announcementBanner} ${router.pathname === '/' ? styles.homepageBanner : ''}`}>
+          <div className={styles.scrollingText}>
+            SIGN UP FOR 10% OFF YOUR FIRST ORDER!&nbsp;&nbsp;&nbsp;SIGN UP FOR 10% OFF YOUR FIRST ORDER!&nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+      )}
       <div className={styles.navbarContainer}>
         {isMobile ? (
           <div className={styles.navLink} onClick={() => setSidebarOpen(true)}>

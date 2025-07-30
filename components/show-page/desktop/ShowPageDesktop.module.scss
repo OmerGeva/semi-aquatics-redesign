@@ -141,21 +141,10 @@
   .paymentAndShipping {
     margin: 32px 0;
   
-    .paymentIcons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-  
-      svg {
-        width: 60px; // Match the SVG width
-        height: 42px; // Match the SVG height
-      }
-    }
   
     .shippingInfo {
       display: flex;
       justify-content: space-between;
-      padding-top: 32px;
   
       .shippingItem {
         // text-align: center;
@@ -186,6 +175,14 @@
 .recommendedProductsWrapper {
   margin-top: 32px;
   padding: 1.5rem;
+}
+
+.disclaimer {
+  margin-top: 32px;
+  padding: 1.5rem;
+  a {
+    text-decoration: underline;
+  }
 }
 
 @media (max-width: 1024px) {
