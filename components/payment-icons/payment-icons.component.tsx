@@ -14,7 +14,7 @@ const PaymentIcons = () => {
   return (
     <div className={styles.paymentIcons}>
       <img src={'/svgs/payment-icons/Visa.png'} alt="Visa" className={styles.icon} />
-      <img src={'/svgs/payment-icons/MasterCard.png'} alt="MasterCard" className={styles.icon} />
+      <img src={'/svgs/payment-icons/Mastercard.png'} alt="MasterCard" className={styles.icon} />
       <img src={'/svgs/payment-icons/PayPal.png'} alt="PayPal" className={styles.icon} />
       <img src={'/svgs/payment-icons/ApplePay.png'} alt="ApplePay" className={styles.icon} />
       <img src={'/svgs/payment-icons/GooglePay.png'} alt="GooglePay" className={styles.icon} />
