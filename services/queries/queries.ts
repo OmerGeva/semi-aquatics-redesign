@@ -106,7 +106,7 @@ query {
 
 export const GET_DROP_QUERY = gql`
 query {
-  collections(first: 1, reverse: true) {
+  collections(first: 1, query: "id:285501751371") {
       edges {
           node {
           title
