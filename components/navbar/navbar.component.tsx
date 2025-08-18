@@ -7,6 +7,7 @@ import { useIsMobile } from '../../hooks/use-is-mobile';
 import { IoBagSharp } from 'react-icons/io5';
 import React, { useState } from 'react';
 import NewsletterModal from '../newsletter-modal/newsletter-modal.component';
+import WaveToggle from '../wave-toggle/wave-toggle.component';
 
 interface NavbarProps {
   title?: string;
@@ -62,11 +63,14 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
 
         <div className={styles.rightContainer}>
           {isMobile ? null : (
-         <div className={styles.signUpNewsletter} onClick={() => setIsNewsletterModalOpen(true)}>
-            <div className={styles.scrollingText}>
-              SIGN UP FOR OUR NEWSLETTER FOR ALL UPDATES!&nbsp;&nbsp;&nbsp;SIGN UP FOR OUR NEWSLETTER FOR ALL UPDATES!&nbsp;&nbsp;&nbsp;
-            </div>
-         </div>
+            <>
+              <WaveToggle className={styles.waveToggleDesktop} />
+              <div className={styles.signUpNewsletter} onClick={() => setIsNewsletterModalOpen(true)}>
+                <div className={styles.scrollingText}>
+                  SIGN UP FOR OUR NEWSLETTER FOR ALL UPDATES!&nbsp;&nbsp;&nbsp;SIGN UP FOR OUR NEWSLETTER FOR ALL UPDATES!&nbsp;&nbsp;&nbsp;
+                </div>
+              </div>
+            </>
           )}
         <div className={styles.bagContainer} onClick={openCart}>
           {isMobile ? (

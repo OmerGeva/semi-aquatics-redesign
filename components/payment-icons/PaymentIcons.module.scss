@@ -8,7 +8,7 @@
 
   .icon {
     flex: 0 0 auto;
-    height: 42px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,7 +16,7 @@
 
   @media (max-width: 768px) {
     .icon {
-      height: 32px;
+      height: 36px;
     }
   }
 }

@@ -10,6 +10,7 @@ import { useRef } from 'react';
 // Hooks
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import EmailForm from '../email-form/email-form.component';
+import WaveToggle from '../wave-toggle/wave-toggle.component';
 import { HELP_EMAIL_LINK, INSTAGRAM_LINK } from '../../constants/external-links';
 import { links } from './constants';
 import { INTERNAL_LINKS } from '../../constants/internal-links';
@@ -61,6 +62,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
               <p>{INTERNAL_LINKS.PRIVACY_POLICY.text}</p>
             </Link>
             <h6 className="footer-item">© {new Date().getFullYear()} Semi Aquatics</h6>
+            <div className={styles.waveToggleContainer}>
+              <WaveToggle />
+            </div>
           </div>
         </div>
       </div>

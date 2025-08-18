@@ -96,6 +96,16 @@
   gap: 1rem;
   justify-content: flex-end;
 
+  .waveToggleDesktop {
+    height: 35px;
+    background-color: rgba(34, 34, 34, 0.4);
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    &:hover {
+      background-color: rgba(34, 34, 34, 0.6);
+    }
+  }
+
   .signUpNewsletter {
     background: rgba(34, 34, 34, 0.4);
     border-radius: 30px;
