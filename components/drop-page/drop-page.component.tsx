@@ -240,6 +240,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
                   <ProductPreview
                     key={product.node.id}
                     image={product.node.images.edges[0] ? product.node.images.edges[0].node.transformedSrc : ''}
+                    secondaryImage={product.node.images.edges[1] ? product.node.images.edges[1].node.transformedSrc : undefined}
                     title={product.node.title}
                     isSoldOut={!product.node.availableForSale}
                     price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}

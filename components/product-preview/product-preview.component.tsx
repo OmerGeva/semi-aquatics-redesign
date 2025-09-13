@@ -10,6 +10,7 @@ interface ProductPreviewProps {
   isSoldOut: boolean;
   isSmallText?: boolean;
   isArchive: boolean;
+  secondaryImage?: string;
   price?: string;
   isTimeLeft?: boolean;
 }
@@ -19,6 +20,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   title,
   id,
   isSoldOut,
+  secondaryImage,
   isSmallText,
   isArchive,
   price,
@@ -36,8 +38,15 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
             <h3>{isNewProduct && isTimeLeft ? 'COMING SOON' : 'SOLD OUT'}</h3>
           </div>
         )} */}
-        <div className={styles.imageContainer}>
-          <img src={image} alt={title} />
+        <div className={`${styles.imageContainer} ${secondaryImage ? styles.hasSecondary : ''}`}>
+          {secondaryImage ? (
+            <>
+              <img className={styles.primaryImage} src={image} alt={title} />
+              <img className={styles.secondaryImage} src={secondaryImage} alt={`${title} alternate view`} />
+            </>
+          ) : (
+            <img src={image} alt={title} />
+          )}
         </div>
         {title &&
         <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>

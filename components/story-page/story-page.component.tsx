@@ -1,16 +1,19 @@
 import EmailForm from '../email-form/email-form.component';
 import styles from './StoryPage.module.scss';
-import Image from 'next/image';
+// Note: Video file should be placed in `public/` and referenced by path.
 
 const StoryPage: React.FC = () => (
   <div className={styles.storyPageContainer}>
     <div className={styles.storyContent}>
       <div className={styles.imageColumn}>
         <div className={styles.imageWrapper}>
-          <img
-            src="/story-page.jpeg"
-            alt="Semi Aquatics"
-            style={{ objectFit: 'cover' }}
+          <video
+            src="/GODPLEASEWORKGOD.MOV"
+            muted
+            autoPlay
+            loop
+            playsInline
+            poster="/story-page.jpeg"
           />
         </div>
       </div>
