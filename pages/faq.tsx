@@ -34,8 +34,8 @@ export async function getStaticProps(context: { query?: any; store?: any; }) {
         props: {
             questions: questions
         },
+        revalidate: 300,
      };
   }
 
 export default withLayout(Artist);
-

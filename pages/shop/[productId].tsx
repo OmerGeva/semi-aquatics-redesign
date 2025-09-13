@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import client from "../../apollo-client";
 import { useRouter } from 'next/router'
 import withLayout from '../../hocs/withLayout'
@@ -30,22 +30,31 @@ const Product = (props: ProductProps) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getStaticProps: GetStaticProps = async (context: any) => {
+  const productId = context.params.productId;
   const { data } = await client.query({
     query: GET_PRODUCT_BY_PRODUCT_ID,
     variables: {
-      productId: `gid://shopify/Product/${context.params.productId}`
+      productId: `gid://shopify/Product/${productId}`,
     },
+    fetchPolicy: 'no-cache',
   });
-
-
 
   return {
     props: {
-      product: data
+      product: data,
     },
+    revalidate: 300,
   };
-}
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Do not prebuild product pages; generate on first request.
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
 
 
 export default withLayout(Product);

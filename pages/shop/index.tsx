@@ -21,10 +21,12 @@ const Shop = ({ dropItems, mainLineItems, password }: ParamsT) => {
 export async function getStaticProps(context: { query?: any; store?: any; }) {
   const { data } = await client.query({
     query: GET_DROP_QUERY,
+    fetchPolicy: 'no-cache',
   });
 
   const { data: mainLineData } = await client.query({
     query: GET_MAIN_LINE_QUERY,
+    fetchPolicy: 'no-cache',
   });
 
   const dropPassword = (await (new Cms).getNextDropPassword()).password;
@@ -35,6 +37,7 @@ export async function getStaticProps(context: { query?: any; store?: any; }) {
       mainLineItems: mainLineData.collection,
       password: dropPassword
     },
+    revalidate: 300, // seconds
   };
 }
 

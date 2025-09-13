@@ -2,7 +2,8 @@ import Cms from '../../cms';
 import ArtistsPage from '../../components/artists-page/artists-page.component';
 import withLayout from '../../hocs/withLayout';
 import { generateSlug } from '../../utils/generate-slug';
-import { ArtistsT, ArtistT } from '../../types';
+import { ArtistsT } from '../../types';
+import type { GetStaticProps } from 'next';
 
 interface PropsT {
   sidebarArtists: ArtistsT;
@@ -13,7 +14,7 @@ const Artists: React.FC = ({ sidebarArtists }: PropsT) => {
   return <ArtistsPage artists={sidebarArtists} />;
 };
 
-export async function getServerSideProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const cms = new Cms();
 
   const artists: ArtistsT = await cms.getArtists();
@@ -27,6 +28,7 @@ export async function getServerSideProps() {
     props: {
       sidebarArtists: artistsWithSlugs,
     },
+    revalidate: 300,
   };
 }
 

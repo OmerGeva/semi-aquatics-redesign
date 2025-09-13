@@ -69,7 +69,7 @@ export const getCheckoutUrl = (cartId: string) => {
 
 export const GET_MAIN_LINE_QUERY = gql`
 query {
-  collection(id: "gid://shopify/Collection/264837169227") {
+  collection(id: "gid://shopify/Collection/285501653067") {
           title
           id
           products(first: 30) {
