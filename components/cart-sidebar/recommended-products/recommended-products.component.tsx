@@ -74,7 +74,7 @@ const RecommendedProducts: React.FC<PropsT> = ({
             >
             <ProductPreview
               id={product.id}
-              image={product.images.edges[0]?.node.transformedSrc}
+              image={product.images.edges[1]?.node.transformedSrc}
               isSoldOut={true}
               isSmallText={true}
               isArchive={true}

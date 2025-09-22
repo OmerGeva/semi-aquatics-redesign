@@ -5,7 +5,6 @@
   font-size: 13px;
   line-height: 1.4;
   border-top: 1px solid #e0e0e0;
-  margin-top: 40px;
 
   a {
     text-decoration: none;
@@ -37,7 +36,7 @@
 }
 
 .columnHeader {
-  font-weight: 500;
+  // font-weight: 500;
   margin-bottom: 15px;
   font-size: 14px;
 }
@@ -102,8 +101,8 @@
   background: none;
   border: none;
   color: #000;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
+  // font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
   padding: 0;
@@ -182,8 +181,8 @@
 
     h2, h3 {
       margin: 0;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 400;
     }
 
     svg {
@@ -196,7 +195,7 @@
 
   .brandTitle {
     font-size: 24px !important;
-    font-weight: 700 !important;
+    // font-weight: 700 !important;
   }
 
   .mobileSectionContent {

@@ -1,5 +1,6 @@
 .productPreviewContainer {
   width: 100%;
+  // 1037 x 1456
   position: relative;
   cursor: pointer;
 
@@ -27,7 +28,7 @@
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1037 / 1456;
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease-in-out;
@@ -92,7 +93,7 @@
     margin-top: 0;
     font-weight: 400;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     width: auto;
   }
 

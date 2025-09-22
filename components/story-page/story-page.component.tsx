@@ -22,11 +22,11 @@ const StoryPage: React.FC = () => (
         <h1 className={styles.aboutTitle}>About</h1>
 
         <div className={styles.textContainer}>
-          <p>Semi Aquatics is a sustainable design collective crafting future-proof apparel—pieces built to last a lifetime and made to help you embrace your individuality. We are many minds with one purpose: artists, scientists, technologists, and makers flowing together under one current to reimagine what clothing can do for both people and planet.</p>
+          <p>Semi Aquatics is a sustainable design collective crafting future proof apparel, pieces built to last a lifetime and made to help you embrace your individuality. We are many minds with one purpose: artists, scientists, technologists, and makers flowing together under one current to reimagine what clothing can do for both people and planet.</p>
 
-          <p>To spark personal <strong>evolution</strong> and accelerate an Earth-positive future by <strong>evolving</strong> every drop beyond the last—refining materials, processes, and artistry so each garment leaves you, and the world, better than before.</p>
+          <p>To spark personal <strong>evolution</strong> and accelerate an Earth-positive future by <strong>evolving</strong> every drop beyond the last, refining materials, processes, and artistry so each garment leaves you, and the world, better than before.</p>
 
-          <p>Every release is a living experiment: smarter fabrics, cleaner construction, bolder design. We challenge ourselves—and the industry—to keep moving forward, to keep <strong>evolving</strong>.</p>
+          <p>Every release is a living experiment: smarter fabrics, cleaner construction, bolder design. We challenge ourselvesm and the industry, to keep moving forward, to keep <strong>evolving</strong>.</p>
 
           <p>Together, we're rewriting the tide: one original design, one conscious choice, one ripple at a time.</p>
 
