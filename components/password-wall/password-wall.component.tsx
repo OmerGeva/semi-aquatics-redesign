@@ -43,18 +43,18 @@ const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
     <div className={styles.PasswordWallContainer}>
       <div className={styles.emailFormContainerPW}>
         <div className={styles.emailFormContainerPWInner}>
-          <p>Available {formattedDate} at {formattedTime} EST.</p>
+          {/* <p>Available {formattedDate} at {formattedTime} EST.</p> */}
           <p>Join our email list for exclusive discounts and early access codes.</p>
           <EmailForm isSidebar={false} placeholder={'enter email'} />
         </div>
       </div>
+
       <div className={styles.imageContainer}>
-        {
-          images.map((image, index) => (
-            <img key={index} src={image} alt={`product preview images ${index}`}/>
-            ))
-          }
+        {images.map((image, index) => (
+          <img key={index} src={image} alt={`product preview images ${index}`}/>
+        ))}
       </div>
+
       <div className={styles.emailFormContainerPW}>
         <div className={styles.emailFormContainerPWInner}>
           <p>Enter password to continue to drop:</p>

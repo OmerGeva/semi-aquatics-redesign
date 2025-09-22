@@ -200,9 +200,9 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
 
   return (
     <div className={`${styles.dropPageContainer} ${isDropLocked ? styles.lockedDropContainer : ''}`}>
-      <div className={`${styles.dropHeader} ${isDropLocked ? styles.lockerDropHeader : ''}`}>
+      {/* <div className={`${styles.dropHeader} ${isDropLocked ? styles.lockerDropHeader : ''}`}>
         { isInFuture && adjustedDropDateTime && <CountdownTimer dropDateTime={adjustedDropDateTime} setShowCountdown={setIsInFuture}/> }
-      </div>
+      </div> */}
 
       { loading && <LoadingState /> }
 
