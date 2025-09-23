@@ -13,7 +13,6 @@ const StoryPage: React.FC = () => (
             autoPlay
             loop
             playsInline
-            poster="/story-page.jpeg"
           />
         </div>
       </div>
