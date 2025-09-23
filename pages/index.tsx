@@ -4,15 +4,19 @@ import withLayout from "../hocs/withLayout";
 import styles from "../styles/Home.module.scss";
 import { useIsMobile } from '../hooks/use-is-mobile';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const Home: React.FC = ({ }) => {
   const isMobile = useIsMobile();
 
   const router = useRouter();
-  const [video, setVideo] = useState(isMobile ? require('../public/video-mobile.mp4') : require('../public/video-home.mp4'));
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true) }, []);
 
-  useEffect(() => setVideo(isMobile ? require('../public/video-mobile.mp4') : require('../public/video-home.mp4')), [isMobile])
+  const videoSrc = useMemo(() => {
+    if (!mounted) return '';
+    return isMobile ? '/video-mobile.mp4' : '/video-home.mp4';
+  }, [mounted, isMobile]);
 
   const handleClick = () => {
     router.push('/shop');
@@ -21,12 +25,11 @@ const Home: React.FC = ({ }) => {
   return (
     <div className={styles.homeContainer} onClick={handleClick}>
       <div className={styles.videoContainer}>
-        <video autoPlay muted playsInline loop className={styles.mainVideo} key={`${isMobile}`}>
-          <source
-            src={video}
-            type="video/mp4"
-          />
-        </video>
+        {mounted && (
+          <video autoPlay muted playsInline loop className={styles.mainVideo} key={isMobile ? 'mobile' : 'desktop'}>
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        )}
       </div>
     </div>
   );

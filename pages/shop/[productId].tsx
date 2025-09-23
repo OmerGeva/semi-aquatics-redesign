@@ -6,7 +6,7 @@ import ShowPage from "../../components/show-page/show-page.component";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
-import { useIsTimeLeft } from '../../hooks/use-is-time-left';
+// import { useIsTimeLeft } from '../../hooks/use-is-time-left';
 import { ProductT } from '../../types';
 import { GET_PRODUCT_BY_PRODUCT_ID } from '../../services/queries/queries';
 
@@ -16,7 +16,7 @@ type ProductProps = {
 
 const Product = (props: ProductProps) => {
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
-  const isTimeLeft = useIsTimeLeft();
+  const isTimeLeft = false;
   const router = useRouter();
 
   useEffect(() => {

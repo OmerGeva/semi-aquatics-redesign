@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
 import styles from './ProductPreview.module.scss';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+const ARTISTS_ROUTE = '/artists'
 
 interface ProductPreviewProps {
   image: string;
@@ -29,6 +32,8 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   // const isNewProduct = useIsNewProduct(id);
   const isNewProduct = false
   const deconstructedId = id.split('/').splice(-1)[0];
+  const { pathname } = useRouter();
+  const isArtistPage = useMemo(() => pathname.startsWith(ARTISTS_ROUTE), [pathname])
 
   return (
     <div className={styles.productPreviewContainer}>
@@ -45,7 +50,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
               <img className={styles.secondaryImage} src={secondaryImage} alt={`${title} alternate view`} />
             </>
           ) : (
-            <img src={image} alt={title} />
+            <img src={image} className={isArtistPage ? styles.isArtistPage : ''} alt={title} />
           )}
         </div>
         {title &&

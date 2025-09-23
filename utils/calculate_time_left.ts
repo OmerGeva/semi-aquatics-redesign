@@ -39,7 +39,3 @@ export const calculateTimeLeft = (dropDateUTC: Date): TimeLeftObj => {
 
   return timeLeft;
 };
-
-// Example usage
-const dropDate = new Date('2025-03-10T12:00:00Z'); // Example UTC drop date
-console.log(calculateTimeLeft(dropDate));

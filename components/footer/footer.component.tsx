@@ -174,6 +174,7 @@ const Footer: React.FC = () => {
               <li><Link href={INTERNAL_LINKS.FAQ.url}>FAQ</Link></li>
               <li className={styles.divider}></li>
               <li><Link href={INTERNAL_LINKS.PRIVACY_POLICY.url}>Privacy Policy</Link></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); if (typeof window !== 'undefined') { window.dispatchEvent(new Event('consent:manage')) } }}>Manage Cookies</a></li>
             </ul>
           </div>
         </div>

@@ -3,7 +3,7 @@ import styles from './PrivacyPolicyPage.module.scss';
 const PrivacyPolicyPage: React.FC = () => (
   <div className={styles.privacyPolicyContainer}>
     <h1>Privacy Policy</h1>
-    <p><strong>Last Updated:</strong> [Insert Date]</p>
+    <p>Last Updated:[Insert Date]</p>
     <p>
       At Semi Aquatics, we value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and manage your information when you visit our website or interact with our services. By using our website, you agree to the terms of this Privacy Policy.
     </p>
@@ -29,48 +29,48 @@ const PrivacyPolicyPage: React.FC = () => (
     <h3>Analytics and Marketing Data:</h3>
     <ul>
       <li>
-        <strong>Google Analytics:</strong> Tracks website activity and performance. Learn more in their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+        Google Analytics: Tracks website activity and performance. Learn more in their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
       </li>
       <li>
-        <strong>ATTN.TV Script:</strong> Collects data for targeted advertising and tracking. Refer to <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">ATTN.TV’s Privacy Policy</a>.
+        ATTN.TV Script: Collects data for targeted advertising and tracking. Refer to <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">ATTN.TV’s Privacy Policy</a>.
       </li>
     </ul>
 
     <h2>3. How We Use Your Information</h2>
     <ul>
-      <li><strong>Order Fulfillment:</strong> Shopify processes orders, including payment and shipping details.</li>
-      <li><strong>Shopping Cart Management:</strong> A unique cart ID stored in cookies helps manage and identify your shopping cart.</li>
-      <li><strong>Email Marketing:</strong> Subscription data is used for sending updates and promotional material via Omnisend.</li>
-      <li><strong>Website Analytics and Performance:</strong> Google Analytics tracks user interactions to improve the website experience and performance.</li>
-      <li><strong>Advertising and Targeting:</strong> The ATTN.TV script collects data for advertising and retargeting purposes.</li>
+      <li>Order Fulfillment: Shopify processes orders, including payment and shipping details.</li>
+      <li>Shopping Cart Management: A unique cart ID stored in cookies helps manage and identify your shopping cart.</li>
+      <li>Email Marketing: Subscription data is used for sending updates and promotional material via Omnisend.</li>
+      <li>Website Analytics and Performance: Google Analytics tracks user interactions to improve the website experience and performance.</li>
+      <li>Advertising and Targeting: The ATTN.TV script collects data for advertising and retargeting purposes.</li>
     </ul>
 
     <h2>4. Data Storage and Retention</h2>
     <h3>Data Storage Locations:</h3>
     <p>User data is stored and processed by third-party services:</p>
     <ul>
-      <li><strong>Shopify:</strong> Manages transactional data, stored on Shopify’s secure servers. For more details, see their <a href="https://www.shopify.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-      <li><strong>Omnisend:</strong> Stores email subscription data on their secure servers as outlined in their <a href="https://www.omnisend.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-      <li><strong>Google Analytics:</strong> Processes website activity data on Google’s servers. For more information, see their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-      <li><strong>ATTN.TV:</strong> Manages advertising and targeting data as specified in their <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>Shopify: Manages transactional data, stored on Shopify’s secure servers. For more details, see their <a href="https://www.shopify.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>Omnisend: Stores email subscription data on their secure servers as outlined in their <a href="https://www.omnisend.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>Google Analytics: Processes website activity data on Google’s servers. For more information, see their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>ATTN.TV: Manages advertising and targeting data as specified in their <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
     </ul>
     <h3>Data Retention:</h3>
     <ul>
-      <li><strong>Transaction Data:</strong> Retained by Shopify for as long as necessary to fulfill orders and comply with legal obligations (e.g., tax reporting).</li>
-      <li><strong>Shopping Cart Data:</strong> The unique cart ID stored in cookies is retained for [Insert Reasonable Duration, e.g., "up to 30 days"] or until the user clears their cookies.</li>
-      <li><strong>Email Subscription Data:</strong> Retained by Omnisend until the user unsubscribes or requests deletion.</li>
-      <li><strong>Analytics and Advertising Data:</strong> Retention periods are determined by Google Analytics and ATTN.TV. For details, consult their privacy policies.</li>
+      <li>Transaction Data: Retained by Shopify for as long as necessary to fulfill orders and comply with legal obligations (e.g., tax reporting).</li>
+      <li>Shopping Cart Data: The unique cart ID stored in cookies is retained for [Insert Reasonable Duration, e.g., "up to 30 days"] or until the user clears their cookies.</li>
+      <li>Email Subscription Data: Retained by Omnisend until the user unsubscribes or requests deletion.</li>
+      <li>Analytics and Advertising Data: Retention periods are determined by Google Analytics and ATTN.TV. For details, consult their privacy policies.</li>
     </ul>
 
     <h2>5. Your Rights</h2>
     <ul>
       <li>
-        <strong>Opt-Out of Marketing Emails:</strong> You can unsubscribe from marketing emails at any time by clicking the "unsubscribe" link in any email or contacting us directly.
+        Opt-Out of Marketing Emails: You can unsubscribe from marketing emails at any time by clicking the "unsubscribe" link in any email or contacting us directly.
       </li>
       <li>
-        <strong>Access, Correction, or Deletion:</strong> For transactional data managed by Shopify, you can request access, correction, or deletion of your personal data by contacting us at [Insert Contact Information]. We will facilitate your request with Shopify, subject to legal obligations.
+        Access, Correction, or Deletion: For transactional data managed by Shopify, you can request access, correction, or deletion of your personal data by contacting us at [Insert Contact Information]. We will facilitate your request with Shopify, subject to legal obligations.
       </li>
-      <li><strong>Cookies Management:</strong> You can manage and delete cookies through your browser settings.</li>
+      <li>Cookies Management: You can manage and delete cookies through your browser settings.</li>
     </ul>
 
     <h2>6. Policy Updates</h2>
