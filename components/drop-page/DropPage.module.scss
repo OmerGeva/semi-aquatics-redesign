@@ -172,7 +172,7 @@
       top: -20px;
       left: 0;
       right: 0;
-      padding-top: 60px;
+      padding-top: 70px;
       margin-bottom: 0;
       background: white;
       z-index: 3;
@@ -217,6 +217,7 @@
       margin-right: 0;
       font-size: 1rem;
       position: relative;
+      white-space: nowrap;
 
       &::before {
         // Only used to maintain width consistency when font-weight changes
@@ -234,6 +235,23 @@
           height: 2px;
           background-color: #000;
         }
+      }
+    }
+
+    .mobileFilterButton {
+      background: none;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      transition: color 0.2s ease;
+
+      &::before {
+        display: block;
+        content: attr(data-text);
+        font-weight: 500;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
       }
     }
 

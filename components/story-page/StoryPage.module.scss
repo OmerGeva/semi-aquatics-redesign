@@ -5,6 +5,7 @@
   padding-top: 42px; // Adjust to match your navbar height
   background-color: #fff;
   box-sizing: border-box;
+  margin-top: 42px;
 
   margin: 0 auto;
   padding-left: 16px;
@@ -14,28 +15,30 @@
 .storyContent {
   display: flex;
   width: 90%;
+  gap: 32px;
   align-items: center;
   min-height: calc(100vh - 122px);
-  column-gap: 40px;
 
   .imageColumn {
     position: relative;
     min-height: 500px;
-    // Give the media column a consistent desktop width
-    flex: 0 0 clamp(320px, 34vw, 520px);
+    // Constrain media column so it doesn't dominate the layout
+    flex: 0 0 clamp(280px, 28vw, 420px);
+
+    display: flex;
+    align-items: center;
 
     .imageWrapper {
       position: sticky;
+      // Let the media fill the column to avoid extra whitespace
       width: 100%;
-      height: calc(90vh - 80px);
 
-      img,
       video {
-        height: 100%;
         width: 100%;
-        object-fit: cover;
+        height: auto; // keep native aspect ratio
+        max-width: 100%;
+        object-fit: contain; // avoid any cropping when constrained
         display: block;
-        // filter: sepia(10%) contrast(75%) brightness(100%) saturate(90%);
       }
     }
   }
@@ -78,25 +81,6 @@
   }
 }
 
-// Tweak proportions for common laptop widths
-@media screen and (max-width: 1400px) {
-  .storyContent {
-    column-gap: 28px;
-  }
-
-  .storyContent {
-    .imageColumn {
-      flex-basis: clamp(300px, 38vw, 480px);
-    }
-
-    .textColumn {
-      .textContainer {
-        width: 82%;
-      }
-    }
-  }
-}
-
 @media screen and (max-width: 900px) {
   .storyPageContainer {
     padding-top: 0;
@@ -110,19 +94,23 @@
 
     .imageColumn {
       width: 100%;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      // Avoid extra whitespace below the video on mobile
+      min-height: auto;
+      display: flex;
+      align-items: start;
 
       .imageWrapper {
         position: relative;
         top: 0;
         width: 100%;
-        height: 55vh;
+        height: auto;
         padding-right: 0;
 
         img,
         video {
-          width: 100%;
-          object-fit: cover;
+          width: 90%;
+          margin: auto;
           display: block;
         }
       }

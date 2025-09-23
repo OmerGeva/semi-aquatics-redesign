@@ -29,8 +29,8 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
     <>
       {isMobile && (
         <div className={`${styles.announcementBanner} ${router.pathname === '/' ? styles.homepageBanner : ''}`}>
-          <div className={styles.scrollingText}>
-            SIGN UP FOR 10% OFF YOUR FIRST ORDER!&nbsp;&nbsp;&nbsp;SIGN UP FOR 10% OFF YOUR FIRST ORDER!&nbsp;&nbsp;&nbsp;
+            <div className={styles.scrollingText} onClick={() => setIsNewsletterModalOpen(true)}>
+              A new wave of Semi Aquatics surfaces October 6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sign up for our email list and unlock 15% off your first order.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </div>
       )}
@@ -67,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
               <WaveToggle className={styles.waveToggleDesktop} />
               <div className={styles.signUpNewsletter} onClick={() => setIsNewsletterModalOpen(true)}>
                 <div className={styles.scrollingText}>
-                  SIGN UP FOR OUR NEWSLETTER FOR ALL UPDATES!&nbsp;&nbsp;&nbsp;SIGN UP FOR OUR NEWSLETTER FOR ALL UPDATES!&nbsp;&nbsp;&nbsp;
+                    A new wave of Semi Aquatics surfaces October 6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sign up for our email list and unlock 15% off your first order.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
               </div>
             </>

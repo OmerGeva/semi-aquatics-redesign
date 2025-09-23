@@ -31,9 +31,9 @@ const PRODUCT_TYPE_DESCRIPTIONS: Record<ProductType, string> = {
   all: 'Skip the sorting - just plunge in. This is every piece we\'ve reeled in at Semi Aquatics, all in one place.',
   drop: 'Ride the latest wave - our limited collection, exclusive to this release and gone once it drifts away.',
   mainline: 'Catch our core classics - timeless pieces that surface again and again whenever they swim off the shelf.',
-  tshirt: 'Essential cuts with premium fabrics - our tees blend comfort with distinctive Semi Aquatics graphics.',
-  hoodie: 'Elevated essentials crafted from organic cotton - our hoodies deliver warmth with understated style.',
-  crewneck: 'Classic silhouettes with premium details - our crewnecks balance comfort with refined design.'
+  tshirt: 'Relaxed fit tees with a slight crop, cut from sturdy-soft organic cotton.',
+  hoodie: 'Relaxed-fit hoodies constructed from heavyweight 500gsm organic cotton fleece.',
+  crewneck: 'Relaxed-fit crewnecks constructed from heavyweight 500gsm organic cotton fleece.'
 };
 
 interface DropPageProps {
@@ -61,7 +61,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
   // Update URL when tab changes
   const updateSelectedType = (newType: ProductType) => {
     setSelectedType(newType);
-    
+
     // Update URL without page reload
     const newQuery = { ...router.query, tab: newType };
     router.push({
@@ -148,7 +148,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
       // Use a more lenient threshold for mobile (5px instead of 1px)
       const threshold = isMobile ? 5 : 1;
       const isAtEnd = scrollLeft + clientWidth >= scrollWidth - threshold;
-      
+
       setIsScrolledToEnd(isAtEnd);
     }
   };
@@ -173,12 +173,12 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
     const container = filterTabsRef.current;
     if (container) {
       container.addEventListener('scroll', handleScroll);
-      
+
       // Test the scroll detection immediately
       setTimeout(() => {
         handleScroll();
       }, 1000);
-      
+
       return () => {
         container.removeEventListener('scroll', handleScroll);
       };
@@ -207,7 +207,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
       { loading && <LoadingState /> }
 
       {!loading && isDropLocked &&
-        <PasswordWall images={products.edges.slice(0,5).map((product: any) => product.node.images.edges[0].node.transformedSrc)} password={password} />
+        <PasswordWall images={allProducts.map((product: any) => product.node.images.edges[1].node.transformedSrc)} password={password} />
       }
 
       {!loading && !isDropLocked && (
@@ -215,14 +215,25 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
           <div className={`${styles.filterTabsWrapper} ${hasOverflow ? styles.hasOverflow : ''} ${isScrolledToEnd ? styles.scrolledToEnd : ''}`}>
             <div className={styles.filterTabs} ref={filterTabsRef}>
               {Object.entries(PRODUCT_TYPE_LABELS).map(([type, label], index) => (
-                <button
-                  key={type}
-                  className={`${styles.filterButton} ${selectedType === type ? styles.active : ''}`}
-                  onClick={() => updateSelectedType(type as ProductType)}
+                 isMobile ?
+                  <button
+                  key = { type }
+                  className = {`${styles.filterButton} ${styles.mobileFilterButton} ${selectedType === type ? styles.active : ''}`}
+              onClick={() => updateSelectedType(type as ProductType)}
                   data-text={label}
                 >
-                  {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
-                </button>
+              {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
+            </button>
+                :
+                  <button
+                    key={type}
+                    className={`${styles.filterButton} ${selectedType === type ? styles.active : ''}`}
+                    onClick={() => updateSelectedType(type as ProductType)}
+                  data-text={label}
+                  >
+                    {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
+                  </button>
+
               ))}
             </div>
           </div>

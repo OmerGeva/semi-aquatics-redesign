@@ -1,4 +1,4 @@
-import { Dispatch, useMemo, useState } from 'react';
+import { Dispatch, useMemo, useState, useEffect, useRef } from 'react';
 import styles from './PasswordWall.module.scss'
 import { useDispatch } from 'react-redux';
 import { setPasswordGuessed } from '../../redux/user/user.actions';
@@ -14,6 +14,8 @@ interface PasswordWallProps {
 const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [emptySlots, setEmptySlots] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
   const { dropData } = useNextDrop();
@@ -27,6 +29,17 @@ const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
     const date = new Date(dropData?.dateTime || '');
     return date.toLocaleTimeString();
   }, [dropData]);
+
+  useEffect(() => {
+    // Hardcoded: 8 columns on desktop, 4 on mobile
+    const isMobile = window.innerWidth <= 768;
+    const columns = isMobile ? 4 : 8;
+
+    const remainder = images.length % columns;
+    const slotsNeeded = remainder === 0 ? 0 : columns - remainder;
+
+    setEmptySlots(slotsNeeded);
+  }, [images.length]);
 
   const handlePasswordGuess = (e: any) => {
     if (currentGuess === password) {
@@ -49,9 +62,12 @@ const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
         </div>
       </div>
 
-      <div className={styles.imageContainer}>
+      <div className={styles.imageContainer} ref={containerRef}>
         {images.map((image, index) => (
           <img key={index} src={image} alt={`product preview images ${index}`}/>
+        ))}
+        {Array.from({ length: emptySlots }, (_, index) => (
+          <div key={`empty-${index}`} className={styles.emptySlot}></div>
         ))}
       </div>
 
