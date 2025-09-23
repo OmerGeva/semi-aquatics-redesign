@@ -3,7 +3,8 @@ import styles from './PrivacyPolicyPage.module.scss';
 const PrivacyPolicyPage: React.FC = () => (
   <div className={styles.privacyPolicyContainer}>
     <h1>Privacy Policy</h1>
-    <p>Last Updated:[Insert Date]</p>
+    <p>Last Updated: September 23rd, 2025.</p>
+
     <p>
       At Semi Aquatics, we value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and manage your information when you visit our website or interact with our services. By using our website, you agree to the terms of this Privacy Policy.
     </p>
@@ -57,7 +58,7 @@ const PrivacyPolicyPage: React.FC = () => (
     <h3>Data Retention:</h3>
     <ul>
       <li>Transaction Data: Retained by Shopify for as long as necessary to fulfill orders and comply with legal obligations (e.g., tax reporting).</li>
-      <li>Shopping Cart Data: The unique cart ID stored in cookies is retained for [Insert Reasonable Duration, e.g., "up to 30 days"] or until the user clears their cookies.</li>
+      <li>Shopping Cart Data: The unique cart ID stored in cookies until the user clears their cookies.</li>
       <li>Email Subscription Data: Retained by Omnisend until the user unsubscribes or requests deletion.</li>
       <li>Analytics and Advertising Data: Retention periods are determined by Google Analytics and ATTN.TV. For details, consult their privacy policies.</li>
     </ul>
@@ -68,9 +69,11 @@ const PrivacyPolicyPage: React.FC = () => (
         Opt-Out of Marketing Emails: You can unsubscribe from marketing emails at any time by clicking the "unsubscribe" link in any email or contacting us directly.
       </li>
       <li>
-        Access, Correction, or Deletion: For transactional data managed by Shopify, you can request access, correction, or deletion of your personal data by contacting us at [Insert Contact Information]. We will facilitate your request with Shopify, subject to legal obligations.
+        Access, Correction, or Deletion: For transactional data managed by Shopify, you can request access, correction, or deletion of your personal data by contacting us at <a href="mailto:info@semiaquatics.com">info@semiaquatics.com</a>. We will facilitate your request with Shopify, subject to legal obligations.
       </li>
-      <li>Cookies Management: You can manage and delete cookies through your browser settings.</li>
+      <li>
+        Cookies Management: You can manage and delete cookies through your browser settings. To change your preferences for this site now, <a href="#" onClick={(e) => { e.preventDefault(); if (typeof window !== 'undefined') { window.dispatchEvent(new Event('consent:manage')) } }}>open Cookie Settings</a>.
+      </li>
     </ul>
 
     <h2>6. Policy Updates</h2>

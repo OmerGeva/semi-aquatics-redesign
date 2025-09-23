@@ -2,40 +2,55 @@ import FaqPage from '../components/faq-page/faq-page.component';
 import withLayout from '../hocs/withLayout';
 
 // @ts-ignore
-const Artist: React.FC = ({questions}) => (
-  <FaqPage questions={questions} />
-)
+const Artist: React.FC = ({ sections }) => (
+  <FaqPage sections={sections} />
+);
 
-export async function getStaticProps(context: { query?: any; store?: any; }) {
-    const questions = [
+export async function getStaticProps() {
+  const sections = [
+    {
+      title: 'Shipping',
+      items: [
         {
           question: 'Do You Ship Internationally?',
-          answer: 'Yes, we ship to almost every country'
+          answer: 'Yes, we ship to most countries worldwide.'
         },
         {
           question: 'How Long Does Shipping Take?',
-          answer: 'All orders will shipped within 1-2 days!'
-        },
+          answer: 'Orders typically ship within 1–2 business days. Transit time varies by destination.'
+        }
+      ]
+    },
+    {
+      title: 'Orders & Returns',
+      items: [
         {
           question: 'What’s the Return Policy?',
-          answer: 'While we are sure you will be happy with our garments, if for some reason you wish to return a product, we are happy to exchange the item or supply store credit within 30 days after purchase. The order must be sent back in the condition it was received, completely unworn with the original tags.'
-        },
+          answer:
+            'We accept exchanges or store credit within 30 days of purchase. Items must be unworn, in original condition, with tags attached.'
+        }
+      ]
+    },
+    {
+      title: 'Product',
+      items: [
         {
           question: 'Are The Garments Unisex?',
-          answer: 'Yes! Gendered clothing is an evolutionary failure of humanity. Anyone can wear anything.'
+          answer: 'Yes. Wear what you like.'
         },
         {
-          question: 'How Should I Wash My Semi Aquatic\'s Clothing?',
-          answer: 'We recommended washing cold with the garment inside out. Hang dry. Drying machines are an evolutionary failure of humanity. Not only are dryers bad for the environment, but they also reduce the lifespan of your garments.          '
+          question: "How Should I Wash My Semi Aquatic's Clothing?",
+          answer:
+            'Wash cold, inside out. Hang dry. Avoid dryers to extend garment life and reduce environmental impact.'
         }
-    ]
+      ]
+    }
+  ];
 
-    return {
-        props: {
-            questions: questions
-        },
-        revalidate: 300,
-     };
-  }
+  return {
+    props: { sections },
+    revalidate: 300
+  };
+}
 
 export default withLayout(Artist);
