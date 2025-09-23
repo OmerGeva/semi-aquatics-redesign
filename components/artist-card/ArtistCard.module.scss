@@ -36,7 +36,7 @@
   }
   .artworkContainer{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: wrap;
     .linkImageText{
       cursor: pointer;

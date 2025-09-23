@@ -1,25 +1,42 @@
-import styles from './ArtistsPage.module.scss'
-import ArtistCard from '../artist-card/artist-card.component'
+import styles from './ArtistsPage.module.scss';
+import ArtistSidebar from '../artist-sidebar/artist-sidebar.component';
+import ArtistDetails from '../artist-details/artist-details.component';
+import { useState } from 'react';
+import { ArtistsT, ArtistT } from '../../types';
 
 interface ArtistsPageProps {
-  artists: any[]
+  artists: ArtistsT;
+  selectedArtist?: ArtistT;
 }
 
-const ArtistsPage:React.FC <ArtistsPageProps> = ({ artists }) => {
+const ArtistsPage: React.FC<ArtistsPageProps> = ({ artists, selectedArtist }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const artistToShow = selectedArtist || artists[0];
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prevState) => !prevState);
+  };
+
   return (
     <div className={styles.artistsPageContainer}>
-    <h1>Our Artists</h1>
-    <div className={styles.topBorder}></div>
-    {
-      artists.map(artist =>
-        <div >
-        <ArtistCard artistName={artist.name} artworks={artist.artworks} key={artist.name} />
-        </div>
-      )
-    }
-    </div>
-  )
-};
+      <div
+        className={styles.mobileToggleButton}
+        onClick={toggleSidebar}
+      >
+        {isSidebarOpen ? 'Close' : 'Choose Artist'}
+      </div>
 
+      <div
+        className={`${styles.sidebarContainer} ${
+          isSidebarOpen ? styles.open : ''
+        }`}
+      >
+        <ArtistSidebar artists={artists} setIsSidebarOpen={setIsSidebarOpen} />
+      </div>
+
+      <ArtistDetails artist={artistToShow} />
+    </div>
+  );
+};
 
 export default ArtistsPage;

@@ -1,30 +1,33 @@
 .sizePickerContainer {
-    display: flex;
-    justify-content: space-between;
-    .size{
-        padding: 18px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 700;
+    display: grid;
+    gap: 10px;
+    width: 100%;
+
+    .size {
+      font-size: .6875rem;
+      font-weight: 400;
+      height: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 20px;
+      border: .0625rem solid #333;
+      cursor: pointer;
     }
-    .sizeSelected{
-        padding: 18px;
-        border-radius: 4px;
-        font-size: 16px;
-        color: black;
-        cursor: pointer;
-        font-weight: 700;
+  
+    .sizeSelected {
+      color: white;
+      background-color: #333;
     }
-    .sizeNotPicked{
-        padding: 18px;
-        border-radius: 4px;
-        font-size: 16px;
-        border-radius: 4px;
-        font-weight: 700;
-        opacity: 40%;
+  
+    .sizeNotPicked {
+      opacity: 0.8;
     }
-    .unavailableItem{
-        color: gray;
+  
+    .unavailableItem {
+      color: gray;
+      border: 1px solid gray;
+      opacity: 0.4;
     }
-}
+  }
+  

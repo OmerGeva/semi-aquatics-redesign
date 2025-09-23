@@ -1,7 +1,10 @@
-export const getCartCounts = (cart: any) => {
-  if (!cart || !cart.data || !cart.data.cart || !cart.data.cart.lines) return {};
+import { Cart } from "../types/cart";
+
+export const getCartCounts = (cart: Cart) => {
+  if (!cart.lines) return {};
+
   const res: any = {}
-  cart.data.cart.lines.edges.forEach((li: any) => {
+  cart.lines.edges.forEach((li: any) => {
     res[li.node.merchandise.id] = li.node.quantity
   });
 
@@ -18,13 +21,8 @@ export const merchandiseIdToLineItemId = (cart: any, merchandiseId: string) => {
 export const determineLineItemsDifferent = (cart: any, res: any): boolean => {
   const modifiedCartObj: any = {}
   const modifiedResObj: any = {}
-  console.log(cart.data.cart.lines.edges)
   cart.data.cart.lines.edges.forEach((li: any) =>
-  modifiedCartObj[li.node.merchandise.id] = li.node.quantity
+    modifiedCartObj[li.node.merchandise.id] = li.node.quantity
   )
-  console.log('cart obj')
-  console.log(modifiedCartObj)
-  console.log('res')
-  console.log(res.client)
   return false;
 }

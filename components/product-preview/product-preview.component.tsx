@@ -1,36 +1,65 @@
+import React, { useMemo } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
-import styles from './ProductPreview.module.scss'
-import Link from 'next/link'
+import styles from './ProductPreview.module.scss';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+const ARTISTS_ROUTE = '/artists'
 
 interface ProductPreviewProps {
-    image: string,
-    title: string,
-    id: string,
-    isSoldOut: boolean,
-    isArchive: boolean | undefined,
-    isTimeLeft?: boolean
+  image: string;
+  title?: string;
+  id: string;
+  isSoldOut: boolean;
+  isSmallText?: boolean;
+  isArchive: boolean;
+  secondaryImage?: string;
+  price?: string;
+  isTimeLeft?: boolean;
 }
 
-const ProductPreview:React.FC<ProductPreviewProps> = ({image, title, id, isArchive, isSoldOut, isTimeLeft }) => {
-  const isNewProduct = useIsNewProduct(id)
-  const deconstructedId = id.split('/').splice(-1)[0]
+const ProductPreview: React.FC<ProductPreviewProps> = ({
+  image,
+  title,
+  id,
+  isSoldOut,
+  secondaryImage,
+  isSmallText,
+  isArchive,
+  price,
+  isTimeLeft,
+}) => {
+  // const isNewProduct = useIsNewProduct(id);
+  const isNewProduct = false
+  const deconstructedId = id.split('/').splice(-1)[0];
+  const { pathname } = useRouter();
+  const isArtistPage = useMemo(() => pathname.startsWith(ARTISTS_ROUTE), [pathname])
 
   return (
     <div className={styles.productPreviewContainer}>
-      <Link href={`drop/${deconstructedId}`}>
-        <div>
-          {
-            isSoldOut &&
-            <div className={styles.soldOut}>
-                  <h3>{ isNewProduct && isTimeLeft ? 'COMING SOON' : 'SOLD OUT'}</h3>
-              </div>
-          }
-          <img src={image} alt={title}/>
-          {
-            !isArchive &&
-            <h3 className={styles.cardTitle}>{title}</h3>
-          }
+      <Link href={`/shop/${deconstructedId}`}>
+        {/* {isSoldOut && !isArchive && (
+          <div className={styles.soldOut}>
+            <h3>{isNewProduct && isTimeLeft ? 'COMING SOON' : 'SOLD OUT'}</h3>
+          </div>
+        )} */}
+        <div className={`${styles.imageContainer} ${secondaryImage ? styles.hasSecondary : ''}`}>
+          {secondaryImage ? (
+            <>
+              <img className={styles.primaryImage} src={image} alt={title} />
+              <img className={styles.secondaryImage} src={secondaryImage} alt={`${title} alternate view`} />
+            </>
+          ) : (
+            <img src={image} className={isArtistPage ? styles.isArtistPage : ''} alt={title} />
+          )}
         </div>
+        {title &&
+        <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>
+          <h3 className={styles.cardDetail}>{title}</h3>
+          { !isArchive && price && parseInt(price) > 0 &&
+           <h3 className={styles.cardDetail}>${price}0</h3> }
+        </div>
+        }
       </Link>
     </div>
   );

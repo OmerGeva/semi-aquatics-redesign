@@ -14,9 +14,9 @@ const FaqQuestion: React.FC <FaqQuestionProps> = ({ question, answer }) => {
 
     return (
     <div className={`${styles.questionContainer} ${isOpen ? styles.open : '' }`}>
-        <div className={styles.questionAndIcon}  onClick={() => setIsOpen(!isOpen)}>
+        <div className={styles.questionAndIcon} onClick={() => setIsOpen(!isOpen)}>
             <h2 className={styles.question}>{question}</h2>
-            <div className={styles.icon}>
+            <div className={styles.icon} aria-hidden>
                { isOpen ? <AiOutlineMinus /> : <AiOutlinePlus /> }
             </div>
         </div>

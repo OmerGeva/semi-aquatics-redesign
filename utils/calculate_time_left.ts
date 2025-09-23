@@ -1,28 +1,39 @@
-import { TimeLeftObj } from '../interfaces/page_interface';
+interface TimeLeftObj {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  total: number;
+}
 
-const DROP_DATE = new Date("2023/12/18 18:00:00 EST");
-
-export const calculateTimeLeft = (): TimeLeftObj => {
-  const startDate = new Date();
-
-  const startDateInUTC = new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), startDate.getUTCDate(), startDate.getUTCHours(), startDate.getUTCMinutes(), startDate.getUTCSeconds());
-  const endDateInUTC = new Date(DROP_DATE.getUTCFullYear(), DROP_DATE.getUTCMonth(), DROP_DATE.getUTCDate(), DROP_DATE.getUTCHours(), DROP_DATE.getUTCMinutes(), DROP_DATE.getUTCSeconds());
-  // @ts-ignore
-  const difference = Date.parse(endDateInUTC) - Date.parse(startDateInUTC);
-
-  let timeLeft = {
+export const calculateTimeLeft = (dropDateUTC: Date): TimeLeftObj => {
+  // Get current time in Eastern Time from UTC
+  const nowUTC = new Date(); // Current UTC time
+  
+  // Calculate difference between dropDateUTC and current Eastern Time
+  // todo: remove
+  let difference = 0
+  try {
+    difference = dropDateUTC.getTime() - nowUTC.getTime();
+  } catch {
+    
+  }
+  
+  let timeLeft: TimeLeftObj = {
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
+    total: 0,
   };
 
   if (difference > 0) {
     timeLeft = {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60)
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+      total: difference,
     };
   }
 

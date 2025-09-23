@@ -1,12 +1,14 @@
+import { ProductT } from "../types"
+
 export interface ShowPageProps {
-    product: any
+    product: ProductT
   }
 
 
 export interface ShowPageChildProps {
-  product: any,
+  product: ProductT,
   selected: any,
-  setSelected: any
+  setSelected: any,
   handleOnAddToCart: any,
   setNumberToAdd: any,
   numberToAdd: number,
@@ -14,6 +16,8 @@ export interface ShowPageChildProps {
   setSlideNumber: any,
   upcomingItems?: any,
   isNewProduct: boolean,
+  isAddingToCart?: boolean,
+  addToCartSuccess?: boolean,
 }
 
 export interface CountdownTimerProps {
@@ -37,13 +41,19 @@ export interface UpcomingDropPreviewProps {
 }
 
 export interface EmailFormProps {
-  isSidebar: boolean,
-  placeholder?: string,
+  isSidebar?: boolean;
+  placeholder?: string;
+  formClassName?: string;
+  inputContainerClassName?: string;
+  inputClassName?: string;
+  buttonClassName?: string;
+  messageContainerClassName?: string;
 }
 
 export type TimeLeftObj = {
   days: number,
   hours: number,
   minutes: number,
-  seconds: number
+  seconds: number,
+  total: number
 }

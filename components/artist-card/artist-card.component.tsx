@@ -31,7 +31,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artistName, artworks }) => {
         {
           artworks.map(artwork =>
             <div className={styles.linkImageText}>
-              <Link href={`/drop/${artwork.id}`}>
+              <Link href={`/shop/${artwork.id}`}>
                 <div>
                   <img src={artwork.image} alt={artwork.name} />
                   <p>{artwork.name}</p>

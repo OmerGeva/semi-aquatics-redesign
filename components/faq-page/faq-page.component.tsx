@@ -3,28 +3,41 @@ import styles from './FaqPage.module.scss'
 // Components
 import FaqQuestion from '../faq-question/faq-question.component'
 
-interface FaqPageProps {
-    questions: [
-    {
-        question: string,
-        answer: string
-    }
-]
+type FaqItem = { question: string; answer: string };
+
+interface FaqSection {
+  title: string;
+  items: FaqItem[];
 }
 
-const FaqPage: React.FC <FaqPageProps> = ({questions}) => {
-    return (
-        <div className={styles.faqPageContainer}>
-            <h1>Frequently Asked Questions</h1>
-            {
-                questions.map((question: { question: string, answer: string}, index: number) => {
-                    return (
-                        <FaqQuestion question={question.question} answer={question.answer} key={index}/>
-                    )
-                })
-            }
-        </div>
-    );
+interface FaqPageProps {
+  questions?: FaqItem[];
+  sections?: FaqSection[];
+}
+
+const FaqPage: React.FC<FaqPageProps> = ({ questions = [], sections = [] }) => {
+  const renderList = (list: FaqItem[]) => (
+    <div className={styles.list}>
+      {list.map((q, i) => (
+        <FaqQuestion question={q.question} answer={q.answer} key={i} />
+      ))}
+    </div>
+  );
+
+  return (
+    <div className={styles.faqPageContainer}>
+      <h1>Frequently Asked Questions</h1>
+
+      {sections.length > 0
+        ? sections.map((section, idx) => (
+            <section className={styles.section} key={idx}>
+              <h2 className={styles.sectionTitle}>{section.title}</h2>
+              {renderList(section.items)}
+            </section>
+          ))
+        : renderList(questions)}
+    </div>
+  );
 };
 
 export default FaqPage;

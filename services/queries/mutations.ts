@@ -10,6 +10,9 @@ export const cartCreate = gql`
           merchandiseId: $merchandiseId
         }
       ]
+      buyerIdentity: {
+        countryCode: US
+      }
       attributes: { key: "cart_attribute", value: "This is a cart attribute" }
     }
   ) {
@@ -32,6 +35,27 @@ export const cartCreate = gql`
         attributes {
           key
           value
+        }
+      }
+    }
+  }
+`;
+
+export const cartBuyerIdentityUpdate = gql`
+  mutation cartBuyerIdentityUpdate($cartId: ID!) {
+    cartBuyerIdentityUpdate(
+      cartId: $cartId
+      buyerIdentity: {
+        countryCode: US
+      }
+    ) {
+      cart {
+        id
+        estimatedCost {
+          totalAmount {
+            amount
+            currencyCode
+          }
         }
       }
     }

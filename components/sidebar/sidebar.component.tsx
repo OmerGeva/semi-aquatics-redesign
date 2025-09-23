@@ -10,19 +10,15 @@ import { useRef } from 'react';
 // Hooks
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import EmailForm from '../email-form/email-form.component';
+import WaveToggle from '../wave-toggle/wave-toggle.component';
+import { HELP_EMAIL_LINK, INSTAGRAM_LINK } from '../../constants/external-links';
+import { links } from './constants';
+import { INTERNAL_LINKS } from '../../constants/internal-links';
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
-
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/drop', label: 'Drop', isNew: false },
-  { href: '/story', label: 'Story' },
-  { href: '/artists', label: 'Artists' },
-  { href: '/archive', label: 'Archive' },
-];
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -33,6 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <div
       className={`${styles.sidebarContainer} ${!sidebarOpen ? styles.sidebarContainerClosed : ''}`}
+      data-lenis-prevent
       ref={ref}
     >
       <button className={styles.closeMenuToggle} onClick={closeSidebar}>
@@ -40,11 +37,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
       </button>
       <div className={styles.sidebarWrapper}>
         <div className={styles.innerContainer}>
-          {links.map(({ href, label, isNew }) => (
+          {links.map(({ href, label }) => (
             <Link href={href} key={href}>
-              <p onClick={closeSidebar} className={isNew ? styles.dropLink : ''}>
+              <p onClick={closeSidebar} className={styles.dropLink}>
                 {label}
-                {isNew && <span className={styles.newDrop}>new!</span>}
+                {/* {isNew && <span className={styles.newDrop}>new!</span>} */}
               </p>
             </Link>
           ))}
@@ -54,14 +51,20 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
               <EmailForm isSidebar />
             </div>
             <div className={styles.flexer}>
-              <a target="_blank" href="https://instagram.com/semiaquatics" rel="noopener noreferrer">
+              <a target="_blank" href={INSTAGRAM_LINK} rel="noopener noreferrer">
                 <FaInstagram />
               </a>
-              <a href="mailto:info@semiaquatics.com" className={styles.footerEmail}>
+              <a href={HELP_EMAIL_LINK} className={styles.footerEmail}>
                 info@semiaquatics.com
               </a>
             </div>
-            <h6 className="footer-item">© {new Date().getFullYear()} Semi Aquatics</h6>
+            <Link href={INTERNAL_LINKS.PRIVACY_POLICY.url}>
+              <p>{INTERNAL_LINKS.PRIVACY_POLICY.text}</p>
+            </Link>
+            <p className="footer-item">© {new Date().getFullYear()} Semi Aquatics</p>
+            <div className={styles.waveToggleContainer}>
+              <WaveToggle />
+            </div>
           </div>
         </div>
       </div>

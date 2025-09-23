@@ -1,53 +1,271 @@
-import styles from './DropPage.module.scss'
-// Packages
+import styles from './DropPage.module.scss';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
-
-// Components
-import ProductPreview from '../product-preview/product-preview.component';
-import PasswordWall from '../password-wall/password-wall.component';
+import { useEffect, useMemo, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { useNextDrop } from '../../contexts/drop-context';
+import LoadingState from './loading-state/loading-state.component';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
-
-// Hooks
-import { useIsTimeLeft } from '../../hooks/use-is-time-left'
-
-// Types
+import PasswordWall from '../password-wall/password-wall.component';
+import ProductPreview from '../product-preview/product-preview.component';
 import { CollectionT } from '../../types';
+import { useIsMobile } from '../../hooks/use-is-mobile';
+
+type ProductType = 'all' | 'drop' | 'mainline' | 'tshirt' | 'hoodie' | 'crewneck';
+
+const PRODUCT_TYPE_MAP: Record<string, ProductType> = {
+  'T-Shirts': 'tshirt',
+  'Organic Cotton Hoodies': 'hoodie',
+  'Organic Cotton Crews': 'crewneck'
+};
+
+const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
+  all: 'Shop All',
+  drop: 'Drop',
+  mainline: 'Main Line',
+  tshirt: 'T-Shirt',
+  hoodie: 'Hoodie',
+  crewneck: 'Crewneck'
+};
+
+const PRODUCT_TYPE_DESCRIPTIONS: Record<ProductType, string> = {
+  all: 'Skip the sorting - just plunge in. This is every piece we\'ve reeled in at Semi Aquatics, all in one place.',
+  drop: 'Ride the latest wave - our limited collection, exclusive to this release and gone once it drifts away.',
+  mainline: 'Catch our core classics - timeless pieces that surface again and again whenever they swim off the shelf.',
+  tshirt: 'Relaxed fit tees with a slight crop, cut from sturdy-soft organic cotton.',
+  hoodie: 'Relaxed-fit hoodies constructed from heavyweight 500gsm organic cotton fleece.',
+  crewneck: 'Relaxed-fit crewnecks constructed from heavyweight 500gsm organic cotton fleece.'
+};
 
 interface DropPageProps {
-    drop: CollectionT,
+  dropItems: CollectionT;
+  mainLineItems: CollectionT;
+  password: string | null;
 }
 
-const DropPage:React.FC <DropPageProps> = ({ drop }) => {
-  const { products } = drop;
+const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password }) => {
+  const isMobile = useIsMobile();
+  const router = useRouter();
+  const { products } = dropItems;
+  const { loading, dropData } = useNextDrop();
+  const [isInFuture, setIsInFuture] = useState<boolean>(false);
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
-  const isTimeLeft = useIsTimeLeft();
+  const [selectedType, setSelectedType] = useState<ProductType>(() => {
+    // Get the tab from URL parameter, default to 'all' if not valid
+    const tabFromUrl = router.query.tab as string;
+    return Object.keys(PRODUCT_TYPE_LABELS).includes(tabFromUrl) ? tabFromUrl as ProductType : 'all';
+  });
+  const [hasOverflow, setHasOverflow] = useState<boolean>(false);
+  const [isScrolledToEnd, setIsScrolledToEnd] = useState<boolean>(false);
+  const filterTabsRef = useRef<HTMLDivElement>(null);
+
+  // Update URL when tab changes
+  const updateSelectedType = (newType: ProductType) => {
+    setSelectedType(newType);
+
+    // Update URL without page reload
+    const newQuery = { ...router.query, tab: newType };
+    router.push({
+      pathname: router.pathname,
+      query: newQuery
+    }, undefined, { shallow: true });
+  };
+
+  const dropTitle = useMemo(() => {
+    return dropData?.title || 'Latest Drop';
+  }, [dropData]);
+
+  const adjustedDropDateTime = useMemo(() => {
+    if (!dropData?.dateTime) return null;
+    return new Date(dropData.dateTime);
+  }, [dropData]);
+
+  const isDropLocked = useMemo(() => {
+    return isInFuture && password !== null && passwordGuessed !== password;
+  }, [password, passwordGuessed, isInFuture]);
+
+  const allProducts = useMemo(() => {
+    const dropProductsEdges = products?.edges || [];
+    const mainLineProductsEdges = mainLineItems?.products?.edges || [];
+
+    // Add a source property to identify where each product comes from
+    const dropProductsWithSource = dropProductsEdges.map((product: any) => ({
+      ...product,
+      source: 'drop'
+    }));
+
+    const mainLineProductsWithSource = mainLineProductsEdges.map((product: any) => ({
+      ...product,
+      source: 'mainline'
+    }));
+
+    // Combine both collections for "Shop All"
+    return [...dropProductsWithSource, ...mainLineProductsWithSource];
+  }, [products, mainLineItems]);
+
+  const filteredProducts = useMemo(() => {
+    if (allProducts.length === 0) return [];
+
+
+    return allProducts.filter((product: any) => {
+      // For 'all', show everything
+      if (selectedType === 'all') return true;
+
+      // For 'drop', show only drop collection items
+      if (selectedType === 'drop') return product.source === 'drop';
+
+      // For 'mainline', show only main line collection items
+      if (selectedType === 'mainline') return product.source === 'mainline';
+
+      // For specific product types (tshirt, hoodie, crewneck)
+      const productType = PRODUCT_TYPE_MAP[product.node.productType];
+      return productType === selectedType;
+    });
+  }, [allProducts, selectedType]);
+
+  useEffect(() => {
+    if (adjustedDropDateTime) {
+      setIsInFuture(new Date(adjustedDropDateTime) > new Date());
+    }
+  }, [dropData]);
+
+  // Check if filter tabs are overflowing and need the gradient
+  const checkForOverflow = () => {
+    const container = filterTabsRef.current;
+    if (container) {
+      // Check if scrollable width is greater than visible width
+      const hasHorizontalOverflow = container.scrollWidth > container.clientWidth;
+      setHasOverflow(hasHorizontalOverflow);
+    }
+  };
+
+  // Handle scroll events to detect when scrolled to the end
+  const handleScroll = () => {
+    const container = filterTabsRef.current;
+    if (container) {
+      const scrollLeft = container.scrollLeft;
+      const clientWidth = container.clientWidth;
+      const scrollWidth = container.scrollWidth;
+      // Use a more lenient threshold for mobile (5px instead of 1px)
+      const threshold = isMobile ? 5 : 1;
+      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - threshold;
+
+      setIsScrolledToEnd(isAtEnd);
+    }
+  };
+
+  // Check on initial render and when window resizes
+  useEffect(() => {
+    // Use timeout to ensure DOM is fully rendered before checking
+    const timer = setTimeout(() => {
+      checkForOverflow();
+    }, 100);
+
+    // Add resize listener
+    window.addEventListener('resize', checkForOverflow);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkForOverflow);
+    };
+  }, [filteredProducts]); // Re-check when products change as it might affect tabs
+
+  // Add scroll listener to filter tabs
+  useEffect(() => {
+    const container = filterTabsRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+
+      // Test the scroll detection immediately
+      setTimeout(() => {
+        handleScroll();
+      }, 1000);
+
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  // Run check on component mount and after state changes
+  useEffect(() => {
+    checkForOverflow();
+  }, [selectedType, allProducts.length]);
+
+  // Handle URL parameter changes
+  useEffect(() => {
+    const tabFromUrl = router.query.tab as string;
+    if (tabFromUrl && Object.keys(PRODUCT_TYPE_LABELS).includes(tabFromUrl)) {
+      setSelectedType(tabFromUrl as ProductType);
+    }
+  }, [router.query.tab]);
 
   return (
-    <div className={styles.dropPageContainer}>
-      <div className={styles.gridder}>
-        <h1 className={styles.dropTitle}>Winter 2023</h1>
-      </div>
-        {
-          passwordGuessed === process.env.WEBSITE_LOCK_PASSWORD || !isTimeLeft ?
-            <div className={styles.productsContainer}>
-              {
-                products.edges.map((product: any) =>
-                  <ProductPreview
-                  key={product.node.id}
-                  image={product.node.images.edges[0].node.transformedSrc}
-                  title={product.node.title}
-                  isSoldOut={!product.node.availableForSale}
-                  id={product.node.id}
-                  isArchive={false}
-                  isTimeLeft={isTimeLeft}
-                  />
-                )
-              }
+    <div className={`${styles.dropPageContainer} ${isDropLocked ? styles.lockedDropContainer : ''}`}>
+      {/* <div className={`${styles.dropHeader} ${isDropLocked ? styles.lockerDropHeader : ''}`}>
+        { isInFuture && adjustedDropDateTime && <CountdownTimer dropDateTime={adjustedDropDateTime} setShowCountdown={setIsInFuture}/> }
+      </div> */}
+
+      { loading && <LoadingState /> }
+
+      {!loading && isDropLocked &&
+        <PasswordWall images={allProducts.map((product: any) => product.node.images.edges[1].node.transformedSrc)} password={password} />
+      }
+
+      {!loading && !isDropLocked && (
+        <div className={styles.productsSection}>
+          <div className={`${styles.filterTabsWrapper} ${hasOverflow ? styles.hasOverflow : ''} ${isScrolledToEnd ? styles.scrolledToEnd : ''}`}>
+            <div className={styles.filterTabs} ref={filterTabsRef}>
+              {Object.entries(PRODUCT_TYPE_LABELS).map(([type, label], index) => (
+                 isMobile ?
+                  <button
+                  key = { type }
+                  className = {`${styles.filterButton} ${styles.mobileFilterButton} ${selectedType === type ? styles.active : ''}`}
+              onClick={() => updateSelectedType(type as ProductType)}
+                  data-text={label}
+                >
+              {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
+            </button>
+                :
+                  <button
+                    key={type}
+                    className={`${styles.filterButton} ${selectedType === type ? styles.active : ''}`}
+                    onClick={() => updateSelectedType(type as ProductType)}
+                  data-text={label}
+                  >
+                    {`${label}${!isMobile && index !== Object.entries(PRODUCT_TYPE_LABELS).length - 1 ? ',' : ''}`}
+                  </button>
+
+              ))}
             </div>
-        :
-          <PasswordWall images={products.edges.map((product: any) => product.node.images.edges[0].node.transformedSrc)}/>
-        }
+          </div>
+
+          {/* Category Description is now below the filter tabs */}
+          <div className={styles.categoryHeader}>
+            <p className={styles.categoryDescription}>{PRODUCT_TYPE_DESCRIPTIONS[selectedType]}</p>
+          </div>
+
+
+          <div className={styles.productsWrapper}>
+            <div className={styles.productsContainer}>
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product: any) => (
+                  <ProductPreview
+                    key={product.node.id}
+                    image={product.node.images.edges[0] ? product.node.images.edges[0].node.transformedSrc : ''}
+                    secondaryImage={product.node.images.edges[1] ? product.node.images.edges[1].node.transformedSrc : undefined}
+                    title={product.node.title}
+                    isSoldOut={!product.node.availableForSale}
+                    price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}
+                    id={product.node.id}
+                    isArchive={false}
+                  />
+                ))
+              ) : (
+                <div className={styles.noProducts}>No products found</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

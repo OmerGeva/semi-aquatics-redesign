@@ -11,7 +11,7 @@ interface DropdownProps {
 }
 
 const Dropdown:React.FC <DropdownProps> = ({selectedItem, selectItem, items, availability}) => {
-    const ref = useRef()
+    const ref = useRef<HTMLDivElement>(null);
     let title =  selectedItem.node ? selectedItem.node.title : selectedItem
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));

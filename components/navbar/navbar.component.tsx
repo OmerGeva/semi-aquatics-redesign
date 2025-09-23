@@ -1,50 +1,89 @@
-import { useRouter } from 'next/router'
-import { Dispatch, SetStateAction } from 'react';
-import Link from 'next/link'
-import styles from './Navbar.module.scss'
-
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useCart } from '../../contexts/cart-context';
+import styles from './Navbar.module.scss';
 import { VscMenu } from 'react-icons/vsc';
-import { useQuery } from '@apollo/client';
-
-import { useCookies } from 'react-cookie';
-import { getCartQuery } from '../../services/queries/queries';
-import { getCartCounts } from '../../utils/cartHelper';
-
+import { useIsMobile } from '../../hooks/use-is-mobile';
+import { IoBagSharp } from 'react-icons/io5';
+import React, { useState } from 'react';
+import NewsletterModal from '../newsletter-modal/newsletter-modal.component';
+import WaveToggle from '../wave-toggle/wave-toggle.component';
 
 interface NavbarProps {
-    title: string,
-    date?: string
-    setNavbarOpen: Dispatch<SetStateAction<boolean>>,
-    setSidebarOpen: Dispatch<SetStateAction<boolean>>,
-    navbarOpen: boolean
+  title?: string;
+  setNavbarOpen?: (open: boolean) => void;
+  navbarOpen?: boolean;
+  setSidebarOpen: (open: boolean) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({title, date, setNavbarOpen, navbarOpen, setSidebarOpen}) => {
+const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSidebarOpen }) => {
     const router = useRouter();
-    const [cookies, setCookie] = useCookies(['cartId']);
-    const cart = useQuery(getCartQuery, { variables: { cartId: cookies.cartId } });
-    const isHomePage = router.pathname === '/';
-    let itemCount = 0;
-    if(cart && cart.data && cart.data.cart){
-      const cartCounts: Number[] = (Object.values(getCartCounts(cart)));
-      // @ts-ignore
-      itemCount = cartCounts.reduce((acc: number, curr: number) => acc + curr, 0)
-    }
+    const { openCart } = useCart();
+    const { cartItemCount } = useCart();
+    const isMobile = useIsMobile();
+    const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
+
+    const isActive = (path: string) => router.pathname === path;
 
     return (
-      <div className={isHomePage ? `${styles.navbarContainer} ${styles.navbarContainerHome}` : `${styles.navbarContainer}`}>
-        <div className={styles.leftNavbar}>
-            <div className={styles.menuIcon} onClick={() => setSidebarOpen(true)}>
-                <VscMenu />
-            </div>
+    <>
+      {isMobile && (
+        <div className={`${styles.announcementBanner} ${router.pathname === '/' ? styles.homepageBanner : ''}`}>
+            <div className={styles.scrollingText} onClick={() => setIsNewsletterModalOpen(true)}>
+              A new wave of Semi Aquatics surfaces October 6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sign up for our email list and unlock 15% off your first order.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
         </div>
-        <div className={styles.rightNavbar}>
-          <Link href="/cart">
-            <p>Bag ({itemCount ? itemCount : 0})</p>
+      )}
+      <div className={styles.navbarContainer}>
+        {isMobile ? (
+          <div className={styles.navLink} onClick={() => setSidebarOpen(true)}>
+            Menu
+          </div>
+        ) : (
+          <div className={styles.navLinksPill}>
+          <Link href="/shop" className={`${styles.navLink} ${isActive('/shop') ? styles.active : ''}`}>
+            Shop
           </Link>
+          <Link href="/story" className={`${styles.navLink} ${isActive('/story') ? styles.active : ''}`}>
+            Story
+          </Link>
+          <Link href="/artists" className={`${styles.navLink} ${isActive('/artists') ? styles.active : ''}`}>
+            Artists
+          </Link>
+        </div>
+        )}
+
+        <Link href="/" className={styles.logoLink}>
+          <img
+            src={'/top-nav-logo.png'}
+            alt="Top Logo"
+            className={styles.topLogo}
+          />
+        </Link>
+
+        <div className={styles.rightContainer}>
+          {isMobile ? null : (
+            <>
+              <WaveToggle className={styles.waveToggleDesktop} />
+              <div className={styles.signUpNewsletter} onClick={() => setIsNewsletterModalOpen(true)}>
+                <div className={styles.scrollingText}>
+                    A new wave of Semi Aquatics surfaces October 6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sign up for our email list and unlock 15% off your first order.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+              </div>
+            </>
+          )}
+        <div className={styles.bagContainer} onClick={openCart}>
+          {isMobile ? (
+              <IoBagSharp />
+          ) : (
+          <>Bag<span className={styles.cartCount}>{cartItemCount}</span></>
+          )}
+        </div>
+        </div>
       </div>
-    </div>
-  )
+      <NewsletterModal isOpen={isNewsletterModalOpen} onClose={() => setIsNewsletterModalOpen(false)} />
+    </>
+  );
 }
 
 export default Navbar;

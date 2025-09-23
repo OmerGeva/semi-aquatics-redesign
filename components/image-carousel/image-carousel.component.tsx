@@ -2,12 +2,6 @@ import { useState } from 'react';
 import styles from './ImageCarousel.module.scss'
 import {
     Magnifier,
-    MagnifierContainer,
-    GlassMagnifier,
-    SideBySideMagnifier,
-    PictureInPictureMagnifier,
-    MOUSE_ACTIVATION,
-    TOUCH_ACTIVATION
     // @ts-ignore
   } from "@africasokoni/react-image-magnifiers";
 
