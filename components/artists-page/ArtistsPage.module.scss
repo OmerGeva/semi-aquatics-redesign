@@ -2,7 +2,8 @@
   display: flex;
   position: relative;
   top: 9.5vh;
-  height: 90vh;
+  min-height: 90vh;
+  margin-bottom: 9.5vh;
 
   .mobileToggleButton {
     display: none;

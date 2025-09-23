@@ -1,9 +1,10 @@
 .artistDetails {
   padding: 20px;
   background: #F7F7F7;
-  height: 100%;
   width: 100%;
-  overflow: scroll;
+  flex: 1;
+
+  box-sizing: border-box;
   .artistNameHeader {
     display: flex;
     align-items: center;

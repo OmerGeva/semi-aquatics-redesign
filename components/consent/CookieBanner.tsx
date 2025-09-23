@@ -95,7 +95,7 @@ export default function CookieBanner() {
     setModalOpen(false)
   }
 
-  if (!open) return null
+  if (!open || !needsPriorConsent(country)) return null
 
   return (
     <>
