@@ -74,7 +74,7 @@ const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
       <div className={styles.emailFormContainerPW}>
         <div className={styles.emailFormContainerPWInner}>
           <p>Enter password to continue to drop:</p>
-          <Form placeholder={'enter password'} handleSubmit={handlePasswordGuess} value={currentGuess} setValue={setCurrentGuess}/>
+          <Form placeholder={'Enter password'} handleSubmit={handlePasswordGuess} value={currentGuess} setValue={setCurrentGuess}/>
           <p className={styles.errorMessage}>{errorMessage}</p>
         </div>
       </div>
