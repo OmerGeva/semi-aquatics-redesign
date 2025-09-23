@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             <Link href={INTERNAL_LINKS.PRIVACY_POLICY.url}>
               <p>{INTERNAL_LINKS.PRIVACY_POLICY.text}</p>
             </Link>
-            <h6 className="footer-item">© {new Date().getFullYear()} Semi Aquatics</h6>
+            <p className="footer-item">© {new Date().getFullYear()} Semi Aquatics</p>
             <div className={styles.waveToggleContainer}>
               <WaveToggle />
             </div>

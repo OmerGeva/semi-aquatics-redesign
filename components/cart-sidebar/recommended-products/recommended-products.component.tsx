@@ -17,7 +17,7 @@ interface PropsT {
 const DEFAULT_ITEM_COUNT = 4;
 const DEFAULT_WIDTH = 100;
 const DEFAULT_TEXT_ALIGN = 'left';
-const DEFAULT_TEXT_SIZE = 'medium';
+const DEFAULT_TEXT_SIZE = 'small';
 
 // Subcomponent for displaying sizes
 const ProductSizes: React.FC<{ variants: any[] }> = ({ variants }) => {
@@ -58,9 +58,9 @@ const RecommendedProducts: React.FC<PropsT> = ({
 
   return (
     <div className={styles.recommendedWrapper}>
-      <h4 className={`${styles.title} ${styles[textSize]}`} style={{ textAlign }}>
+      <p className={`${styles.title} ${styles[textSize]}`} style={{ textAlign }}>
         You might also like
-      </h4>
+      </p>
       <div className={`${styles.grid} ${styles[`grid${itemCount}`]}`} style={{ width: `${width}%` }}>
         {products.slice(0, itemCount).map(({ node: product }) => (
           <div
