@@ -4,7 +4,6 @@ import App, { AppProps } from 'next/app';
 // import isServer from 'detect-node';
 import withRedux from '../hocs/withRedux';
 import { ApolloProvider } from "@apollo/client";
-import { DropProvider } from '../contexts/drop-context'
 import client from "../apollo-client";
 import { CookiesProvider } from 'react-cookie';
 import { store, persistor } from '../redux/store'
@@ -21,11 +20,9 @@ const MyApp:React.FC = ({ Component, pageProps }: AppProps) => {
       <ApolloProvider client={client}>
         <CookiesProvider>
           <CartProvider>
-            <DropProvider>
-              <WaveSoundsProvider>
-                <Component {...pageProps} />
-              </WaveSoundsProvider>
-            </DropProvider>
+            <WaveSoundsProvider>
+              <Component {...pageProps} />
+            </WaveSoundsProvider>
           </CartProvider>
         </CookiesProvider>
       </ApolloProvider>

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setPasswordGuessed } from '../../redux/user/user.actions';
 import EmailForm from '../email-form/email-form.component';
 import Form from '../form/form.component';
-import { useNextDrop } from '../../contexts/drop-context';
+// import { useNextDrop } from '../../contexts/drop-context';
 
 interface PasswordWallProps {
   images: string[],
@@ -18,17 +18,17 @@ const PasswordWall: React.FC<PasswordWallProps> = ({ images, password }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
-  const { dropData } = useNextDrop();
+  // const { dropData } = useNextDrop();
 
-  const formattedDate = useMemo(() => {
-    const date = new Date(dropData?.dateTime || '');
-    return date.toDateString();
-  }, [dropData]);
+  // const formattedDate = useMemo(() => {
+  //   const date = new Date(dropData?.dateTime || '');
+  //   return date.toDateString();
+  // }, [dropData]);
 
-  const formattedTime = useMemo(() => {
-    const date = new Date(dropData?.dateTime || '');
-    return date.toLocaleTimeString();
-  }, [dropData]);
+  // const formattedTime = useMemo(() => {
+  //   const date = new Date(dropData?.dateTime || '');
+  //   return date.toLocaleTimeString();
+  // }, [dropData]);
 
   useEffect(() => {
     // Hardcoded: 8 columns on desktop, 4 on mobile

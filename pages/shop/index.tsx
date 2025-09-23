@@ -10,11 +10,12 @@ type ParamsT = {
   dropItems: CollectionT
   mainLineItems: CollectionT
   password: string
+  dropData: any
 };
 
-const Shop = ({ dropItems, mainLineItems, password }: ParamsT) => {
+const Shop = ({ dropItems, mainLineItems, password, dropData }: ParamsT) => {
   return (
-    <DropPage dropItems={dropItems} mainLineItems={mainLineItems} password={password}/>
+    <DropPage dropItems={dropItems} mainLineItems={mainLineItems} password={password} dropData={dropData}/>
   );
 };
 
@@ -30,12 +31,14 @@ export async function getStaticProps(context: { query?: any; store?: any; }) {
   });
 
   const dropPassword = (await (new Cms).getNextDropPassword()).password;
+  const dropData = await (new Cms).getNextDrop();
 
   return {
     props: {
       dropItems: data.collections.edges[0].node,
       mainLineItems: mainLineData.collection,
-      password: dropPassword
+      password: dropPassword,
+      dropData: dropData
     },
     revalidate: 300, // seconds
   };

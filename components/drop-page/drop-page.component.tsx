@@ -2,8 +2,6 @@ import styles from './DropPage.module.scss';
 import { useSelector } from 'react-redux';
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useNextDrop } from '../../contexts/drop-context';
-import LoadingState from './loading-state/loading-state.component';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
 import PasswordWall from '../password-wall/password-wall.component';
 import ProductPreview from '../product-preview/product-preview.component';
@@ -40,13 +38,13 @@ interface DropPageProps {
   dropItems: CollectionT;
   mainLineItems: CollectionT;
   password: string | null;
+  dropData: any;
 }
 
-const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password }) => {
+const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password, dropData }) => {
   const isMobile = useIsMobile();
   const router = useRouter();
   const { products } = dropItems;
-  const { loading, dropData } = useNextDrop();
   const [isInFuture, setIsInFuture] = useState<boolean>(false);
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
   const [selectedType, setSelectedType] = useState<ProductType>(() => {
@@ -204,13 +202,11 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password 
         { isInFuture && adjustedDropDateTime && <CountdownTimer dropDateTime={adjustedDropDateTime} setShowCountdown={setIsInFuture}/> }
       </div> */}
 
-      { loading && <LoadingState /> }
-
-      {!loading && isDropLocked &&
+      {isDropLocked &&
         <PasswordWall images={allProducts.map((product: any) => product.node.images.edges[1].node.transformedSrc)} password={password} />
       }
 
-      {!loading && !isDropLocked && (
+      {!isDropLocked && (
         <div className={styles.productsSection}>
           <div className={`${styles.filterTabsWrapper} ${hasOverflow ? styles.hasOverflow : ''} ${isScrolledToEnd ? styles.scrolledToEnd : ''}`}>
             <div className={styles.filterTabs} ref={filterTabsRef}>
