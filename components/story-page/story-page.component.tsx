@@ -25,7 +25,7 @@ const StoryPage: React.FC = () => (
 
           <p>To spark personal <strong>evolution</strong> and accelerate an Earth-positive future by <strong>evolving</strong> every drop beyond the last, refining materials, processes, and artistry so each garment leaves you, and the world, better than before.</p>
 
-          <p>Every release is a living experiment: smarter fabrics, cleaner construction, bolder design. We challenge ourselvesm and the industry, to keep moving forward, to keep <strong>evolving</strong>.</p>
+          <p>Every release is a living experiment: smarter fabrics, cleaner construction, bolder design. We challenge ourselves and the industry, to keep moving forward, to keep <strong>evolving</strong>.</p>
 
           <p>Together, we're rewriting the tide: one original design, one conscious choice, one ripple at a time.</p>
 

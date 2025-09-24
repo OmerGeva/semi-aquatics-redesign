@@ -11,7 +11,7 @@ const PrivacyPolicyPage: React.FC = () => (
 
     <h2>1. General Information</h2>
     <p>
-      Semi Aquatics is operated by [Insert Official Business Name], [Insert Business Type, e.g., Delaware C Corporation]. The business is registered in [Insert Address or City, State, Country]. Semi Aquatics is an e-commerce platform designed to offer high-quality, sleek, and minimal wardrobe staples in limited quantities. Our collections prioritize sustainability by reducing fashion-related waste.
+      Semi Aquatics is operated by Semi Aquatics, Massachusetts Sole proprietorship LLC. The business is registered in Lexington, MA, USA. Semi Aquatics is an e-commerce platform designed to offer high-quality, sleek, and minimal wardrobe staples in limited quantities. Our collections prioritize sustainability by reducing fashion-related waste.
     </p>
 
     <h2>2. Information We Collect</h2>

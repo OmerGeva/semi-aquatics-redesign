@@ -110,10 +110,10 @@ const TermsOfServicePage: React.FC = () => (
 
     <h2>9. Governing Law and Dispute Resolution</h2>
     <p>
-      <strong>9.1</strong> These Terms shall be governed by and construed in accordance with the laws of [Insert jurisdiction — e.g., Massachusetts, USA], without regard to its conflict of laws principles.
+      <strong>9.1</strong> These Terms shall be governed by and construed in accordance with the laws of Massachusetts, USA, without regard to its conflict of laws principles.
     </p>
     <p>
-      <strong>9.2</strong> Any dispute arising under or related to these Terms shall be subject to the exclusive jurisdiction of the courts located in [Insert jurisdiction], and you consent to personal jurisdiction therein.
+      <strong>9.2</strong> Any dispute arising under or related to these Terms shall be subject to the exclusive jurisdiction of the courts located in Massachusetts, USA, and you consent to personal jurisdiction therein.
     </p>
 
     <p>⸻</p>
@@ -133,7 +133,7 @@ const TermsOfServicePage: React.FC = () => (
       If you have any questions about these Terms, please contact us at:
     </p>
     <p><a href="mailto:info@semiaquatics.com">info@semiaquatics.com</a></p>
-    <p>[Insert address]</p>
+    <p>Lexington, MA, USA</p>
   </div>
 );
 

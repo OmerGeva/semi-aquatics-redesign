@@ -1,8 +1,9 @@
 import styles from './ArtistsPage.module.scss';
 import ArtistSidebar from '../artist-sidebar/artist-sidebar.component';
 import ArtistDetails from '../artist-details/artist-details.component';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArtistsT, ArtistT } from '../../types';
+import { useIsMobile } from '../../hooks/use-is-mobile';
 
 interface ArtistsPageProps {
   artists: ArtistsT;
@@ -12,10 +13,17 @@ interface ArtistsPageProps {
 const ArtistsPage: React.FC<ArtistsPageProps> = ({ artists, selectedArtist }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const artistToShow = selectedArtist || artists[0];
+  const isMobile = useIsMobile();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsSidebarOpen(true);
+    }
+  }, [isMobile]);
 
   return (
     <div className={styles.artistsPageContainer}>
