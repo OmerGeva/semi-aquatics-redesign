@@ -109,9 +109,9 @@ const CartSidebar: React.FC = () => {
             </div>
           )}
         </div>
-        <div className={styles.recommendedProductsWrapper}>
+        {/* <div className={styles.recommendedProductsWrapper}>
         <RecommendedProducts withAddToCart onClick={closeCart} />
-        </div>
+        </div> */}
         <div className={styles.footer}>
           <div className={styles.checkoutText}>
             <p>Subtotal:</p>
