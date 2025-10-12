@@ -23,7 +23,10 @@ const TabContent: React.FC<TabContentProps> = ({ tabNumber, description, product
     ),
     2: (
       <div className={styles.tabContent}>
-        <p>Contact information and in-store availability details go here.</p>
+        <h3>What’s the Return Policy?</h3>
+        <p>We accept exchanges or store credit within 30 days of purchase. Items must be unworn, in original condition, with tags attached</p>
+        <h3>How Long Does Shipping Take?</h3>
+        <p>Orders typically ship within 1–2 business days. Transit time varies by destination.</p>
       </div>
     ),
     3: (

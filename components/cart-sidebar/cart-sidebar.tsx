@@ -6,6 +6,7 @@ import { FiMinus } from "react-icons/fi";
 import RecommendedProducts from './recommended-products/recommended-products.component';
 import { useCallback, useState, useEffect } from 'react';
 import PaymentIcons from '../payment-icons/payment-icons.component';
+import { useDropLock } from '../../hooks/use-drop-lock';
 
 const CartSidebar: React.FC = () => {
   const {
@@ -19,6 +20,7 @@ const CartSidebar: React.FC = () => {
 
   const items: any[] = cartData?.cart?.lines?.edges || [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const { isDropLocked, loading: dropLockLoading } = useDropLock();
 
   const handleCheckout = useCallback((e: React.MouseEvent) => {
     if (items.length === 0) {
@@ -109,9 +111,11 @@ const CartSidebar: React.FC = () => {
             </div>
           )}
         </div>
-        {/* <div className={styles.recommendedProductsWrapper}>
-        <RecommendedProducts withAddToCart onClick={closeCart} />
-        </div> */}
+        {!dropLockLoading && !isDropLocked && (
+          <div className={styles.recommendedProductsWrapper}>
+            <RecommendedProducts withAddToCart onClick={closeCart} />
+          </div>
+        )}
         <div className={styles.footer}>
           <div className={styles.checkoutText}>
             <p>Subtotal:</p>

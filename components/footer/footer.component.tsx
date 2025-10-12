@@ -91,7 +91,6 @@ const Footer: React.FC = () => {
           </div>
           <div className={`${styles.mobileSectionContent} ${expandedSections.service ? styles.expanded : ''}`}>
             <ul className={styles.mobileLinksList}>
-              <li><Link href={INTERNAL_LINKS.SHIPPING.url}>Shipping</Link></li>
               <li><Link href={INTERNAL_LINKS.FAQ.url}>FAQ</Link></li>
             </ul>
           </div>
@@ -170,7 +169,6 @@ const Footer: React.FC = () => {
               <li><a href={INSTAGRAM_LINK}>Instagram</a></li>
               <li className={styles.divider}></li>
               <li><Link href={INTERNAL_LINKS.TERMS.url}>Terms & Conditions</Link></li>
-              <li><Link href={INTERNAL_LINKS.SHIPPING.url}>Shipping</Link></li>
               <li><Link href={INTERNAL_LINKS.FAQ.url}>FAQ</Link></li>
               <li className={styles.divider}></li>
               <li><Link href={INTERNAL_LINKS.PRIVACY_POLICY.url}>Privacy Policy</Link></li>

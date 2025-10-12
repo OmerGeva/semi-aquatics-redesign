@@ -1,5 +1,4 @@
 import styles from './DropPage.module.scss';
-import { useSelector } from 'react-redux';
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
@@ -7,6 +6,7 @@ import PasswordWall from '../password-wall/password-wall.component';
 import ProductPreview from '../product-preview/product-preview.component';
 import { CollectionT } from '../../types';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+import { useDropLock } from '../../hooks/use-drop-lock';
 
 type ProductType = 'all' | 'drop' | 'mainline' | 'tshirt' | 'hoodie' | 'crewneck';
 
@@ -45,8 +45,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
   const isMobile = useIsMobile();
   const router = useRouter();
   const { products } = dropItems;
-  const [isInFuture, setIsInFuture] = useState<boolean>(false);
-  const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
+  // Password lock handled via useDropLock
   const [selectedType, setSelectedType] = useState<ProductType>(() => {
     // Get the tab from URL parameter, default to 'all' if not valid
     const tabFromUrl = router.query.tab as string;
@@ -72,14 +71,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
     return dropData?.title || 'Latest Drop';
   }, [dropData]);
 
-  const adjustedDropDateTime = useMemo(() => {
-    if (!dropData?.dateTime) return null;
-    return new Date(dropData.dateTime);
-  }, [dropData]);
-
-  const isDropLocked = useMemo(() => {
-    return isInFuture && password !== null && passwordGuessed !== password;
-  }, [password, passwordGuessed, isInFuture]);
+  const { isDropLocked } = useDropLock({ password, dropDateTime: dropData?.dateTime ?? null });
 
   const allProducts = useMemo(() => {
     const dropProductsEdges = products?.edges || [];
@@ -120,39 +112,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
     });
   }, [allProducts, selectedType]);
 
-  // Dynamically adjust update frequency based on remaining time
-  useEffect(() => {
-    if (!adjustedDropDateTime) return;
-
-    const target = adjustedDropDateTime.getTime();
-
-    const getDelay = (remainingMs: number): number => {
-      if (remainingMs > 24 * 60 * 60 * 1000) return 15 * 60 * 1000; // >24h: 15 min
-      if (remainingMs > 6 * 60 * 60 * 1000) return 5 * 60 * 1000;   // >6h: 5 min
-      if (remainingMs > 60 * 60 * 1000) return 60 * 1000;           // >1h: 1 min
-      if (remainingMs > 10 * 60 * 1000) return 5 * 1000;            // >10m: 5 sec
-      if (remainingMs > 60 * 1000) return 1 * 1000;                 // >1m: 1 sec
-      return 500;                                                   // <=1m: 0.5 sec
-    };
-
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    const tick = () => {
-      const now = Date.now();
-      const remaining = target - now;
-      setIsInFuture(remaining > 0);
-
-      if (remaining <= 0) return; // stop scheduling
-      timeoutId = setTimeout(tick, getDelay(remaining));
-    };
-
-    // initial evaluation and schedule
-    tick();
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [adjustedDropDateTime]);
+  // Countdown logic moved into useDropLock
 
   // Check if filter tabs are overflowing and need the gradient
   const checkForOverflow = () => {
