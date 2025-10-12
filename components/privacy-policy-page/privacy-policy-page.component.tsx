@@ -25,7 +25,7 @@ const PrivacyPolicyPage: React.FC = () => (
     </p>
     <h3>Subscription Data:</h3>
     <p>
-      When users subscribe to updates, their email addresses are stored and managed via Omnisend. For more information, refer to <a href="https://www.omnisend.com/privacy/" target="_blank" rel="noopener noreferrer">Omnisend's Privacy Policy</a>.
+      When users subscribe to updates, their email addresses and/or phone numbers are stored and managed via Klaviyo. For more information, refer to <a href="https://www.klaviyo.com/legal/privacy" target="_blank" rel="noopener noreferrer">Klaviyo Privacy Policy</a>.
     </p>
     <h3>Analytics and Marketing Data:</h3>
     <ul>
@@ -33,7 +33,10 @@ const PrivacyPolicyPage: React.FC = () => (
         Google Analytics: Tracks website activity and performance. Learn more in their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
       </li>
       <li>
-        ATTN.TV Script: Collects data for targeted advertising and tracking. Refer to <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">ATTN.TV’s Privacy Policy</a>.
+        Facebook Pixel: Tracks website activity for advertising and retargeting purposes. Learn more in their <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+      </li>
+      <li>
+        ATTN.TV Script: Collects data for targeted advertising and tracking. Refer to <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">ATTN.TV's Privacy Policy</a>.
       </li>
     </ul>
 
@@ -41,9 +44,9 @@ const PrivacyPolicyPage: React.FC = () => (
     <ul>
       <li>Order Fulfillment: Shopify processes orders, including payment and shipping details.</li>
       <li>Shopping Cart Management: A unique cart ID stored in cookies helps manage and identify your shopping cart.</li>
-      <li>Email Marketing: Subscription data is used for sending updates and promotional material via Omnisend.</li>
+      <li>Email Email Marketing: SMS Marketing: Subscription data is used for sending updates and promotional material via Klaviyo.</li>
       <li>Website Analytics and Performance: Google Analytics tracks user interactions to improve the website experience and performance.</li>
-      <li>Advertising and Targeting: The ATTN.TV script collects data for advertising and retargeting purposes.</li>
+      <li>Advertising and Targeting: Facebook Pixel and ATTN.TV script collect data for advertising and retargeting purposes.</li>
     </ul>
 
     <h2>4. Data Storage and Retention</h2>
@@ -51,16 +54,17 @@ const PrivacyPolicyPage: React.FC = () => (
     <p>User data is stored and processed by third-party services:</p>
     <ul>
       <li>Shopify: Manages transactional data, stored on Shopify’s secure servers. For more details, see their <a href="https://www.shopify.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-      <li>Omnisend: Stores email subscription data on their secure servers as outlined in their <a href="https://www.omnisend.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-      <li>Google Analytics: Processes website activity data on Google’s servers. For more information, see their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>Klaviyo: Stores email/SMS subscription data on their secure servers as outlined in their <a href="https://www.klaviyo.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>Google Analytics: Processes website activity data on Google's servers. For more information, see their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+      <li>Facebook: Processes advertising and tracking data through Facebook Pixel on their servers. For more information, see their <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
       <li>ATTN.TV: Manages advertising and targeting data as specified in their <a href="https://www.attn.tv/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
     </ul>
     <h3>Data Retention:</h3>
     <ul>
       <li>Transaction Data: Retained by Shopify for as long as necessary to fulfill orders and comply with legal obligations (e.g., tax reporting).</li>
       <li>Shopping Cart Data: The unique cart ID stored in cookies until the user clears their cookies.</li>
-      <li>Email Subscription Data: Retained by Omnisend until the user unsubscribes or requests deletion.</li>
-      <li>Analytics and Advertising Data: Retention periods are determined by Google Analytics and ATTN.TV. For details, consult their privacy policies.</li>
+      <li>Email Subscription Data: Retained by Klaviyo until the user unsubscribes or requests deletion.</li>
+      <li>Analytics and Advertising Data: Retention periods are determined by Google Analytics, Facebook, and ATTN.TV. For details, consult their privacy policies.</li>
     </ul>
 
     <h2>5. Your Rights</h2>
