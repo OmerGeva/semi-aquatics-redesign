@@ -18,7 +18,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabNumber, description, product
     ),
     1: (
       <div className={styles.tabContent}>
-        <SizingChart clothingType={product.node.productType} />
+        <SizingChart clothingType={product.node.productType as 'Organic Cotton Hoodies' | 'T-Shirts' | 'Organic Cotton Crews'} />
       </div>
     ),
     2: (

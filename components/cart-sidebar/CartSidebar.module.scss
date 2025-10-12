@@ -99,17 +99,17 @@ $shadow-elevation:
       margin-bottom: 12px;
       .imageContainer {
         background: radial-gradient(circle, rgba(240, 240, 240, 1) 70%, rgba(0, 0, 0, 0.05) 100%);
-        flex-basis: 33.3333%;
+        flex-basis: 18%;
         text-align: center;
         img {
-          margin: 8px;
-          width: 80%;
+          width: 100%;
+          height: 100%;
           object-fit: cover;
         }
       }
 
       .itemInfo {
-        flex-basis: 66.6667%;
+        flex-basis: 80%;
         padding: 32px 48px;
         display: flex;
         flex-direction: column;
@@ -231,6 +231,9 @@ $shadow-elevation:
   .content {
     .lineItems {
       .lineItem {
+        .imageContainer {
+          flex-basis: 25%;
+        }
         img {
           width: 25%;
         }

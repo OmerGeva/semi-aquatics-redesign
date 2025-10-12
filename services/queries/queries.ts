@@ -27,8 +27,17 @@ query getCartQuery($cartId: ID!) {
               image {
                 transformedSrc
               }
+
               product {
                 title
+                images(first: 2) {
+                          edges {
+                            node {
+                              altText
+                              transformedSrc
+                            }
+                          }
+                        }
               }
             }
           }
