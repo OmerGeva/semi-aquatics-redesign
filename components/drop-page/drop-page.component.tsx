@@ -120,11 +120,39 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
     });
   }, [allProducts, selectedType]);
 
+  // Dynamically adjust update frequency based on remaining time
   useEffect(() => {
-    if (adjustedDropDateTime) {
-      setIsInFuture(new Date(adjustedDropDateTime) > new Date());
-    }
-  }, [dropData]);
+    if (!adjustedDropDateTime) return;
+
+    const target = adjustedDropDateTime.getTime();
+
+    const getDelay = (remainingMs: number): number => {
+      if (remainingMs > 24 * 60 * 60 * 1000) return 15 * 60 * 1000; // >24h: 15 min
+      if (remainingMs > 6 * 60 * 60 * 1000) return 5 * 60 * 1000;   // >6h: 5 min
+      if (remainingMs > 60 * 60 * 1000) return 60 * 1000;           // >1h: 1 min
+      if (remainingMs > 10 * 60 * 1000) return 5 * 1000;            // >10m: 5 sec
+      if (remainingMs > 60 * 1000) return 1 * 1000;                 // >1m: 1 sec
+      return 500;                                                   // <=1m: 0.5 sec
+    };
+
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const tick = () => {
+      const now = Date.now();
+      const remaining = target - now;
+      setIsInFuture(remaining > 0);
+
+      if (remaining <= 0) return; // stop scheduling
+      timeoutId = setTimeout(tick, getDelay(remaining));
+    };
+
+    // initial evaluation and schedule
+    tick();
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [adjustedDropDateTime]);
 
   // Check if filter tabs are overflowing and need the gradient
   const checkForOverflow = () => {

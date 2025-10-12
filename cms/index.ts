@@ -1,18 +1,15 @@
 import axios from 'axios';
 import { ArtistT, ArtistsT } from '../types';
-import moment from 'moment-timezone';
 
-const baseUri = process.env.NEXT_PUBLIC_DEV_CMS === 'development' ? 'http://localhost:4000' : 'https://semi-aquatics-cms.onrender.com';
+const baseUri = process.env.NEXT_PUBLIC_DEV_CMS === 'development' ? 'http://localhost:3000' : 'https://semi-aquatics-cms.onrender.com';
 
 class Cms {
   async getNextDrop() {
     try {
       const response = await axios.get(`${baseUri}/api/next-drop`);
-      const drop = response.data;
-  
-      const estDateTime = moment.tz(drop.dateTime, 'America/New_York').format('YYYY-MM-DD HH:mm:ss');
-      
-      return { ...drop, dateTime: estDateTime };
+      // Keep the UTC Date as returned by the API for accurate comparisons across timezones.
+      // Display conversions to EST should be handled at render time if needed.
+      return response.data;
     } catch (error) {
       console.error('Error fetching next drop:', error);
       throw error;
