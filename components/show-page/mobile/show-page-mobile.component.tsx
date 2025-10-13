@@ -173,7 +173,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     </div>
     <div className={styles.disclaimer}>
       <p>
-        * For shipping details, please refer to our <Link href={INTERNAL_LINKS.SHIPPING.url}>Shipping Policy</Link>.
+        * Orders typically ship within 1–2 business days. Transit time varies by destination.
       </p>
       <p>
         ** For every order, Semi Aquatics restores kelp forests in Cascais, Portugal through our partnership with SeaTrees and SeaForester. We're supporting a restoration technique called green gravel, tiny stones seeded with seaweed spores and scattered across the ocean floor to regrow underwater forests.
