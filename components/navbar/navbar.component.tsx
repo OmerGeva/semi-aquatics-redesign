@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
       {isMobile && (
         <div className={`${styles.announcementBanner} ${router.pathname === '/' ? styles.homepageBanner : ''}`}>
             <div className={styles.scrollingText} onClick={() => setIsNewsletterModalOpen(true)}>
-              A new wave of Semi Aquatics surfaces October 13. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sign up for our email list and unlock 15% off your first order.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              THE FALL COLLECTION: “NEXT FORM” IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </div>
       )}
@@ -67,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
               <WaveToggle className={styles.waveToggleDesktop} />
               <div className={styles.signUpNewsletter} onClick={() => setIsNewsletterModalOpen(true)}>
                 <div className={styles.scrollingText}>
-                    A new wave of Semi Aquatics surfaces October 13. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sign up for our email list and unlock 15% off your first order.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    THE FALL COLLECTION: “NEXT FORM” IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE FALL COLLECTION: “NEXT FORM” IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
               </div>
             </>

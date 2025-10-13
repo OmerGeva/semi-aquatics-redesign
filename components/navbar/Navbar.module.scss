@@ -119,11 +119,11 @@
 
     .scrollingText {
       white-space: nowrap;
-      text-transform: lowercase;
+      text-transform: uppercase;
       font-size: 12px;
       color: #ffffff;
       animation: scroll-left 10s linear infinite;
-      padding: 0 1rem;
+      padding: 0 2rem;
     }
 
     &:hover {
@@ -181,8 +181,9 @@
     font-weight: 500;
     color: #000;
     white-space: nowrap;
-    animation: scroll-left 8s linear infinite;
+    animation: scroll-left 14s linear infinite;
     padding-left: 100vw;
+    padding-right: 200vw;
   }
 
   &.homepageBanner {
