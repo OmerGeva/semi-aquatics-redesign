@@ -37,6 +37,10 @@ export function useGeoAndConsent() {
     const cc = readCookie('country') || undefined
     setCountry(cc)
     const stored = getStoredConsent()
+
+    // Determine region model
+    const isNoticeRegion = !needsPriorConsent(cc)
+
     if (stored) {
       setConsent(stored)
       // Ensure Consent Mode mirrors storage on load
@@ -48,6 +52,32 @@ export function useGeoAndConsent() {
           ad_storage: adValue,
           ad_user_data: adValue,
           ad_personalization: adValue,
+        })
+      }
+    } else if (isNoticeRegion) {
+      // For NOTICE regions (like US), auto-consent to analytics and marketing
+      const autoConsent: Consent = {
+        analytics: true,
+        marketing: true,
+        timestamp: Date.now(),
+        version: 1,
+        regionModel: 'NOTICE',
+        country: cc,
+      }
+      setConsent(autoConsent)
+      // Store it for future visits
+      try {
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(autoConsent))
+        }
+      } catch {}
+      // Update Consent Mode
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        ;(window as any).gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
         })
       }
     }
