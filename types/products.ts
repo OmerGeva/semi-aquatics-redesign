@@ -29,6 +29,7 @@ export type ProductVariantT = {
       availableForSale: boolean;
       priceV2: {
         amount: string;
+        currencyCode?: string;
       };
       selectedOptions: Array<{
         name: string;

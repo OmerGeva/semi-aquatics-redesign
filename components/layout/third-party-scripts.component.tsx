@@ -25,7 +25,7 @@ const ThirdPartyScripts = () => {
               gtag('config', 'G-375808781');
             `}
           </Script>
-        </> 
+        </>
       )}
 
       {allowMarketing && (

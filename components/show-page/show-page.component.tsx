@@ -1,7 +1,7 @@
 import { ShowPageProps } from '../../interfaces/page_interface';
 
 // packages
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
@@ -19,6 +19,9 @@ import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useIsTimeLeft } from '../../hooks/use-is-time-left';
 import { useCartActions } from '../../hooks/use-cart-actions';
 
+// analytics
+import { withAddToCartTracking } from '../../lib/analytics/addToCart';
+
 const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
   const { addToCart, isLoading } = useCartActions();
 
@@ -35,16 +38,38 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
   const { push } = useRouter();
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
 
+  // Wrap addToCart with Meta Pixel tracking
+  const addToCartTracked = useMemo(
+    () =>
+      withAddToCartTracking(addToCart, ([variant, quantity]) => {
+        const variantGid = variant?.node?.id ?? '';
+        const price = Number(variant?.node?.priceV2?.amount ?? 0);
+        const currency = variant?.node?.priceV2?.currencyCode ?? 'USD';
+        const title = product.node.title;
+        const category = product.node.productType || '';
+
+        return {
+          variantGids: [variantGid],
+          quantities: [quantity],
+          prices: [price],
+          currency,
+          contentName: title,
+          contentCategory: category,
+        };
+      }),
+    [addToCart, product]
+  );
+
   const handleOnAddToCart = async (selected: any) => {
     if (isAddingToCart) return;
-    
+
     setIsAddingToCart(true);
     setAddToCartSuccess(false);
-    
+
     try {
-      const success = await addToCart(selected, numberToAdd);
+      const success = await addToCartTracked(selected, numberToAdd);
       setAddToCartSuccess(success);
-      
+
       if (success) {
         // Reset success state after animation completes
         setTimeout(() => {

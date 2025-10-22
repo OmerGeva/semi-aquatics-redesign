@@ -38,6 +38,7 @@ export const useCartActions = () => {
 
         refetchCart();
         openCart();
+        return true;
       } else {
         // No cart yet
         const res = await createCart({
@@ -49,7 +50,6 @@ export const useCartActions = () => {
 
         return true;
       }
-      return false;
     } catch (error) {
       console.error('Error adding to cart:', error);
       return false;
