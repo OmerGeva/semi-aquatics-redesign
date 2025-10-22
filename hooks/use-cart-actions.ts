@@ -47,13 +47,11 @@ export const useCartActions = () => {
         const newCartId = res.data?.cartCreate?.cart?.id;
         if (newCartId) setCartId(newCartId);
 
-        notify();
         return true;
       }
       return false;
     } catch (error) {
       console.error('Error adding to cart:', error);
-      notify('Failed to add item to cart');
       return false;
     }
   };

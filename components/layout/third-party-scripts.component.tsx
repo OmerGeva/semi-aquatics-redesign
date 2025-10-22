@@ -25,13 +25,13 @@ const ThirdPartyScripts = () => {
               gtag('config', 'G-375808781');
             `}
           </Script>
-        </>
+        </> 
       )}
 
       {allowMarketing && (
         <>
           <Script src="https://cdn.attn.tv/semiaquatics/dtag.js" strategy="afterInteractive" />
-          <Script id="google-pixel" strategy="afterInteractive">
+          <Script id="meta-pixel" strategy="afterInteractive">
             {`
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
