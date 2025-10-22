@@ -59,7 +59,6 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
       <div className={styles.productDescription}>
         <div className={styles.titleAndReference}>
           <h1>{product.node.title.split(' -')[0]}</h1>
-          <p>Reference: {product.node.id.split('/').splice(-1)[0]}</p>
         </div>
         <div className={styles.sizePicker}>
           {isNewProduct && (
