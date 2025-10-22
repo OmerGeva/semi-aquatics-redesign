@@ -4,7 +4,6 @@ import { cartCreate, cartLinesUpdate, cartLineItemsAdd } from '../services/queri
 import { useCartId } from './use-cart-id';
 import { useCart } from '../contexts/cart-context';
 import { merchandiseIdToLineItemId } from '../utils/cartHelper';
-import { toast } from 'react-toastify';
 
 export const useCartActions = () => {
   const { cartData, cartCounts, refetchCart, openCart } = useCart();
@@ -15,9 +14,6 @@ export const useCartActions = () => {
   const [addCartLineItems, { loading: addLoading }] = useMutation(cartLineItemsAdd);
   
   const isLoading = createLoading || updateLoading || addLoading;
-
-  const notify = (message = 'Item added to cart!') =>
-    toast(message, { position: 'top-right', autoClose: 5000 });
 
   const addToCart = async (variant: any, quantityToAdd: number): Promise<boolean> => {
     if (!variant?.node?.id) return false;

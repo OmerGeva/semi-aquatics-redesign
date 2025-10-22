@@ -74,7 +74,10 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
           )}
         <div className={styles.bagContainer} onClick={openCart}>
           {isMobile ? (
-              <IoBagSharp />
+              <div className={styles.mobileCartWrapper}>
+                <IoBagSharp />
+                {cartItemCount > 0 && <span className={styles.mobileBadge}>{cartItemCount}</span>}
+              </div>
           ) : (
           <>Bag<span className={styles.cartCount}>{cartItemCount}</span></>
           )}
