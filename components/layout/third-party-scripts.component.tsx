@@ -14,7 +14,8 @@ const ThirdPartyScripts = () => {
 
   return (
     <>
-      {allowAnalytics && (
+      {/* {allowAnalytics && (
+          )} */}
         <>
           <Script src="https://www.googletagmanager.com/gtag/js?id=G-375808781" strategy="afterInteractive" />
           <Script id="google-analytics" strategy="afterInteractive">
@@ -26,7 +27,6 @@ const ThirdPartyScripts = () => {
             `}
           </Script>
         </>
-      )}
 
       {allowMarketing && (
         <>
