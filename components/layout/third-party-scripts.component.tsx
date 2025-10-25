@@ -14,19 +14,20 @@ const ThirdPartyScripts = () => {
 
   return (
     <>
-      {/* {allowAnalytics && (
-          )} */}
+      {allowAnalytics && (
         <>
-          <Script src="https://www.googletagmanager.com/gtag/js?id=G-375808781" strategy="afterInteractive" />
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-VVVEV1RSEL" strategy="afterInteractive" />
           <Script id="google-analytics" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
-              function gtag(){window.dataLayer.push(arguments);}
+              function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-375808781');
+
+              gtag('config', 'G-VVVEV1RSEL');
             `}
           </Script>
         </>
+      )}
 
       {allowMarketing && (
         <>
