@@ -48,6 +48,7 @@ export interface EmailFormProps {
   inputClassName?: string;
   buttonClassName?: string;
   messageContainerClassName?: string;
+  onSuccess?: () => void;
 }
 
 export type TimeLeftObj = {

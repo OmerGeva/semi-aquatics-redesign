@@ -6,14 +6,15 @@ import axios from 'axios';
 import { EmailFormProps } from '../../interfaces/page_interface';
 import Form from '../form/form.component';
 
-const EmailForm: React.FC<EmailFormProps> = ({ 
-  isSidebar, 
-  placeholder, 
-  formClassName, 
+const EmailForm: React.FC<EmailFormProps> = ({
+  isSidebar,
+  placeholder,
+  formClassName,
   inputContainerClassName,
-  inputClassName, 
-  buttonClassName, 
-  messageContainerClassName 
+  inputClassName,
+  buttonClassName,
+  messageContainerClassName,
+  onSuccess
 }) => {
   const [email, setEmail] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -25,6 +26,11 @@ const EmailForm: React.FC<EmailFormProps> = ({
     setTimeout(() => {
       setSuccessMessage('');
     }, 5000);
+
+    // Call onSuccess callback if provided
+    if (onSuccess) {
+      onSuccess();
+    }
   }
 
   const handleErrorResponse = (error: any) => {

@@ -8,6 +8,7 @@ import { IoBagSharp } from 'react-icons/io5';
 import React, { useState } from 'react';
 import NewsletterModal from '../newsletter-modal/newsletter-modal.component';
 import WaveToggle from '../wave-toggle/wave-toggle.component';
+import { useNewsletterModal } from '../../hooks/use-newsletter-modal';
 
 interface NavbarProps {
   title?: string;
@@ -21,19 +22,20 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
     const { openCart } = useCart();
     const { cartItemCount } = useCart();
     const isMobile = useIsMobile();
-    const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
+    const { isOpen: isNewsletterModalOpen, handleClose, handleSuccess } = useNewsletterModal();
+    const [isManualModalOpen, setIsManualModalOpen] = useState(false);
 
     const isActive = (path: string) => router.pathname === path;
 
     return (
     <>
-      {isMobile && (
+      {/* {isMobile && (
         <div className={`${styles.announcementBanner} ${router.pathname === '/' ? styles.homepageBanner : ''}`}>
-            <div className={styles.scrollingText} onClick={() => setIsNewsletterModalOpen(true)}>
-              THE FALL COLLECTION: “NEXT FORM” IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div className={styles.scrollingText} onClick={() => setIsManualModalOpen(true)}>
+              THE FALL COLLECTION: "NEXT FORM" IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </div>
-      )}
+      )} */}
       <div className={styles.navbarContainer}>
         {isMobile ? (
           <div className={styles.navLink} onClick={() => setSidebarOpen(true)}>
@@ -65,9 +67,9 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
           {isMobile ? null : (
             <>
               <WaveToggle className={styles.waveToggleDesktop} />
-              <div className={styles.signUpNewsletter} onClick={() => setIsNewsletterModalOpen(true)}>
+              <div className={styles.signUpNewsletter} onClick={() => setIsManualModalOpen(true)}>
                 <div className={styles.scrollingText}>
-                    THE FALL COLLECTION: “NEXT FORM” IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE FALL COLLECTION: “NEXT FORM” IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    THE FALL COLLECTION: "NEXT FORM" IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;THE FALL COLLECTION: "NEXT FORM" IS AVAILABLE NOW. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
               </div>
             </>
@@ -84,7 +86,14 @@ const Navbar: React.FC<NavbarProps> = ({ title, setNavbarOpen, navbarOpen, setSi
         </div>
         </div>
       </div>
-      <NewsletterModal isOpen={isNewsletterModalOpen} onClose={() => setIsNewsletterModalOpen(false)} />
+      <NewsletterModal
+        isOpen={isNewsletterModalOpen || isManualModalOpen}
+        onClose={() => {
+          setIsManualModalOpen(false);
+          handleClose();
+        }}
+        onSuccess={handleSuccess}
+      />
     </>
   );
 }
