@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'newsletter_popup:v1';
-const DAYS_TO_HIDE = 5;
+const DAYS_TO_HIDE = 2;
 
 interface NewsletterModalState {
   dismissed?: number; // timestamp when user closed modal
@@ -34,13 +34,13 @@ export const useNewsletterModal = () => {
         return;
       }
 
-      // If user dismissed, check if 5 days have passed
+      // If user dismissed, check if 2 days have passed
       if (data.dismissed) {
         const now = Date.now();
         const daysPassed = (now - data.dismissed) / (1000 * 60 * 60 * 24);
 
         if (daysPassed >= DAYS_TO_HIDE) {
-          // 5 days have passed, show modal again
+          // 2 days have passed, show modal again
           const timer = setTimeout(() => {
             setIsOpen(true);
           }, 2000);
