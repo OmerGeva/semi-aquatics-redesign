@@ -31,6 +31,10 @@ const ThirdPartyScripts = () => {
 
       {allowMarketing && (
         <>
+         <Script
+            src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=WBAM5n`}
+            strategy="afterInteractive"
+          />
           <Script src="https://cdn.attn.tv/semiaquatics/dtag.js" strategy="afterInteractive" />
           <Script id="meta-pixel" strategy="afterInteractive">
             {`
