@@ -223,9 +223,9 @@
 }
 
 @media (max-width: 768px) {
-  .navbarContainer {
-    top: 28px; // Push navbar below the announcement banner
-  }
+  // .navbarContainer {
+  //   top: 28px; // Push navbar below the announcement banner
+  // }
   .contentContainer {
     margin-top: 28px; // Same as .announcementBanner height
   }

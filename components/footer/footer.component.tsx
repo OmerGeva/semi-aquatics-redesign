@@ -9,9 +9,11 @@ import NewsletterModal from '../newsletter-modal/newsletter-modal.component';
 import { INTERNAL_LINKS } from '../../constants/internal-links';
 import { INSTAGRAM_LINK } from '../../constants/external-links';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+import { useNewsletterModal } from '../../hooks/use-newsletter-modal';
 
 const Footer: React.FC = () => {
   const isMobile = useIsMobile();
+  const { handleSuccess } = useNewsletterModal();
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     socials: false,
     service: false,
@@ -126,6 +128,7 @@ const Footer: React.FC = () => {
         <NewsletterModal
           isOpen={isNewsletterModalOpen}
           onClose={closeNewsletterModal}
+          onSuccess={handleSuccess}
         />
       </footer>
     );
