@@ -30,6 +30,7 @@ query getCartQuery($cartId: ID!) {
 
               product {
                 title
+                handle
                 images(first: 2) {
                           edges {
                             node {
@@ -85,6 +86,7 @@ query {
               edges {
                   node {
                     id
+                    handle
                     title
                     productType
                     availableForSale
@@ -124,6 +126,7 @@ query {
               edges {
                   node {
                     id
+                    handle
                     title
                     productType
                     availableForSale
@@ -160,6 +163,7 @@ query GetProduct($productId: ID!) {
     ...on Product {
       title
       id
+      handle
       description
       productType
       descriptionHtml
@@ -198,6 +202,49 @@ query GetProduct($productId: ID!) {
 }
 `
 
+export const GET_PRODUCT_BY_HANDLE = gql`
+query GetProductByHandle($handle: String!) {
+  productByHandle(handle: $handle) {
+    title
+    id
+    handle
+    description
+    productType
+    descriptionHtml
+    availableForSale
+    images(first: 10) {
+      edges {
+        node {
+          altText
+          transformedSrc
+        }
+      }
+    }
+    options {
+      id
+      name
+      values
+    }
+    variants(first: 10) {
+      edges {
+        node {
+          id
+          title
+          availableForSale
+          priceV2 {
+            amount
+          }
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 export const GET_DROP_BY_HANDLE = gql`
 query GetCollectionByHandle($handle: String!) {
   collectionByHandle(handle: $handle) {
@@ -207,6 +254,7 @@ query GetCollectionByHandle($handle: String!) {
       edges {
         node {
           id
+          handle
           title
           availableForSale
           images(first: 5) {

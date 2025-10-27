@@ -55,6 +55,7 @@ const ArtistPreview: React.FC<ArtistPreviewProps> = ({ artworkId }) => {
       <div className={styles.artworkGrid}>
         {artist.artworks.map((art) => (
           <div key={art.id} className={styles.artworkItem}>
+            {/* CMS artworks use ID-based routing; these are not Shopify products with handles */}
             <Link href={`/shop/${art.id}`}>
               <img src={art.image} alt={art.name} />
               <p>{art.name}</p>

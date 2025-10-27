@@ -31,6 +31,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artistName, artworks }) => {
         {
           artworks.map(artwork =>
             <div className={styles.linkImageText}>
+              {/* CMS artworks use ID-based routing; these are not Shopify products with handles */}
               <Link href={`/shop/${artwork.id}`}>
                 <div>
                   <img src={artwork.image} alt={artwork.name} />
