@@ -3,6 +3,8 @@ export type ProductT = {
     availableForSale: boolean;
     descriptionHtml: string;
     id: string;
+    // Handle-driven routing: includes numeric suffix for de-duplication (e.g., "soft-landing-1")
+    handle: string;
     images: {
       edges: Array<{
         node: ProductImageT;

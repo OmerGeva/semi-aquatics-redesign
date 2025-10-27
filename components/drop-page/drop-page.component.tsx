@@ -240,6 +240,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
                     isSoldOut={!product.node.availableForSale}
                     price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}
                     id={product.node.id}
+                    handle={product.node.handle}
                     isArchive={false}
                   />
                 ))
