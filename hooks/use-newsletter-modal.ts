@@ -20,7 +20,7 @@ export const useNewsletterModal = () => {
     if (!storedData) {
       // No data stored, show modal after a short delay
       const timer = setTimeout(() => {
-        setIsOpen(true);
+        // setIsOpen(true);
       }, 2000); // 2 second delay for better UX
 
       return () => clearTimeout(timer);
@@ -42,7 +42,7 @@ export const useNewsletterModal = () => {
         if (daysPassed >= DAYS_TO_HIDE) {
           // 2 days have passed, show modal again
           const timer = setTimeout(() => {
-            setIsOpen(true);
+            // setIsOpen(true);
           }, 2000);
 
           return () => clearTimeout(timer);
@@ -52,7 +52,7 @@ export const useNewsletterModal = () => {
       console.error('Error parsing newsletter modal data:', error);
       // If there's an error parsing, show the modal
       const timer = setTimeout(() => {
-        setIsOpen(true);
+        // setIsOpen(true);
       }, 2000);
 
       return () => clearTimeout(timer);
