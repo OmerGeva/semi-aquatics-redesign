@@ -31,6 +31,7 @@ const ThirdPartyScripts = () => {
 
       {allowMarketing && (
         <>
+          <Script src="https://backend.alia-cloudflare.com/public/embed.js?shop=semi-aquatics.myshopify.com" async></Script>
           <Script src="https://cdn.attn.tv/semiaquatics/dtag.js" strategy="afterInteractive" />
           <Script id="meta-pixel" strategy="afterInteractive">
             {`
