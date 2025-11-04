@@ -191,7 +191,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
       </div> */}
 
       {isDropLocked &&
-        <PasswordWall images={allProducts.map((product: any) => product.node.images.edges[1].node.transformedSrc)} password={password} />
+        <PasswordWall images={allProducts.map((product: any) => product.node.images.edges[2].node.transformedSrc)} password={password} />
       }
 
       {!isDropLocked && (
@@ -234,8 +234,8 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
                 filteredProducts.map((product: any) => (
                   <ProductPreview
                     key={product.node.id}
-                    image={product.node.images.edges[0] ? product.node.images.edges[0].node.transformedSrc : ''}
-                    secondaryImage={product.node.images.edges[1] ? product.node.images.edges[1].node.transformedSrc : undefined}
+                    image={product.node.images.edges[1] ? product.node.images.edges[1].node.transformedSrc : ''}
+                    secondaryImage={product.node.images.edges[2] ? product.node.images.edges[2].node.transformedSrc : undefined}
                     title={product.node.title}
                     isSoldOut={!product.node.availableForSale}
                     price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}

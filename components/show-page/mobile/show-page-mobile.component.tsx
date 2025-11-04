@@ -67,7 +67,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     }, 100); // Increased debounce time
   }, [setSlideNumber]);
 
-  const slides = product.node.images.edges.map((image: any) =>
+  const slides = product.node.images.edges.slice(1).map((image: any) =>
     (<div key={image.node.altText} style={{textAlign: 'center', height: '100%'}}>
         <img src={image.node.transformedSrc} alt={image.node.altText} />
     </div>

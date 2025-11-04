@@ -73,7 +73,7 @@ const CartSidebar: React.FC = () => {
                 <div className={styles.lineItem} key={li.node.id}>
                   <div className={styles.imageContainer}>
                     <img
-                      src={li.node.merchandise.product.images.edges[1]?.node.transformedSrc || ''}
+                      src={li.node.merchandise.product.images.edges[2]?.node?.transformedSrc || ''}
                       alt={li.node.merchandise.product.title}
                       />
                     </div>

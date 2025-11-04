@@ -38,7 +38,7 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
     <div className={styles.showPageDesktopContainer}>
       <div className={styles.leftSide}>
         <div className={styles.imagesContainer}>
-          {product.node.images.edges.map((image: any) => (
+          {product.node.images.edges.slice(1).map((image: any) => (
           <img
             src={image.node.transformedSrc}
             alt={image.node.altText}
