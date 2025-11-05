@@ -31,7 +31,7 @@ query getCartQuery($cartId: ID!) {
               product {
                 title
                 handle
-                images(first: 2) {
+                images(first: 3) {
                           edges {
                             node {
                               altText
