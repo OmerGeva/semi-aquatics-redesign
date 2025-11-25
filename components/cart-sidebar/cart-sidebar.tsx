@@ -7,6 +7,7 @@ import RecommendedProducts from './recommended-products/recommended-products.com
 import { useCallback, useState, useEffect } from 'react';
 import PaymentIcons from '../payment-icons/payment-icons.component';
 import { useDropLock } from '../../hooks/use-drop-lock';
+import { formatPriceWithDiscount } from '../../helpers/format-price-with-discount';
 
 const CartSidebar: React.FC = () => {
   const {
@@ -81,7 +82,14 @@ const CartSidebar: React.FC = () => {
                     <div className={styles.flexBoxPriceSize}>
                     <p>{li.node.merchandise.product.title}</p>
                       <div className={styles.flex_grower}></div>
-                      <p>${li.node.merchandise.priceV2.amount * li.node.quantity}</p>
+                      <p style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <span style={{ textDecoration: 'line-through', opacity: 0.6, fontSize: '0.9em' }}>
+                          ${(li.node.merchandise.priceV2.amount * li.node.quantity).toFixed(2)}
+                        </span>
+                        <span style={{ fontWeight: 'bold', color: '#ff6b35' }}>
+                          ${(li.node.merchandise.priceV2.amount * li.node.quantity * 0.7).toFixed(2)}
+                        </span>
+                      </p>
                     </div>
                       <p className={styles.sizeText}>
                         {li.node.merchandise.title}
@@ -119,7 +127,14 @@ const CartSidebar: React.FC = () => {
         <div className={styles.footer}>
           <div className={styles.checkoutText}>
             <p>Subtotal:</p>
-            <p>${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}0</p>
+            <p style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+              <span style={{ textDecoration: 'line-through', opacity: 0.6, fontSize: '0.9em' }}>
+                ${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}0
+              </span>
+              <span style={{ fontWeight: 'bold', color: '#ff6b35' }}>
+                ${(parseFloat(cartData?.cart?.estimatedCost?.subtotalAmount?.amount || '0') * 0.7).toFixed(2)}
+              </span>
+            </p>
           </div>
           <a
             href={items.length > 0 && checkoutUrl ? checkoutUrl : '#'}

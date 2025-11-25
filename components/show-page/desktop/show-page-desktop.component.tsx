@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 
 // Helpers
 import { variantAvailability } from '../utils';
+import { PriceWithDiscount } from '../../../helpers/format-price-with-discount';
 import { useIsTimeLeft } from '../../../hooks/use-is-time-left';
 import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
@@ -77,7 +78,7 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
               isSelected={selected !== ''}
               selected={selected}
               mobile={false}
-              additionalText={`$${product.node.variants.edges[0].node.priceV2.amount}0`}
+              additionalText={<PriceWithDiscount amount={product.node.variants.edges[0].node.priceV2.amount} />}
               onClick={() => handleOnAddToCart(selected)}
               isLoading={isAddingToCart}
               isSuccess={addToCartSuccess}
