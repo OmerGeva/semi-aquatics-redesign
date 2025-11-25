@@ -18,6 +18,7 @@ import React from 'react';
 // Helpers
 import { variantAvailability } from '../utils'
 import { useIsTimeLeft } from '../../../hooks/use-is-time-left';
+import { PriceWithDiscount } from '../../../helpers/format-price-with-discount';
 import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
 import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
@@ -122,7 +123,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
           <h1>{product.node.title}</h1>
           {
             isNewProduct &&
-              <p>${product.node.variants.edges[0].node.priceV2.amount}0</p>
+              <p><PriceWithDiscount amount={product.node.variants.edges[0].node.priceV2.amount} /></p>
           }
         </div>
       {

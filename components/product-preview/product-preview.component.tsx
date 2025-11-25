@@ -3,6 +3,7 @@ import { useIsNewProduct } from '../../hooks/use-is-new-product';
 import styles from './ProductPreview.module.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { formatPriceWithDiscount } from '../../helpers/format-price-with-discount';
 
 const ARTISTS_ROUTE = '/artists'
 
@@ -61,7 +62,14 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
         <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>
           <h3 className={styles.cardDetail}>{title}</h3>
           { !isArchive && price && parseInt(price) > 0 &&
-           <h3 className={styles.cardDetail}>${price}0</h3> }
+           <h3 className={styles.cardDetail}>
+            <span style={{ textDecoration: 'line-through', opacity: 0.6 }}>
+              ${price}0
+            </span>
+            <span style={{ marginLeft: '8px', fontWeight: 'bold', color: '#ff6b35' }}>
+              ${(parseFloat(price) * 0.7).toFixed(2)}
+            </span>
+           </h3> }
         </div>
         }
       </Link>
