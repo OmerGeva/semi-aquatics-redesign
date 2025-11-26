@@ -8,7 +8,7 @@ export const formatPriceWithDiscount = (amount: string | number) => {
   const discountedPrice = originalPrice * 0.7; // 30% off
 
   return {
-    original: `$${originalPrice}0`,
+    original: `$${originalPrice.toFixed(2)}`,
     discounted: `$${discountedPrice.toFixed(2)}`,
   };
 };

@@ -64,7 +64,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
           { !isArchive && price && parseInt(price) > 0 &&
            <h3 className={styles.cardDetail}>
             <span style={{ textDecoration: 'line-through', opacity: 0.6 }}>
-              ${price}0
+              ${parseFloat(price).toFixed(2)}
             </span>
             <span style={{ marginLeft: '8px', fontWeight: 'bold', color: '#ff6b35' }}>
               ${(parseFloat(price) * 0.7).toFixed(2)}
