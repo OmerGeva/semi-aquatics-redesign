@@ -12,12 +12,16 @@ import { GET_PRODUCT_BY_HANDLE } from '../../services/queries/queries';
 
 type ProductProps = {
   product: ProductT
+  isArchiveProduct?: boolean
 }
 
 const Product = (props: ProductProps) => {
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
   const isTimeLeft = false;
   const router = useRouter();
+
+  // Priority: use server-detected archive status, fallback to URL tab param
+  const isArchiveProduct = props.isArchiveProduct || router.query.tab === 'archive';
 
   useEffect(() => {
     if (!passwordGuessed && useIsNewProduct(props.product.node.id) && isTimeLeft) {
@@ -26,7 +30,7 @@ const Product = (props: ProductProps) => {
   }, [])
 
   return (
-    <ShowPage product={props.product}/>
+    <ShowPage product={props.product} isArchiveProduct={isArchiveProduct}/>
   )
 }
 
@@ -40,11 +44,15 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
     fetchPolicy: 'no-cache',
   });
 
+  // Check if product has 'shop-archive' tag
+  const isArchiveProduct = data.productByHandle.tags?.includes('shop-archive') || false;
+
   return {
     props: {
       product: {
         node: data.productByHandle,
       },
+      isArchiveProduct,
     },
     revalidate: 300,
   };

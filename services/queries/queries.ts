@@ -31,6 +31,7 @@ query getCartQuery($cartId: ID!) {
               product {
                 title
                 handle
+                tags
                 images(first: 3) {
                           edges {
                             node {
@@ -168,6 +169,7 @@ query GetProduct($productId: ID!) {
       productType
       descriptionHtml
       availableForSale
+      tags
       images(first: 10) {
         edges {
           node {
@@ -212,6 +214,7 @@ query GetProductByHandle($handle: String!) {
     productType
     descriptionHtml
     availableForSale
+    tags
     images(first: 10) {
       edges {
         node {
@@ -237,6 +240,44 @@ query GetProductByHandle($handle: String!) {
           selectedOptions {
             name
             value
+          }
+        }
+      }
+    }
+  }
+}
+`
+
+export const GET_ARCHIVE_SALE_QUERY = gql`
+query {
+  collection(id: "gid://shopify/Collection/268665258059") {
+    title
+    id
+    products(first: 100) {
+      edges {
+        node {
+          id
+          handle
+          title
+          productType
+          availableForSale
+          images(first: 5) {
+            edges {
+              node {
+                altText
+                transformedSrc
+              }
+            }
+          }
+          variants(first: 5) {
+            edges {
+              node {
+                priceV2 {
+                  amount
+                  currencyCode
+                }
+              }
+            }
           }
         }
       }

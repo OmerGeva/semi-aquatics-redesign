@@ -128,8 +128,8 @@
       cursor: default;
 
       &:hover {
-        background-color: initial; // Disable hover effect for sold-out
-        color: initial;
+        background-color: #333 !important;
+        color: #fff !important;
       }
     }
 
@@ -247,6 +247,12 @@
     color: #999;
     border: 1px solid #e0e0e0;
     cursor: not-allowed;
+
+    &:hover {
+      background-color: #f5f5f5 !important;
+      color: #999 !important;
+      border-color: #e0e0e0 !important;
+    }
   }
 
   &.flex {

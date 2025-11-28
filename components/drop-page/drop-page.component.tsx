@@ -8,7 +8,7 @@ import { CollectionT } from '../../types';
 import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useDropLock } from '../../hooks/use-drop-lock';
 
-type ProductType = 'all' | 'drop' | 'mainline' | 'tshirt' | 'hoodie' | 'crewneck';
+type ProductType = 'all' | 'drop' | 'mainline' | 'archive' | 'tshirt' | 'hoodie' | 'crewneck';
 
 const PRODUCT_TYPE_MAP: Record<string, ProductType> = {
   'T-Shirts': 'tshirt',
@@ -20,6 +20,7 @@ const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
   all: 'Shop All',
   drop: 'Drop',
   mainline: 'Main Line',
+  archive: 'Archive Sale',
   tshirt: 'T-Shirt',
   hoodie: 'Hoodie',
   crewneck: 'Crewneck'
@@ -29,6 +30,7 @@ const PRODUCT_TYPE_DESCRIPTIONS: Record<ProductType, string> = {
   all: 'Skip the sorting - just plunge in. This is every piece we\'ve reeled in at Semi Aquatics, all in one place.',
   drop: 'Ride the latest wave - our limited collection, exclusive to this release and gone once it drifts away.',
   mainline: 'Catch our core classics - timeless pieces that surface again and again whenever they swim off the shelf.',
+  archive: 'Dive into the past - a curated selection of archival pieces from previous collections.',
   tshirt: 'Relaxed fit tees with a slight crop, cut from sturdy-soft organic cotton.',
   hoodie: 'Relaxed-fit hoodies constructed from heavyweight 500gsm organic cotton fleece.',
   crewneck: 'Relaxed-fit crewnecks constructed from heavyweight 500gsm organic cotton fleece.'
@@ -37,11 +39,12 @@ const PRODUCT_TYPE_DESCRIPTIONS: Record<ProductType, string> = {
 interface DropPageProps {
   dropItems: CollectionT;
   mainLineItems: CollectionT;
+  archiveSaleItems: CollectionT;
   password: string | null;
   dropData: any;
 }
 
-const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password, dropData }) => {
+const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, archiveSaleItems, password, dropData }) => {
   const isMobile = useIsMobile();
   const router = useRouter();
   const { products } = dropItems;
@@ -76,6 +79,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
   const allProducts = useMemo(() => {
     const dropProductsEdges = products?.edges || [];
     const mainLineProductsEdges = mainLineItems?.products?.edges || [];
+    const archiveSaleProductsEdges = archiveSaleItems?.products?.edges || [];
 
     // Add a source property to identify where each product comes from
     const dropProductsWithSource = dropProductsEdges.map((product: any) => ({
@@ -88,9 +92,14 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
       source: 'mainline'
     }));
 
-    // Combine both collections for "Shop All"
-    return [...dropProductsWithSource, ...mainLineProductsWithSource];
-  }, [products, mainLineItems]);
+    const archiveSaleProductsWithSource = archiveSaleProductsEdges.map((product: any) => ({
+      ...product,
+      source: 'archive'
+    }));
+
+    // Combine all collections for "Shop All"
+    return [...dropProductsWithSource, ...mainLineProductsWithSource, ...archiveSaleProductsWithSource];
+  }, [products, mainLineItems, archiveSaleItems]);
 
   const filteredProducts = useMemo(() => {
     if (allProducts.length === 0) return [];
@@ -105,6 +114,9 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
 
       // For 'mainline', show only main line collection items
       if (selectedType === 'mainline') return product.source === 'mainline';
+
+      // For 'archive', show only archive sale collection items
+      if (selectedType === 'archive') return product.source === 'archive';
 
       // For specific product types (tshirt, hoodie, crewneck)
       const productType = PRODUCT_TYPE_MAP[product.node.productType];
@@ -231,19 +243,26 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, password,
           <div className={styles.productsWrapper}>
             <div className={styles.productsContainer}>
               {filteredProducts.length > 0 ? (
-                filteredProducts.map((product: any) => (
-                  <ProductPreview
-                    key={product.node.id}
-                    image={product.node.images.edges[1] ? product.node.images.edges[1].node.transformedSrc : ''}
-                    secondaryImage={product.node.images.edges[2] ? product.node.images.edges[2].node.transformedSrc : undefined}
-                    title={product.node.title}
-                    isSoldOut={!product.node.availableForSale}
-                    price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}
-                    id={product.node.id}
-                    handle={product.node.handle}
-                    isArchive={false}
-                  />
-                ))
+                filteredProducts.map((product: any) => {
+                  const isArchiveProduct = product.source === 'archive';
+                  const primaryImageIndex = isArchiveProduct ? 0 : 1;
+                  const secondaryImageIndex = isArchiveProduct ? 1 : 2;
+
+                  return (
+                    <ProductPreview
+                      key={product.node.id}
+                      image={product.node.images.edges[primaryImageIndex] ? product.node.images.edges[primaryImageIndex].node.transformedSrc : ''}
+                      secondaryImage={product.node.images.edges[secondaryImageIndex] ? product.node.images.edges[secondaryImageIndex].node.transformedSrc : undefined}
+                      title={product.node.title}
+                      isSoldOut={!product.node.availableForSale}
+                      price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}
+                      id={product.node.id}
+                      handle={product.node.handle}
+                      isArchive={false}
+                      isFromArchiveCollection={isArchiveProduct}
+                    />
+                  );
+                })
               ) : (
                 <div className={styles.noProducts}>No products found</div>
               )}
