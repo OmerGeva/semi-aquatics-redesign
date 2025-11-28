@@ -259,6 +259,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, archiveSa
                       id={product.node.id}
                       handle={product.node.handle}
                       isArchive={false}
+                      isFromArchiveCollection={isArchiveProduct}
                     />
                   );
                 })

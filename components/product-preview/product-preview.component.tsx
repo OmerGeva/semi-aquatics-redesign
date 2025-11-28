@@ -18,6 +18,7 @@ interface ProductPreviewProps {
   secondaryImage?: string;
   price?: string;
   isTimeLeft?: boolean;
+  isFromArchiveCollection?: boolean;
 }
 
 const ProductPreview: React.FC<ProductPreviewProps> = ({
@@ -31,6 +32,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   isArchive,
   price,
   isTimeLeft,
+  isFromArchiveCollection,
 }) => {
   // const isNewProduct = useIsNewProduct(id);
   const isNewProduct = false
@@ -48,14 +50,14 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
             <h3>{isNewProduct && isTimeLeft ? 'COMING SOON' : 'SOLD OUT'}</h3>
           </div>
         )} */}
-        <div className={`${styles.imageContainer} ${secondaryImage ? styles.hasSecondary : ''}`}>
+        <div className={`${styles.imageContainer} ${secondaryImage ? styles.hasSecondary : ''} ${isFromArchiveCollection ? styles.archiveProduct : ''}`}>
           {secondaryImage ? (
             <>
-              <img className={styles.primaryImage} src={image} alt={title} />
+              <img className={styles.primaryImage} src={image} alt={title} style={isFromArchiveCollection ? { objectFit: 'contain', objectPosition: 'center' } : {}} />
               <img className={styles.secondaryImage} src={secondaryImage} alt={`${title} alternate view`} />
             </>
           ) : (
-            <img src={image} className={isArtistPage ? styles.isArtistPage : ''} alt={title} />
+            <img src={image} className={isArtistPage ? styles.isArtistPage : ''} style={isFromArchiveCollection ? { objectFit: 'contain', objectPosition: 'center' } : {}} alt={title} />
           )}
         </div>
         {title &&
