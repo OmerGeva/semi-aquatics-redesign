@@ -16,11 +16,15 @@ const sizingCharts = {
   'Organic Cotton Crews': {
     mobile: '/sizing-chart-mobile-crewneck.jpeg',
     desktop: '/sizing-chart-desktop-crewneck.jpeg'
+  },
+  'Organic Cotton Sweatpants': {
+    mobile: '/sizing-chart-mobile-sweatpants.jpeg',
+    desktop: '/sizing-chart-desktop-sweatpants.jpeg'
   }
 };
 
 type SizingChartProps = {
-  clothingType: 'Organic Cotton Hoodies' | 'T-Shirts' | 'Organic Cotton Crews';
+  clothingType: 'Organic Cotton Hoodies' | 'T-Shirts' | 'Organic Cotton Crews' | 'Organic Cotton Sweatpants';
 };
 
 const SizingChart = ({ clothingType }: SizingChartProps) => {
