@@ -25,7 +25,11 @@ import RecommendedProducts from '../../cart-sidebar/recommended-products/recomme
 import Link from 'next/link';
 import { INTERNAL_LINKS } from '../../../constants/internal-links';
 
-const ShowPageMobile: React.FC<ShowPageChildProps> = ({
+interface ShowPageMobileProps extends ShowPageChildProps {
+  isArchiveProduct?: boolean;
+}
+
+const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
   product,
   selected,
   setSelected,
@@ -34,7 +38,8 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   isNewProduct,
   setSlideNumber,
   isAddingToCart = false,
-  addToCartSuccess = false
+  addToCartSuccess = false,
+  isArchiveProduct = false,
 }) => {
   const [activeTab, setActiveTab] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -42,7 +47,8 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   const lastSlideIndexRef = useRef(slideNumber);
 
   const isTimeLeft = useIsTimeLeft();
-  
+  const startImageIndex = isArchiveProduct ? 0 : 1;
+
   // More robust slide handler to prevent rapid state updates
   const handleSlideChange = useCallback((index: number) => {
     // Don't update if we're already transitioning or if it's the same slide
@@ -58,7 +64,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     // Set transitioning flag
     isTransitioningRef.current = true;
     lastSlideIndexRef.current = index;
-    
+
     timeoutRef.current = setTimeout(() => {
       setSlideNumber(index);
       // Allow transitions again after a longer delay
@@ -68,7 +74,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     }, 100); // Increased debounce time
   }, [setSlideNumber]);
 
-  const slides = product.node.images.edges.slice(1).map((image: any) =>
+  const slides = product.node.images.edges.slice(startImageIndex).map((image: any) =>
     (<div key={image.node.altText} style={{textAlign: 'center', height: '100%'}}>
         <img src={image.node.transformedSrc} alt={image.node.altText} />
     </div>

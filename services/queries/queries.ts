@@ -245,6 +245,44 @@ query GetProductByHandle($handle: String!) {
 }
 `
 
+export const GET_ARCHIVE_SALE_QUERY = gql`
+query {
+  collection(id: "gid://shopify/Collection/268665258059") {
+    title
+    id
+    products(first: 100) {
+      edges {
+        node {
+          id
+          handle
+          title
+          productType
+          availableForSale
+          images(first: 5) {
+            edges {
+              node {
+                altText
+                transformedSrc
+              }
+            }
+          }
+          variants(first: 5) {
+            edges {
+              node {
+                priceV2 {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 export const GET_DROP_BY_HANDLE = gql`
 query GetCollectionByHandle($handle: String!) {
   collectionByHandle(handle: $handle) {

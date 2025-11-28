@@ -22,9 +22,13 @@ import { useCartActions } from '../../hooks/use-cart-actions';
 // analytics
 import { withAddToCartTracking } from '../../lib/analytics/addToCart';
 
-const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
-  const { addToCart, isLoading } = useCartActions();
+interface ShowPagePropsWithArchive extends ShowPageProps {
+  isArchiveProduct?: boolean;
+}
 
+const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduct = false }) => {
+
+  const { addToCart, isLoading } = useCartActions();
   const [numberToAdd, setNumberToAdd] = useState(1);
   const [selectedDesktop, setSelectedDesktop] = useState(null);
   const [selected, setSelected] = useState(firstSelectedVariant(product));
@@ -100,7 +104,8 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
           numberToAdd={numberToAdd}
           isNewProduct={isNewProduct}
           isAddingToCart={isAddingToCart}
-          addToCartSuccess={addToCartSuccess} />
+          addToCartSuccess={addToCartSuccess}
+          isArchiveProduct={isArchiveProduct} />
       :
         <ShowPageDesktop
           product={product}
@@ -113,7 +118,8 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
           slideNumber={slideNumber}
           setSlideNumber={setSlideNumber}
           numberToAdd={numberToAdd}
-          isNewProduct={isNewProduct} />
+          isNewProduct={isNewProduct}
+          isArchiveProduct={isArchiveProduct} />
     }
 
     <ToastContainer

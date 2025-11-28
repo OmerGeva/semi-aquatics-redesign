@@ -22,7 +22,11 @@ import RecommendedProducts from '../../cart-sidebar/recommended-products/recomme
 import { INTERNAL_LINKS } from '../../../constants/internal-links';
 import Link from 'next/link';
 
-const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
+interface ShowPageDesktopProps extends ShowPageChildProps {
+  isArchiveProduct?: boolean;
+}
+
+const ShowPageDesktop: React.FC<ShowPageDesktopProps> = ({
   product,
   selected,
   handleOnAddToCart,
@@ -30,16 +34,18 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
   isNewProduct,
   isAddingToCart = false,
   addToCartSuccess = false,
+  isArchiveProduct = false,
 }) => {
   const isTimeLeft = useIsTimeLeft();
   const [activeTab, setActiveTab] = useState(0);
+  const startImageIndex = isArchiveProduct ? 0 : 1;
 
   return (
     <>
     <div className={styles.showPageDesktopContainer}>
       <div className={styles.leftSide}>
         <div className={styles.imagesContainer}>
-          {product.node.images.edges.slice(1).map((image: any) => (
+          {product.node.images.edges.slice(startImageIndex).map((image: any) => (
           <img
             src={image.node.transformedSrc}
             alt={image.node.altText}
