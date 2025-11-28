@@ -39,6 +39,7 @@ const ShowPageDesktop: React.FC<ShowPageDesktopProps> = ({
   const isTimeLeft = useIsTimeLeft();
   const [activeTab, setActiveTab] = useState(0);
   const startImageIndex = isArchiveProduct ? 0 : 1;
+  const hasAvailableVariants = product.node.variants.edges.some((variant: any) => variant.node.availableForSale);
 
   return (
     <>
@@ -80,7 +81,7 @@ const ShowPageDesktop: React.FC<ShowPageDesktopProps> = ({
         <div className={styles.productAddToCart}>
           <div className={styles.buttonContainer}>
             <Button
-              soldOut={selected && !selected.node.availableForSale}
+              soldOut={!hasAvailableVariants || (selected && !selected.node.availableForSale)}
               isSelected={selected !== ''}
               selected={selected}
               mobile={false}
@@ -89,7 +90,9 @@ const ShowPageDesktop: React.FC<ShowPageDesktopProps> = ({
               isLoading={isAddingToCart}
               isSuccess={addToCartSuccess}
             >
-              {(!selected || selected.node.availableForSale)
+              {!hasAvailableVariants
+                ? 'Sold Out'
+                : (!selected || selected.node.availableForSale)
                 ? 'Add to bag'
                 : isNewProduct && isTimeLeft
                 ? 'Coming soon'

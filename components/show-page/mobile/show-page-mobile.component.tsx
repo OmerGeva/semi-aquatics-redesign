@@ -48,6 +48,7 @@ const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
 
   const isTimeLeft = useIsTimeLeft();
   const startImageIndex = isArchiveProduct ? 0 : 1;
+  const hasAvailableVariants = product.node.variants.edges.some((variant: any) => variant.node.availableForSale);
 
   // More robust slide handler to prevent rapid state updates
   const handleSlideChange = useCallback((index: number) => {
@@ -140,7 +141,7 @@ const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
         </div>
         <div className={styles.addToCart}>
         <Button
-              soldOut={!selected.node.availableForSale}
+              soldOut={!hasAvailableVariants || !selected.node.availableForSale}
               isSelected={selected !== ''}
               selected={selected}
               mobile={true}
@@ -148,7 +149,10 @@ const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
               isSuccess={addToCartSuccess}
               onClick={() => handleOnAddToCart(selected)}>
               {
-                selected.node.availableForSale ?
+                !hasAvailableVariants ?
+                  "Sold Out"
+                  :
+                  selected.node.availableForSale ?
                   "Add to bag"
                   :
                   isNewProduct && isTimeLeft ?
