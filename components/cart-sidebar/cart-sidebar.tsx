@@ -135,19 +135,8 @@ const CartSidebar: React.FC = () => {
         <div className={styles.footer}>
           <div className={styles.checkoutText}>
             <p>Subtotal:</p>
-            <p style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-              {parseFloat(cartData?.cart?.estimatedCost?.subtotalAmount?.amount || '0') > 0 ? (
-                <>
-                  <span style={{ textDecoration: 'line-through', opacity: 0.6, fontSize: '0.9em' }}>
-                    ${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}0
-                  </span>
-                  <span style={{ fontWeight: 'bold', color: '#ff6b35' }}>
-                    ${(parseFloat(cartData?.cart?.estimatedCost?.subtotalAmount?.amount || '0') * 0.7).toFixed(2)}
-                  </span>
-                </>
-              ) : (
-                <span>${(parseFloat(cartData?.cart?.estimatedCost?.subtotalAmount?.amount || '0') * 0.7).toFixed(2)}</span>
-              )}
+            <p>
+              ${cartData?.cart?.estimatedCost?.subtotalAmount?.amount}
             </p>
           </div>
           <a
