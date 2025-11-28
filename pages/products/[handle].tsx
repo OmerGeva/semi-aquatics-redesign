@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
 // import { useIsTimeLeft } from '../../hooks/use-is-time-left';
 import { ProductT } from '../../types';
-import { GET_PRODUCT_BY_HANDLE, GET_ARCHIVE_SALE_QUERY } from '../../services/queries/queries';
+import { GET_PRODUCT_BY_HANDLE } from '../../services/queries/queries';
 
 type ProductProps = {
   product: ProductT
@@ -44,21 +44,8 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
     fetchPolicy: 'no-cache',
   });
 
-  // Check if product is in archive collection
-  let isArchiveProduct = false;
-  try {
-    const { data: archiveData } = await client.query({
-      query: GET_ARCHIVE_SALE_QUERY,
-      fetchPolicy: 'no-cache',
-    });
-
-    if (archiveData?.collection?.products?.edges) {
-      const archiveProductIds = archiveData.collection.products.edges.map((edge: any) => edge.node.id);
-      isArchiveProduct = archiveProductIds.includes(data.productByHandle.id);
-    }
-  } catch (error) {
-    // Silently fail, isArchiveProduct will be false
-  }
+  // Check if product has 'shop-archive' tag
+  const isArchiveProduct = data.productByHandle.tags?.includes('shop-archive') || false;
 
   return {
     props: {

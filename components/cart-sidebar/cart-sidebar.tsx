@@ -70,11 +70,18 @@ const CartSidebar: React.FC = () => {
             <p>Your bag is empty</p>
           ) : (
             <div className={styles.lineItems}>
-              {items.map((li: any) => (
+              {items.map((li: any) => {
+                // Check if product has 'shop-archive' tag
+                const isArchiveProduct = li.node.merchandise.product.tags?.includes('shop-archive') || false;
+                // For archive products, use image index 0, otherwise use index 2
+                const imageIndex = isArchiveProduct ? 0 : 2;
+                const imageUrl = li.node.merchandise.product.images.edges[imageIndex]?.node?.transformedSrc || '';
+
+                return (
                 <div className={styles.lineItem} key={li.node.id}>
-                  <div className={styles.imageContainer}>
+                  <div className={`${styles.imageContainer} ${isArchiveProduct ? styles.archiveProduct : ''}`}>
                     <img
-                      src={li.node.merchandise.product.images.edges[2]?.node?.transformedSrc || ''}
+                      src={imageUrl}
                       alt={li.node.merchandise.product.title}
                       />
                     </div>
@@ -115,7 +122,8 @@ const CartSidebar: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

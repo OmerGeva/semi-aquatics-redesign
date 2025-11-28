@@ -31,6 +31,7 @@ query getCartQuery($cartId: ID!) {
               product {
                 title
                 handle
+                tags
                 images(first: 3) {
                           edges {
                             node {
@@ -168,6 +169,7 @@ query GetProduct($productId: ID!) {
       productType
       descriptionHtml
       availableForSale
+      tags
       images(first: 10) {
         edges {
           node {
@@ -212,6 +214,7 @@ query GetProductByHandle($handle: String!) {
     productType
     descriptionHtml
     availableForSale
+    tags
     images(first: 10) {
       edges {
         node {
