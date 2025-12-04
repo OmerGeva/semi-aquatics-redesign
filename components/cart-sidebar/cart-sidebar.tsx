@@ -89,13 +89,8 @@ const CartSidebar: React.FC = () => {
                     <div className={styles.flexBoxPriceSize}>
                     <p>{li.node.merchandise.product.title}</p>
                       <div className={styles.flex_grower}></div>
-                      <p style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                        <span style={{ textDecoration: 'line-through', opacity: 0.6, fontSize: '0.9em' }}>
-                          ${(li.node.merchandise.priceV2.amount * li.node.quantity).toFixed(2)}
-                        </span>
-                        <span style={{ fontWeight: 'bold', color: '#ff6b35' }}>
-                          ${(li.node.merchandise.priceV2.amount * li.node.quantity * 0.7).toFixed(2)}
-                        </span>
+                      <p>
+                        ${(li.node.merchandise.priceV2.amount * li.node.quantity).toFixed(2)}
                       </p>
                     </div>
                       <p className={styles.sizeText}>

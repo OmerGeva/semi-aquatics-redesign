@@ -65,12 +65,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
           <h3 className={styles.cardDetail}>{title}</h3>
           { !isArchive && price && parseInt(price) > 0 &&
            <h3 className={styles.cardDetail}>
-            <span style={{ textDecoration: 'line-through', opacity: 0.6 }}>
-              ${parseFloat(price).toFixed(2)}
-            </span>
-            <span style={{ marginLeft: '8px', fontWeight: 'bold', color: '#ff6b35' }}>
-              ${(parseFloat(price) * 0.7).toFixed(2)}
-            </span>
+            ${parseFloat(price).toFixed(2)}
            </h3> }
         </div>
         }
