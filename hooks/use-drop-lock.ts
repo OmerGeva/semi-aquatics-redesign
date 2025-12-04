@@ -109,13 +109,7 @@ export const useDropLock = (options?: UseDropLockOptions): UseDropLockResult => 
     };
   }, [adjustedDropDateTime]);
 
-  const isDropLocked = useMemo(() => {
-    return (
-      !!isInFuture &&
-      effectivePassword !== null &&
-      passwordGuessed !== effectivePassword
-    );
-  }, [isInFuture, effectivePassword, passwordGuessed]);
+  const isDropLocked = false;
 
   return {
     isDropLocked,
