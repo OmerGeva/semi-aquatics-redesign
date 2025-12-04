@@ -21,21 +21,20 @@ export const formatPriceWithDiscount = (amount: string | number) => {
 export const PriceWithDiscount: React.FC<{ amount: string | number }> = ({ amount }) => {
   const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
 
-  // If amount is 0, just show normal price
-  if (numAmount === 0) {
-    return <span>${numAmount.toFixed(2)}</span>;
-  }
+  // Temporarily showing normal price only (discount disabled)
+  return <span>${numAmount.toFixed(2)}</span>;
 
-  const { original, discounted } = formatPriceWithDiscount(amount);
-
-  return (
-    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <span style={{ textDecoration: 'line-through', opacity: 0.6 }}>
-        {original}
-      </span>
-      <span style={{ fontWeight: 'bold', color: '#ff6b35' }}>
-        {discounted}
-      </span>
-    </span>
-  );
+  // TODO: Uncomment below to re-enable discount display
+  // const { original, discounted } = formatPriceWithDiscount(amount);
+  //
+  // return (
+  //   <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+  //     <span style={{ textDecoration: 'line-through', opacity: 0.6 }}>
+  //       {original}
+  //     </span>
+  //     <span style={{ fontWeight: 'bold', color: '#ff6b35' }}>
+  //       {discounted}
+  //     </span>
+  //   </span>
+  // );
 };
